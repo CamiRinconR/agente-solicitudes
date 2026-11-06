@@ -30,7 +30,7 @@ Lee https://raw.githubusercontent.com/CristianBTA/agente-solicitudes/main/APORTA
 
 ## Aportar
 
-Cualquiera con cuenta de GitHub puede proponer una lección, un caso de prueba o una regla, sin invitación y **sin gastar su cuota de IA**. Todo pasa por un embudo antes de entrar:
+Cualquiera con cuenta de GitHub puede hacer [fork](https://github.com/CristianBTA/agente-solicitudes/fork) y proponer una lección, un caso de prueba o una regla, sin invitación y **sin gastar su cuota de IA**. El flujo `abierta-a-aportes` comprueba cada día que el repositorio siga abierto: público, con fork y pull requests para cualquiera, y con el formulario y el instructivo publicados. Todo pasa por un embudo antes de entrar:
 
 1. un filtro automático sin IA (`validar-aporte`): datos personales, seguridad del código y que no rompa nada;
 2. la revisión del dueño;

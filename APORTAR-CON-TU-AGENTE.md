@@ -12,7 +12,7 @@ Instructivo para aportar a este repositorio con la IA que ya usas. El aporte no 
    Ella empieza: te pregunta tu idea. Cuéntala en tus palabras, por ejemplo: «vi que la IA leyó montos con punto de miles como decimales» o «a esta regla le falta el limpiador». Si tu IA no puede abrir enlaces, pégale este archivo completo.
 3. Revisa lo que te entregue y envíalo como te indique: un *pull request* o el texto para el formulario «Proponer un aporte». **Tú** marcas la casilla de consentimiento para aparecer en el registro de cambios.
 
-No necesitas invitación. Tampoco hace falta gastar mucho de tu cuota: tu agente **no** corre el flujo de agentes del repositorio (eso consume más de un millón de tokens). Solo arma el aporte y corre un filtro gratuito, sin IA. En las pruebas, un aporte completo costó cerca de 110.000 tokens.
+No necesitas invitación: con tu cuenta de GitHub, el botón [Fork](https://github.com/CristianBTA/agente-solicitudes/fork) crea tu copia (una comprobación automática revisa cada día que el repositorio siga abierto a aportes). Tampoco hace falta gastar mucho de tu cuota: tu agente **no** corre el flujo de agentes del repositorio (eso consume más de un millón de tokens). Solo arma el aporte y corre un filtro gratuito, sin IA. En las pruebas, un aporte completo costó cerca de 110.000 tokens.
 
 ---
 

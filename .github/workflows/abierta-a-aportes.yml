@@ -1,0 +1,21 @@
+# Comprueba cada día que cualquier persona pueda hacer fork y proponer un aporte (sin IA y sin secretos propios).
+# Si algo lo impide, el trabajo falla y GitHub le avisa al dueño por correo.
+name: abierta-a-aportes
+
+on:
+  schedule:
+    - cron: "17 11 * * *"   # cada día a las 6:17 a. m., hora de Colombia
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, fijada al commit
+      - name: ¿Cualquier persona puede hacer fork y aportar?
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 herramientas/abierta_a_aportes.py "${{ github.repository }}"
