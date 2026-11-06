@@ -108,6 +108,11 @@ def limpiar(plan_ruta, entrada=None, salida=None, informe=True):
         lector = csv.DictReader(fh, strict=True)
         cols = list(lector.fieldnames or [])
         crudas = list(lector)
+    for i, f in enumerate(crudas, 2):
+        if None in f or any(v is None for v in f.values()):
+            raise ValueError(f"FAILFAST: la línea {i} de {ent.name} no tiene el mismo número de campos que el encabezado")
+    if len(cols) == 1 and any(sep in cols[0] for sep in (";", "\t", "|")):
+        raise ValueError(f"FAILFAST: {ent.name} tiene una sola columna con «;», tabulador o «|»: el separador no es la coma")
     huella_cruda = hashlib.sha256(ent.read_bytes()).hexdigest()
     filas = [dict(f) for f in crudas]
     marcas = [set() for _ in filas]

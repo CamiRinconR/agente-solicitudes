@@ -317,11 +317,16 @@ def a_num(v):
     if isinstance(v, bool) or v is None:
         return None
     if isinstance(v, (int, float)):
-        return float(v)
+        try:
+            return float(v)
+        except OverflowError:
+            return float("inf")
     try:
         return float(str(v))
     except ValueError:
         return None
+    except OverflowError:
+        return float("inf")       # un entero gigante no cabe en un float: se trata como no finito
 
 
 def revisar_forma(resultado, claves, valores):

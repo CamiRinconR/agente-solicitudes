@@ -1,0 +1,177 @@
+{
+  "contexto": {
+    "tabla": "contratos",
+    "columna_texto": "nombre_entidad",
+    "columna_numerica": "valor_del_contrato"
+  },
+  "implementaciones": {
+    "a": {
+      "casos": [
+        {
+          "variante": "comilla_sin_cerrar",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "campo_de_mas_primera_fila",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "campo_de_mas",
+          "resultado": "resiste",
+          "detalle": "falló con error (FAILFAST)"
+        },
+        {
+          "variante": "campo_de_menos",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "separador_punto_y_coma",
+          "resultado": "resiste",
+          "detalle": "falló con error (FAILFAST)"
+        },
+        {
+          "variante": "archivo_vacio",
+          "resultado": "resiste",
+          "detalle": "falló con error (FAILFAST)"
+        },
+        {
+          "variante": "solo_encabezado",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "invisibles_bidi",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "html",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "formula_excel",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "instruccion",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "numero_inf",
+          "resultado": "cede",
+          "detalle": "la cifra cambió en silencio (34,750,002.00 → 33,750,002.00) sin motivo en la conciliación"
+        },
+        {
+          "variante": "numero_nan",
+          "resultado": "cede",
+          "detalle": "la cifra cambió en silencio (34,750,002.00 → 33,750,002.00) sin motivo en la conciliación"
+        },
+        {
+          "variante": "numero_enorme",
+          "resultado": "cede",
+          "detalle": "la cifra cambió en silencio (34,750,002.00 → 33,750,002.00) sin motivo en la conciliación"
+        }
+      ],
+      "ceden": [
+        "comilla_sin_cerrar",
+        "campo_de_mas_primera_fila",
+        "campo_de_menos",
+        "solo_encabezado",
+        "numero_inf",
+        "numero_nan",
+        "numero_enorme"
+      ]
+    },
+    "b": {
+      "casos": [
+        {
+          "variante": "comilla_sin_cerrar",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "campo_de_mas_primera_fila",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "campo_de_mas",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "campo_de_menos",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "separador_punto_y_coma",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "archivo_vacio",
+          "resultado": "resiste",
+          "detalle": "falló con error (FAILFAST)"
+        },
+        {
+          "variante": "solo_encabezado",
+          "resultado": "cede",
+          "detalle": "devolvió un resultado con el archivo roto: lo leyó a medias en silencio"
+        },
+        {
+          "variante": "invisibles_bidi",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "html",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "formula_excel",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "instruccion",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "numero_inf",
+          "resultado": "cede",
+          "detalle": "la cifra cambió en silencio (34,750,002.00 → 33,750,002.00) sin motivo en la conciliación"
+        },
+        {
+          "variante": "numero_nan",
+          "resultado": "cede",
+          "detalle": "la cifra cambió en silencio (34,750,002.00 → 33,750,002.00) sin motivo en la conciliación"
+        },
+        {
+          "variante": "numero_enorme",
+          "resultado": "cede",
+          "detalle": "devolvió valores no finitos"
+        }
+      ],
+      "ceden": [
+        "comilla_sin_cerrar",
+        "campo_de_mas_primera_fila",
+        "campo_de_mas",
+        "campo_de_menos",
+        "separador_punto_y_coma",
+        "solo_encabezado",
+        "numero_inf",
+        "numero_nan",
+        "numero_enorme"
+      ]
+    }
+  }
+}

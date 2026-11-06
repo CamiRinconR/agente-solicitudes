@@ -1,0 +1,159 @@
+{
+  "contexto": {
+    "tabla": "contratos",
+    "columna_texto": "nombre_entidad",
+    "columna_numerica": "valor_del_contrato"
+  },
+  "implementaciones": {
+    "a": {
+      "casos": [
+        {
+          "variante": "comilla_sin_cerrar",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: Error"
+        },
+        {
+          "variante": "campo_de_mas_primera_fila",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "campo_de_mas",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "campo_de_menos",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "separador_punto_y_coma",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "archivo_vacio",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: SystemExit"
+        },
+        {
+          "variante": "solo_encabezado",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "invisibles_bidi",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "html",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "formula_excel",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "instruccion",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "numero_inf",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "numero_nan",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "numero_enorme",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        }
+      ],
+      "ceden": []
+    },
+    "b": {
+      "casos": [
+        {
+          "variante": "comilla_sin_cerrar",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: Error"
+        },
+        {
+          "variante": "campo_de_mas_primera_fila",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "campo_de_mas",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "campo_de_menos",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "separador_punto_y_coma",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
+        },
+        {
+          "variante": "archivo_vacio",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó: SystemExit"
+        },
+        {
+          "variante": "solo_encabezado",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "invisibles_bidi",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "html",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "formula_excel",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "instruccion",
+          "resultado": "resiste",
+          "detalle": "la cifra no cambió: el texto se trató como dato"
+        },
+        {
+          "variante": "numero_inf",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "numero_nan",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        },
+        {
+          "variante": "numero_enorme",
+          "resultado": "resiste",
+          "detalle": "se detuvo antes: la limpieza la rechazó (umbrales)"
+        }
+      ],
+      "ceden": []
+    }
+  }
+}

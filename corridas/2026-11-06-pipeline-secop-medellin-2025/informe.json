@@ -474,7 +474,7 @@
           "valor_mayor_que_100_mil_millones": 26
         }
       },
-      "segundos": 0.82,
+      "segundos": 0.43,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -936,7 +936,7 @@
           "texto_leido_en_latin1": 0
         }
       },
-      "segundos": 0.92,
+      "segundos": 0.49,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

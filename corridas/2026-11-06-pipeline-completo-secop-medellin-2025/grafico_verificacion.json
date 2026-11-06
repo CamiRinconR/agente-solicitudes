@@ -42,6 +42,16 @@
       "detalle": "ninguno"
     },
     {
+      "comprobacion": "sin caracteres invisibles o bidireccionales en el texto publicado",
+      "ok": true,
+      "detalle": "ninguno"
+    },
+    {
+      "comprobacion": "la fuente y la fecha salen de la procedencia, no del código",
+      "ok": true,
+      "detalle": "con una procedencia de control, el gráfico muestra su fecha"
+    },
+    {
       "comprobacion": "sin textos con forma de instrucción para una IA",
       "ok": true,
       "detalle": "ninguno"

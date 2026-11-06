@@ -450,7 +450,7 @@
           "atipico": 912
         }
       },
-      "segundos": 1.02,
+      "segundos": 0.54,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -898,7 +898,7 @@
           "valor_mayor_100mil_millones": 26
         }
       },
-      "segundos": 1.87,
+      "segundos": 0.54,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

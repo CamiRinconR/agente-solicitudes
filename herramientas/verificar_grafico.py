@@ -164,6 +164,20 @@ def comprobar(c):
     checks.append({"comprobacion": "sin HTML de los datos sin escapar, ni enlaces o scripts", "ok": ok_html,
                    "detalle": "ninguno" if ok_html else (f"texto de los datos sin escapar: {sin_escapar}" if sin_escapar else "")
                    + (f" · etiquetas peligrosas {peligrosas}" if peligrosas else "") + " (Plotly interpreta HTML; escape «<» como &lt;)"})
+    invisibles = [t[:40] for t in textos(fig) if re.search(r"[\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]", t)]
+    checks.append({"comprobacion": "sin caracteres invisibles o bidireccionales en el texto publicado", "ok": not invisibles,
+                   "detalle": "ninguno" if not invisibles else f"{len(invisibles)} textos (pueden voltear o disfrazar lo que se lee): {invisibles[:2]}"})
+    # procedencia: con una procedencia falsa, el gráfico debe mostrar ESA fuente y ESA fecha (nada escrito a mano)
+    falsa = dict(proc or {})
+    falsa.update({"fuente": {**(proc.get("fuente") or {}), "titulo": "FUENTE-DE-CONTROL"}, "consultado": "2000-01-02T00:00:00"})
+    fig_f, err_f = caja.correr(RUNNER, str(gp), json.dumps(resultado, ensure_ascii=False), json.dumps(falsa, ensure_ascii=False))
+    if fig_f is not None:
+        tf = " ".join(textos(fig_f))
+        sigue = any(f in tf for f in fechas_posibles(proc.get("consultado", "")))
+        usa = any(f in tf for f in fechas_posibles("2000-01-02"))
+        checks.append({"comprobacion": "la fuente y la fecha salen de la procedencia, no del código", "ok": usa and not sigue,
+                       "detalle": "con una procedencia de control, el gráfico muestra su fecha" if usa and not sigue
+                       else "el gráfico muestra una fecha escrita en el código, no la de la procedencia"})
     ordenes = [t[:60] for t in textos(fig) if parece_instruccion(t)]
     checks.append({"comprobacion": "sin textos con forma de instrucción para una IA", "ok": not ordenes,
                    "detalle": "ninguno" if not ordenes else f"{len(ordenes)}: {ordenes[:2]} (un dato con forma de orden no se publica como dato normal: revisarlo en la fuente)"})
