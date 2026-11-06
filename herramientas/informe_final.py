@@ -192,11 +192,12 @@ def armar(c):
 def md_a_html(md, titulo):
     """Convierte el subconjunto de Markdown que usa este informe. Escapa primero: nada del texto se ejecuta."""
     def linea(t):
+        t = re.sub(r"[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]", "", t)
         t = html.escape(t, quote=False)
         t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
         t = re.sub(r"(?<![\w*])_(.+?)_(?![\w*])", r"<em>\1</em>", t)
         t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
-        t = re.sub(r"\[([^\]]+)\]\(([\w./-]+\.html)\)", r'<a href="\2">\1</a>', t)
+        t = re.sub(r"\[([^\]]+)\]\(([\w.-]+\.html)\)", r'<a href="\2">\1</a>', t)   # sin «/»: solo archivos de la corrida
         return t
     out, en_tabla, en_lista = [], False, False
     for raw in md.splitlines():

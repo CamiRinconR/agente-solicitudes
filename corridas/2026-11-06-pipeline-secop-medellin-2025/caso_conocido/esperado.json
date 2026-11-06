@@ -1,0 +1,7 @@
+[
+  {"nit_entidad": "8000000013", "entidad": "INSTITUTO DE PRUEBA", "valor_contratado": 10000000.0, "numero_contratos": 3},
+  {"nit_entidad": "900000001", "entidad": "ALCALDIA DE PRUEBA", "valor_contratado": 6500000.75, "numero_contratos": 4},
+  {"nit_entidad": "900000002", "entidad": "UNIVERSIDAD DE PRUEBA", "valor_contratado": 6250000.25, "numero_contratos": 3},
+  {"nit_entidad": "900000005", "entidad": "HOSPITAL DE PRUEBA", "valor_contratado": 6000000.5, "numero_contratos": 2},
+  {"nit_entidad": "900000006", "entidad": "MUSEO DE PRUEBA", "valor_contratado": 6000000.5, "numero_contratos": 2}
+]

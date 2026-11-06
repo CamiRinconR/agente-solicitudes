@@ -84,6 +84,42 @@
       "leccion": "Una regla de limpieza mal planteada (IVA mayor que el subtotal) marcó 1.150 de 1.520 filas en una prueba. El plan de limpieza lo revisa alguien distinto antes de sellarlo, y las reglas calculan desde el dato crudo.",
       "origen": "plan de limpieza de prueba, 6-nov-2026",
       "prueba": "revisor de la especificación (agentes/04) y reglas sobre el dato crudo"
+    },
+    {
+      "id": "L15",
+      "leccion": "reglas.py también lo escribe la IA y se cargaba dentro del verificador, sin compuertas ni caja de arena (hallazgo de severidad alta). Todo código de la IA pasa por las compuertas y corre en la caja, sin excepción.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "corridas/2026-11-06-pipeline-secop-medellin-2025/seguridad/reglas_sin_caja_ni_compuerta.py · bateria:seguridad/malos/getattr_builtins.py"
+    },
+    {
+      "id": "L16",
+      "leccion": "El módulo csv de Python no es estricto por defecto: con una comilla sin cerrar leyó 4 de 7 filas y sumó 300 de 1.000 pesos sin error. FAILFAST: lectura estricta y control de campos por fila.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "bateria:failfast/comilla_sin_cerrar.csv bateria:failfast/campo_de_mas.csv"
+    },
+    {
+      "id": "L17",
+      "leccion": "Los mensajes de error copiaban el texto de la celda (could not convert string to float: '…') a los informes publicados. Los mensajes se sanean antes de salir.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "corridas/2026-11-06-pipeline-secop-medellin-2025/seguridad/texto_del_csv_en_mensajes_de_error.py"
+    },
+    {
+      "id": "L18",
+      "leccion": "pd.read_csv con una URL usa la red sin importar ninguna librería de red. La compuerta bloquea URLs en el código y la caja niega la red al ejecutar.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "bateria:seguridad/malos/red_pandas_read_csv_url.py"
+    },
+    {
+      "id": "L19",
+      "leccion": "Un nombre de entidad con forma de enlace Markdown y «//» se volvía un enlace vivo a otro dominio en el informe publicado. Los enlaces solo apuntan a archivos de la corrida.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "corridas/2026-11-06-pipeline-secop-medellin-2025/seguridad/enlace_externo_en_informe_final.py"
+    },
+    {
+      "id": "L20",
+      "leccion": "Una caché .pyc plantada podía reemplazar el código sellado. El código de la IA se ejecuta desde su fuente, nunca desde .pyc.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "corridas/2026-11-06-pipeline-secop-medellin-2025/seguridad/pyc_no_sellado_reemplaza_el_codigo.py"
     }
   ]
 }

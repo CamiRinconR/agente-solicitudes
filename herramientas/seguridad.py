@@ -35,7 +35,7 @@ BUILTINS_PROHIBIDOS = {   # solo cuando se llaman como función del sistema: eva
 ATRIBUTOS_PROHIBIDOS = {  # sobre cualquier objeto: escriben, borran o deserializan
     "write_text": "escribe archivos", "write_bytes": "escribe archivos", "to_csv": "escribe archivos",
     "to_parquet": "escribe archivos", "to_excel": "escribe archivos", "to_pickle": "escribe archivos",
-    "to_json": "escribe archivos", "read_pickle": "deserialización insegura", "unlink": "borra archivos",
+    "to_json": "escribe archivos", "read_pickle": "deserialización insegura", "read_html": "red y HTML no confiable", "unlink": "borra archivos",
     "rmtree": "borra carpetas", "rmdir": "borra carpetas",
 }
 OS_PROHIBIDOS = {  # solo sobre os: os.system(...), no lista.remove(...)
@@ -87,6 +87,8 @@ def revisar_ast(texto):
                     hallazgos.append({"linea": n.lineno, "regla": "open con modo calculado", "detalle": "no se puede saber si escribe"})
             if nombre == "getattr" and n.args and isinstance(n.args[0], ast.Name) and n.args[0].id in ("__builtins__", "builtins", "os"):
                 hallazgos.append({"linea": n.lineno, "regla": "getattr sobre builtins/os", "detalle": "evade la revisión"})
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and re.match(r"^\s*(https?|ftp|s3|gs|file|wss?)://", n.value, re.I):
+            hallazgos.append({"linea": n.lineno, "regla": "URL en el código", "detalle": "red: el código solo lee las rutas que recibe en datos"})
         elif isinstance(n, ast.Attribute) and n.attr in ("__subclasses__", "__globals__", "__code__", "__builtins__"):
             hallazgos.append({"linea": n.lineno, "regla": f"usa {n.attr}", "detalle": "acceso por reflexión"})
     for i, linea in enumerate(texto.splitlines(), 1):

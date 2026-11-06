@@ -1,0 +1,81 @@
+{
+  "hipotesis": [
+    {
+      "id": "H1",
+      "enunciado": "Pocos contratos explican la mayor parte del valor: el 1 % de los contratos de mayor valor (497 de 49.662) suma más de la mitad del valor contratado en 2025.",
+      "medida": "Proporción (de 0 a 1) del valor total que suman los k contratos que cuentan con mayor valor_del_contrato, con k = ceil(0,01 × n) y n = número de contratos que cuentan (con 49.662 contratos, k = 497). Numerador: suma de valor_del_contrato de esos k contratos (un empate en el puesto k no cambia la suma). Denominador: suma de valor_del_contrato de todos los contratos que cuentan. Contratos que cuentan: filas de contratos.csv con fecha de firma del 2025-01-01 al 2025-12-31, ambos días completos (fecha_de_firma leída por formato: si empieza por aaaa-mm-dd, sus 10 primeros caracteres; si empieza por dd/mm/aaaa, con el día primero), tomando cada id_contrato una sola vez (comparado sin espacios al inicio y al final y en mayúsculas; vale la primera aparición en el orden del archivo y los repetidos se quitan antes de mirar la fecha). valor_del_contrato se lee como número decimal con punto (vacío = 0); el NIT es nit_entidad como texto, sin espacios al inicio y al final y sin convertirlo a número.",
+      "umbral": {
+        "operador": ">",
+        "valor": 0.5
+      },
+      "linea_base": "Reparto uniforme: si todos los contratos valieran lo mismo, esos k contratos sumarían k / n del valor (497 / 49.662 ≈ 0,010).",
+      "por_que_importa": "Si se sostiene, la tabla la deciden unos cientos de contratos: un error de digitación, una adición o una operación de crédito público (P3: 9 contratos por 1.000.192.780.000) en uno de ellos mueve la cifra de su entidad, y antes de citar las cifras conviene revisar esos contratos uno por uno. Si no se sostiene, el valor está repartido y la tabla resiste errores puntuales.",
+      "valor": 0.7594979569702146,
+      "linea_base_valor": 0.0100076517256655,
+      "detalle": "49.662 filas leídas; 0 id_contrato repetidos quitados, 0 sin fecha legible y 0 fuera de 2025: cuentan 49.662 contratos. k = ceil(0,01 × 49.662) = 497. Los 497 contratos de mayor valor_del_contrato suman 13.100.010.186.399,11 de un total de 17.248.249.407.618,69: 0,7595 (75,95 %). Línea base (reparto uniforme) k / n = 497 / 49.662 = 0,0100 (1,00 %).",
+      "veredicto": "se sostiene"
+    },
+    {
+      "id": "H2",
+      "enunciado": "La primera fila depende de contratos gigantes: los contratos de más de 100.000 millones de pesos son más del 33 % del valor contratado del Distrito de Medellín (NIT 890905211).",
+      "medida": "Para el NIT 890905211 (todas sus filas, con cualquier nombre_entidad o codigo_entidad): suma de valor_del_contrato de sus contratos que cuentan con valor_del_contrato estrictamente mayor que 100.000.000.000, dividida entre la suma de valor_del_contrato de todos sus contratos que cuentan. Proporción de 0 a 1. Contratos que cuentan: filas de contratos.csv con fecha de firma del 2025-01-01 al 2025-12-31, ambos días completos (fecha_de_firma leída por formato: si empieza por aaaa-mm-dd, sus 10 primeros caracteres; si empieza por dd/mm/aaaa, con el día primero), tomando cada id_contrato una sola vez (comparado sin espacios al inicio y al final y en mayúsculas; vale la primera aparición en el orden del archivo y los repetidos se quitan antes de mirar la fecha). valor_del_contrato se lee como número decimal con punto (vacío = 0); el NIT es nit_entidad como texto, sin espacios al inicio y al final y sin convertirlo a número.",
+      "umbral": {
+        "operador": ">",
+        "valor": 0.33
+      },
+      "linea_base": "Otro grupo: la misma proporción en los demás NIT juntos (suma de valor_del_contrato de sus contratos que cuentan de más de 100.000.000.000, dividida entre la suma de valor_del_contrato de todos sus contratos que cuentan).",
+      "por_que_importa": "Mide el peso de una decisión de la spec: los valores altos se suman tal como figuran, sin topes (26 contratos de más de 100.000 millones suman 5.558.805.268.311, y entre ellos pueden estar las operaciones de crédito público de P3, que en el Distrito son 3 contratos por 1.000.000.000.000). El Distrito es la primera fila, con 44,6 % del total. Si se sostiene, más de un tercio de esa fila son unos pocos contratos que hay que revisar antes de citarla, y la respuesta a P3 la mueve; si no, su liderazgo viene de muchos contratos.",
+      "valor": 0.3702647355735464,
+      "linea_base_valor": 0.28369962716251906,
+      "detalle": "49.662 filas leídas; 0 id_contrato repetidos quitados, 0 sin fecha legible y 0 fuera de 2025: cuentan 49.662 contratos. NIT 890905211: 2.133 contratos suman 7.687.662.551.100,82 (44,6 % del valor de todos los NIT); 13 de más de 100.000.000.000 suman 2.846.470.341.662: 0,3703 (37,03 %). Línea base, los otros 52 NIT juntos: 47.529 contratos suman 9.560.586.856.517,87; 13 de más de 100.000.000.000 suman 2.712.334.926.649: 0,2837 (28,37 %). En todos los NIT, 26 contratos de más de 100.000.000.000 suman 5.558.805.268.311.",
+      "veredicto": "se sostiene"
+    },
+    {
+      "id": "H3",
+      "enunciado": "En al menos 14 de los 53 NIT (más de 1 de cada 4), un solo contrato es más de la mitad de su valor contratado.",
+      "medida": "Número de NIT con al menos un contrato que cuenta en los que el mayor valor_del_contrato individual es estrictamente mayor que el 50 % de la suma de valor_del_contrato de los contratos que cuentan de ese NIT (un NIT cuya suma es 0 no se cuenta). Contratos que cuentan: filas de contratos.csv con fecha de firma del 2025-01-01 al 2025-12-31, ambos días completos (fecha_de_firma leída por formato: si empieza por aaaa-mm-dd, sus 10 primeros caracteres; si empieza por dd/mm/aaaa, con el día primero), tomando cada id_contrato una sola vez (comparado sin espacios al inicio y al final y en mayúsculas; vale la primera aparición en el orden del archivo y los repetidos se quitan antes de mirar la fecha). valor_del_contrato se lee como número decimal con punto (vacío = 0); el NIT es nit_entidad como texto, sin espacios al inicio y al final y sin convertirlo a número.",
+      "umbral": {
+        "operador": ">=",
+        "valor": 14
+      },
+      "linea_base": "Reparto uniforme dentro de cada NIT: si todos sus contratos valieran lo mismo, el mayor pesaría 1/n y solo pasaría de la mitad en los NIT con un único contrato; la base es el número de NIT con exactamente un contrato que cuenta.",
+      "por_que_importa": "En esas entidades la fila es un contrato, no un nivel de contratación: compararlas por valor_contratado, o con otro año, confunde un contrato grande con más actividad, y una adición o un error en ese contrato mueve la fila entera.",
+      "valor": 9,
+      "linea_base_valor": 5,
+      "detalle": "49.662 filas leídas; 0 id_contrato repetidos quitados, 0 sin fecha legible y 0 fuera de 2025: cuentan 49.662 contratos. 53 NIT tienen al menos un contrato que cuenta; 0 suman 0 y no se cuentan. En 9 NIT el mayor contrato es más del 50 % de su valor contratado: 5 con un solo contrato y 4 con dos o más. Línea base (reparto uniforme dentro de cada NIT): 5 NIT con exactamente un contrato que cuenta (0 de ellos con suma 0).",
+      "veredicto": "no se sostiene"
+    },
+    {
+      "id": "H4",
+      "enunciado": "Hubo carrera antes de la ley de garantías: en el mes anterior a la restricción de convenios interadministrativos (del 8 de octubre al 7 de noviembre de 2025) se firmó, por día, más de 1,5 veces el valor que se firmó por día en el resto de 2025.",
+      "medida": "Razón entre dos promedios diarios de valor firmado, sobre los contratos que cuentan: (suma de valor_del_contrato de los firmados del 2025-10-08 al 2025-11-07, ambos días completos, dividida entre 31 días) / (suma de valor_del_contrato de los firmados en los demás días de 2025, dividida entre 334 días). La fecha es la de fecha_de_firma sin la hora. Contratos que cuentan: filas de contratos.csv con fecha de firma del 2025-01-01 al 2025-12-31, ambos días completos (fecha_de_firma leída por formato: si empieza por aaaa-mm-dd, sus 10 primeros caracteres; si empieza por dd/mm/aaaa, con el día primero), tomando cada id_contrato una sola vez (comparado sin espacios al inicio y al final y en mayúsculas; vale la primera aparición en el orden del archivo y los repetidos se quitan antes de mirar la fecha). valor_del_contrato se lee como número decimal con punto (vacío = 0); el NIT es nit_entidad como texto, sin espacios al inicio y al final y sin convertirlo a número.",
+      "umbral": {
+        "operador": ">",
+        "valor": 1.5
+      },
+      "linea_base": "Otro período: el resto de 2025 (334 días). Si la firma fuera pareja en el año, la razón sería 1,0.",
+      "por_que_importa": "La Ley 996 de 2005 (art. 38, parágrafo) prohíbe a gobernadores, alcaldes y gerentes o directores de entidades descentralizadas territoriales celebrar convenios interadministrativos en los 4 meses anteriores a una elección; con las legislativas del 8 de marzo de 2026, la restricción empezó el 8 de noviembre de 2025. Si se sostiene, parte del valor de 2025 es un adelanto preelectoral: no es la cifra de un año típico y no se compara sin más con otros años. Si no se sostiene, el calendario electoral no deformó el año en estas entidades.",
+      "valor": 2.191622760403211,
+      "linea_base_valor": 1.0,
+      "detalle": "49.662 filas leídas; 0 id_contrato repetidos quitados, 0 sin fecha legible y 0 fuera de 2025: cuentan 49.662 contratos. Del 2025-10-08 al 2025-11-07 (31 días, 29 con firmas): 2.420 contratos suman 2.915.486.004.010,43, 94.047.935.613 por día. Resto de 2025 (334 días, 299 con firmas): 47.242 contratos suman 14.332.763.403.608,26, 42.912.465.280 por día. Razón = 2,1916. Línea base: 1,0 (firma pareja en el año: el resto de 2025 contra sí mismo).",
+      "veredicto": "se sostiene"
+    },
+    {
+      "id": "H5",
+      "enunciado": "Los contratos de valor cero o simbólico inflan el número de contratos de alguna entidad: en al menos un NIT con 30 contratos o más, más del 10 % de sus contratos vale menos de 10 pesos.",
+      "medida": "Máximo, entre los NIT con al menos 30 contratos que cuentan, de la proporción (de 0 a 1) de sus contratos que cuentan con valor_del_contrato menor que 10 (los de valor 0 incluidos) sobre todos sus contratos que cuentan. Contratos que cuentan: filas de contratos.csv con fecha de firma del 2025-01-01 al 2025-12-31, ambos días completos (fecha_de_firma leída por formato: si empieza por aaaa-mm-dd, sus 10 primeros caracteres; si empieza por dd/mm/aaaa, con el día primero), tomando cada id_contrato una sola vez (comparado sin espacios al inicio y al final y en mayúsculas; vale la primera aparición en el orden del archivo y los repetidos se quitan antes de mirar la fecha). valor_del_contrato se lee como número decimal con punto (vacío = 0); el NIT es nit_entidad como texto, sin espacios al inicio y al final y sin convertirlo a número.",
+      "umbral": {
+        "operador": ">",
+        "valor": 0.1
+      },
+      "linea_base": "Reparto uniforme entre entidades: la proporción de contratos con valor_del_contrato menor que 10 en todos los contratos que cuentan (si se repartieran parejo, cada NIT tendría esa proporción).",
+      "por_que_importa": "El glosario manda contar los contratos de valor cero en numero_contratos (hay 542, y 67 más entre 0 y 10 pesos). Si se sostiene, el numero_contratos de esa entidad incluye muchos registros que no comprometen plata y no se compara con el de otras, ni sirve para su valor promedio por contrato; si no, ese efecto es pequeño en todas las entidades.",
+      "valor": 0.1306024096385542,
+      "linea_base_valor": 0.0122628971849704,
+      "detalle": "49.662 filas leídas; 0 id_contrato repetidos quitados, 0 sin fecha legible y 0 fuera de 2025: cuentan 49.662 contratos. Con 30 contratos o más hay 38 NIT. El máximo es 0,1306 (13,06 %): 271 de 2.075 contratos de menos de 10 pesos en el NIT 890980150. NIT de esos 38 que pasan del 10 %: 1. Línea base: 609 de 49.662 contratos valen menos de 10 pesos (542 de valor 0 y 67 entre 0 y 10): 0,0123 (1,23 %).",
+      "veredicto": "se sostiene"
+    }
+  ],
+  "problemas": [],
+  "estado": "probadas"
+}

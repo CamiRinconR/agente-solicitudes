@@ -1,0 +1,8 @@
+{
+  "etapa": "Gobernanza",
+  "que_se_pidio": "Revisión ciega de seguridad de impl_a.py, impl_b.py, reglas.py, hipotesis.py y grafico.py, con una prueba por hallazgo.",
+  "que_devolvio": "11 hallazgos, los 11 confirmados con prueba: 1 alto (reglas.py corre sin compuerta ni caja), 3 medios y 7 bajos. Los 5 archivos no escriben ni ejecutan comandos; impl_a puede usar la red solo si le pasan una URL. Las salidas son agregados por NIT, salvo los mensajes de error, que copian la celda cruda.",
+  "como_se_probo": "12 archivos en seguridad/: 11 pruebas, que reproducen todas, y 1 fragmento para la batería. 4 pruebas corren el camino real: verificar.py, la caja o el RUNNER de hipótesis, en corridas temporales. La compuerta de hoy pasa los 5 archivos sin hallazgos. El CSV real tiene 49.662 filas y no trae comillas, fórmulas ni HTML; trae 68 filas con el carácter de control U+0096 en el nombre. Los 2 .pyc de la corrida y los 9 de herramientas coinciden con su fuente, y los sellos siguen intactos.",
+  "que_se_corrigio": "Nada del código revisado, que no se debía tocar. Se agregó red_pandas_read_csv_url.py a baterias/seguridad/malos; la compuerta hoy no lo bloquea, y la batería de seguridad quedó con 25 casos y 1 falla.",
+  "sin_verificar": "Cómo reaccionan los agentes correctores a un nombre_entidad con instrucciones. Cómo muestra informe.md el visor donde se publique. Cuánta memoria y tiempo piden archivos de más de 5,6 MB."
+}

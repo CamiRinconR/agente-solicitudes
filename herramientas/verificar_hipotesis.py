@@ -30,7 +30,9 @@ import importlib.util, json, math, sys
 sys.path.insert(0, sys.argv[3])
 ruta, datos = sys.argv[1], json.loads(sys.argv[2])
 import reglas_base
-s = importlib.util.spec_from_file_location("hip", ruta); m = importlib.util.module_from_spec(s); s.loader.exec_module(m)
+import types
+m = types.ModuleType("hip"); m.__file__ = ruta
+exec(compile(open(ruta, encoding="utf-8").read(), ruta, "exec"), m.__dict__)   # desde la fuente, sin .pyc
 out = {}
 for hid, fn in reglas_base.HIPOTESIS.items():
     try:

@@ -35,7 +35,9 @@ from gobernanza import escanear_texto  # noqa: E402
 RUNNER = r'''
 import importlib.util, json, sys
 ruta, resultado, procedencia = sys.argv[1], json.loads(sys.argv[2]), json.loads(sys.argv[3])
-s = importlib.util.spec_from_file_location("graf", ruta); m = importlib.util.module_from_spec(s); s.loader.exec_module(m)
+import types
+m = types.ModuleType("graf"); m.__file__ = ruta
+exec(compile(open(ruta, encoding="utf-8").read(), ruta, "exec"), m.__dict__)   # desde la fuente, sin .pyc
 fig = m.graficar(resultado, procedencia)
 print("MARCA" + fig.to_json())
 '''.replace("MARCA", caja.MARCA)

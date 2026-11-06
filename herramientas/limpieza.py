@@ -103,7 +103,7 @@ def limpiar(plan_ruta, entrada=None, salida=None, informe=True):
     s_ = salida or plan["salida"]
     sal = Path(s_) if Path(s_).is_absolute() else base / s_
     with open(ent, newline="", encoding="utf-8-sig") as fh:
-        lector = csv.DictReader(fh)
+        lector = csv.DictReader(fh, strict=True)
         cols = list(lector.fieldnames or [])
         crudas = list(lector)
     huella_cruda = hashlib.sha256(ent.read_bytes()).hexdigest()

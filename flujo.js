@@ -30,6 +30,7 @@ const reglasComunes = `REGLAS PARA TODO EL CÓDIGO QUE ESCRIBAS (las comprueba c
 - Solo biblioteca estándar de Python y las librerías de ${H}/permitidas.json (pandas, numpy, plotly). Nunca instales nada ni importes otra cosa: un nombre inventado lo puede registrar un atacante.
 - Función pura: sin red, sin escribir ni borrar archivos, sin ejecutar comandos, sin eval/exec/compile, sin pickle, sin importación dinámica. El código corre en una caja de arena sin red ni escritura.
 - Nunca escribas en tus respuestas filas de datos ni valores de columnas personales: trabaja con nombres, tipos y conteos (R2).
+- FAILFAST: lee los CSV de forma estricta (csv con strict=True y control de campos por fila, o pandas sin saltar filas malas). Un archivo mal formado detiene el trabajo con un error claro; nunca se lee a medias en silencio.
 - Antes de escribir, lee las lecciones de errores reales en ${LECCIONES}: no repitas ninguno.`
 
 const glosarioTxt = GLOSARIO
@@ -92,7 +93,7 @@ const pCustodio = `Eres el CUSTODIO (etapa 5 · Gobernanza). La IA halla los dat
 ${contexto}
 ${fuenteTxt}
 
-Clasifica TODAS las columnas de la fuente (no solo las ingeridas), con sus nombres, tipos y descripciones (metadatos) y, si existen, los conteos de ${C}/perfil.json: «personal» (identifica a una persona natural: nombre, documento, contacto, cuenta bancaria...), «cuasi» (combinada con otras puede identificar: género, nacionalidad, tipo de documento...) o «sin_marca». Justifica con la Ley 1581 de 2012 cuando aplique. Ten en cuenta que el texto libre puede traer nombres o cédulas.
+Clasifica TODAS las columnas de la fuente (no solo las ingeridas), con sus nombres, tipos y descripciones (metadatos) y, si existen, los conteos de ${C}/perfil.json: «personal» (identifica a una persona natural: nombre, documento, contacto, cuenta bancaria...), «cuasi» (combinada con otras puede identificar: género, nacionalidad, tipo de documento...), «texto_libre» (texto escrito a mano que puede traer nombres o cédulas: objeto, descripción del proceso, observaciones) o «sin_marca» (incluidas las categorías fijas aunque tengan nombre de descripción). Justifica con la Ley 1581 de 2012 cuando aplique. Ten en cuenta que el texto libre puede traer nombres o cédulas.
 Escribe ${C}/custodio.json con {"columnas": [{"columna", "clase", "motivo"}], "recomendaciones": [frases cortas]}. No descargues filas ni imprimas valores.
 ${bit('5-gobernanza-custodio', 'Gobernanza')}`
 const custodioP = agent(pCustodio, { label: 'custodio de datos personales', phase: 'Gobernanza', schema: S_ETAPA })

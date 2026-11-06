@@ -1,0 +1,176 @@
+{
+  "tablas": {
+    "contratos": {
+      "ruta": "corridas/2026-11-06-pipeline-secop-medellin-2025/datos/contratos.csv",
+      "filas": 49662,
+      "columnas": [
+        "id_contrato",
+        "nit_entidad",
+        "codigo_entidad",
+        "nombre_entidad",
+        "fecha_de_firma",
+        "valor_del_contrato"
+      ],
+      "filas_identicas_a_otra_anterior": 0,
+      "ejemplo_fila_repetida": null,
+      "perfil_columnas": [
+        {
+          "columna": "id_contrato",
+          "vacios": 0,
+          "distintos": 49662,
+          "formas": [
+            [
+              "AA9.A+.9999999",
+              49662
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "posible_clave": true,
+          "valores_repetidos": 0,
+          "valores_repetidos_tras_normalizar": 0,
+          "ejemplos_repetidos": []
+        },
+        {
+          "columna": "nit_entidad",
+          "vacios": 0,
+          "distintos": 53,
+          "formas": [
+            [
+              "999999999",
+              43794
+            ],
+            [
+              "9999999999",
+              5868
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 800072977.0,
+            "max": 8909801583.0,
+            "suma": 88723515211230.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        },
+        {
+          "columna": "codigo_entidad",
+          "vacios": 0,
+          "distintos": 57,
+          "formas": [
+            [
+              "999999999",
+              49662
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 700082035.0,
+            "max": 730814746.0,
+            "suma": 34969918694841.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        },
+        {
+          "columna": "nombre_entidad",
+          "vacios": 0,
+          "distintos": 59,
+          "formas": [
+            [
+              "A+␣A+␣A+",
+              21522
+            ],
+            [
+              "A+␣AA␣A+␣A␣A+␣AA␣A+",
+              4748
+            ],
+            [
+              "Aa+␣Aa+␣Aa+␣Aa+␣A+",
+              4288
+            ],
+            [
+              "A+␣A+␣A+␣A+␣AA␣A+",
+              2400
+            ],
+            [
+              "A+␣A+␣A+␣AA␣A+␣A+␣A+␣A+",
+              2075
+            ],
+            [
+              "A+␣A+␣A+␣Aa+␣a+␣Aa+␣Aa+␣Aa+",
+              1558
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "privada": "valores omitidos: columna personal o de texto libre (R2, nunca filas)"
+        },
+        {
+          "columna": "fecha_de_firma",
+          "vacios": 0,
+          "distintos": 49662,
+          "formas": [
+            [
+              "9999-99-99A99:99:99.999",
+              49662
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 49662,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2025-01-01",
+              "2025-12-31"
+            ],
+            "con_hora": 49662,
+            "hora_distinta_de_00:00": 49651,
+            "con_zona_horaria": 0,
+            "ojo": "las fechas traen hora: comparar contra 'aaaa-mm-dd' como texto deja por fuera el último día; compara solo los primeros 10 caracteres o convierte a fecha"
+          }
+        },
+        {
+          "columna": "valor_del_contrato",
+          "vacios": 0,
+          "distintos": 16558,
+          "formas": [
+            [
+              "99999999",
+              32501
+            ],
+            [
+              "9999999",
+              12272
+            ],
+            [
+              "999999999",
+              2486
+            ],
+            [
+              "9999999999",
+              1263
+            ],
+            [
+              "9",
+              608
+            ],
+            [
+              "99999999999",
+              233
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 552273854028.0,
+            "suma": 17248249407618.69,
+            "negativos": 0,
+            "ceros": 542
+          }
+        }
+      ],
+      "codigo_con_varios_valores": []
+    }
+  },
+  "cruces": []
+}

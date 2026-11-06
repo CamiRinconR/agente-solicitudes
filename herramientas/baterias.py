@@ -75,6 +75,19 @@ def bateria_privacidad():
     return {"bateria": "privacidad", "casos": len(secretos) + 3 + 6 + n_cols, "fallas": fallas}
 
 
+def bateria_failfast():
+    """Un CSV mal formado detiene la lectura: nunca se lee a medias en silencio (FAILFAST)."""
+    from reglas_base import leer_csv
+    fallas, casos = [], sorted((BAT / "failfast").glob("*.csv"))
+    for p in casos:
+        try:
+            leer_csv(p)
+            fallas.append(f"{p.name} se leyó sin error")
+        except Exception:
+            pass
+    return {"bateria": "failfast", "casos": len(casos), "fallas": fallas}
+
+
 def bateria_lecciones():
     d = json.loads((BAT / "lecciones.json").read_text(encoding="utf-8"))
     fallas = []
@@ -104,7 +117,7 @@ def main(argv):
         (BAT / "lecciones.json").write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Lección {d['lecciones'][-1]['id']} agregada.")
         return 0
-    res = [bateria_seguridad(), bateria_privacidad(), bateria_lecciones()]
+    res = [bateria_seguridad(), bateria_privacidad(), bateria_failfast(), bateria_lecciones()]
     for r in res:
         print(f"{'✓' if not r['fallas'] else '✗'} {r['bateria']}: {r['casos']} casos" + ("" if not r["fallas"] else " · " + "; ".join(r["fallas"])))
     malos = sum(len(r["fallas"]) for r in res)

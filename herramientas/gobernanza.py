@@ -25,7 +25,7 @@ PERSONAL = re.compile(
     r"proveedor_adjudicado|codigo_proveedor|nit_proveedor|correo|e_?mail|tel[ée]fono|celular|direcci|domicilio|"
     r"cuenta|banco|tarjeta|placa)", re.I)
 CUASI = re.compile(r"(g[ée_]nero|sexo|edad|nacimiento|nacionalidad|etnia|discapacidad|estrato|tipodocproveedor|tipo_de_documento_)", re.I)
-TEXTO_LIBRE = re.compile(r"(objeto|descripci|justificaci|observaci|comentari|detalle|^notas?$|_notas?$)", re.I)
+TEXTO_LIBRE = re.compile(r"(objeto|descripcion_del_proceso|observaci|comentari|^detalle|_detalle|^notas?$|_notas?$|mensaje)", re.I)
 PATRONES = {
     "cédula con contexto": re.compile(
         r"\b(?:c\.\s?c\.?|cc|c[ée]dula(?:\s+de\s+ciudadan[ií]a)?|identificad[oa]\s+con)\s*(?:no\.?|n[°º.]|n[úu]mero)?\s*[:#]?\s*"
@@ -69,7 +69,7 @@ def escanear_texto(texto):
 
 def leer_csv(ruta):
     with open(ruta, newline="", encoding="utf-8-sig") as fh:
-        lector = csv.DictReader(fh)
+        lector = csv.DictReader(fh, strict=True)
         return lector.fieldnames or [], list(lector)
 
 

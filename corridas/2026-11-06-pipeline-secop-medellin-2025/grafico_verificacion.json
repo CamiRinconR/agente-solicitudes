@@ -1,0 +1,46 @@
+{
+  "estado": "aprobado",
+  "comprobaciones": [
+    {
+      "comprobacion": "compuertas de seguridad y librerías",
+      "ok": true,
+      "detalle": "sin hallazgos"
+    },
+    {
+      "comprobacion": "el código del gráfico corre",
+      "ok": true,
+      "detalle": "devolvió una figura"
+    },
+    {
+      "comprobacion": "cuenta de control",
+      "ok": true,
+      "detalle": "gráfico 17,248,249,407,618.69 (escala 1e+09) + fuera del gráfico 0.00 · tabla 17,248,249,407,618.69"
+    },
+    {
+      "comprobacion": "barras desde cero (factor de mentira 1)",
+      "ok": true,
+      "detalle": "el eje de valores empieza en 0"
+    },
+    {
+      "comprobacion": "eje de valores con título y unidades",
+      "ok": true,
+      "detalle": "Valor contratado (miles de millones de pesos)"
+    },
+    {
+      "comprobacion": "título con qué se mide y el período",
+      "ok": true,
+      "detalle": "Valor contratado en 2025 por entidad pública con sede en Medellín"
+    },
+    {
+      "comprobacion": "fuente y fecha de consulta visibles",
+      "ok": true,
+      "detalle": "fuente «secop»: sí · fecha ['06-11-2026']: sí"
+    },
+    {
+      "comprobacion": "sin datos personales en el gráfico",
+      "ok": true,
+      "detalle": "ninguno"
+    }
+  ],
+  "html": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-secop-medellin-2025/grafico.html"
+}

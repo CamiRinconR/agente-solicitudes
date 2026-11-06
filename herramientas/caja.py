@@ -10,7 +10,7 @@ CAJA = shutil.which("sandbox-exec")
 MARCA = "<<<SALIDA-CAJA>>>"
 
 
-def correr(codigo, *args, tiempo=300):
+def correr(codigo, *args, tiempo=300, entrada=None):
     """Corre `codigo` (texto Python) con args; el código debe imprimir MARCA + json. Devuelve (dato, error)."""
     tmp = tempfile.mkdtemp(prefix="caja-")
     cmd = [sys.executable, "-c", codigo, *args]
@@ -20,7 +20,7 @@ def correr(codigo, *args, tiempo=300):
         cmd = [CAJA, "-p", perfil] + cmd
     entorno = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "TMPDIR": tmp, "MPLCONFIGDIR": tmp}
     try:
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=tiempo, env=entorno)  # nosec B603
+        p = subprocess.run(cmd, capture_output=True, text=True, timeout=tiempo, env=entorno, input=entrada)  # nosec B603
     except subprocess.TimeoutExpired:
         return None, f"tardó más de {tiempo} s"
     finally:

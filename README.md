@@ -16,6 +16,16 @@ Material aplicado del curso **«Big Data con IA»** (NODO · Universidad EAFIT, 
 - **Cómo validar el trabajo y qué exige cada práctica:** [`DIRECTRICES.md`](DIRECTRICES.md), con la guía «Validar este repositorio en 15 minutos».
 - **Qué se midió:** [`evidencia/README.md`](evidencia/README.md). Generadores de un solo disparo frente al sistema verificado, en datos sintéticos y en SECOP II, con la prueba del criterio por mutantes (12 de 12 y 11 de 11) y los costos.
 
+## Aportar
+
+Cualquiera con cuenta de GitHub puede proponer una lección, un caso de prueba o una regla, sin invitación y **sin gastar su cuota de IA**. Todo pasa por un embudo antes de entrar:
+
+1. un filtro automático sin IA (`validar-aporte`): datos personales, seguridad del código y que no rompa nada;
+2. la revisión del dueño;
+3. solo para las reglas de los subagentes, una prueba con IA que paga la licencia del dueño.
+
+`main` está protegida. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md) y aportes aceptados en [`CHANGELOG.md`](CHANGELOG.md).
+
 ## Instalar
 
 ```bash
@@ -51,6 +61,7 @@ Con archivos locales, `datos` reemplaza a `fuente`: `{"ventas": "<ruta>/ventas.c
 | `herramientas/gobernanza.py` | Datos personales en los datos y en las salidas, k-anonimato y comparación con la clasificación de la IA |
 | `herramientas/seguridad.py`, `dependencias.py`, `caja.py` | Análisis estático (reglas propias y Bandit), librerías permitidas y caja de arena |
 | `herramientas/baterias.py` | Baterías de seguridad, privacidad y lecciones; `--agregar-malo` y `--leccion` para que lo que falló no se repita |
+| `herramientas/validar_aporte.py` | Filtro automático de aportes, sin IA: archivos prohibidos, datos personales, seguridad y que no rompa nada |
 | `herramientas/informe_final.py` | Informe de las cinco etapas en Markdown y HTML, con todo el texto escapado |
 
 ## Estructura
@@ -58,13 +69,16 @@ Con archivos locales, `datos` reemplaza a `fuente`: `{"ventas": "<ruta>/ventas.c
 ```
 flujo.js                 orquestación de las cinco etapas (historial/ guarda la versión 1)
 herramientas/            pruebas y utilidades sin IA
-baterias/                seguridad, privacidad y lecciones: lo que falló una vez, probado siempre
+baterias/                seguridad, privacidad, FAILFAST y lecciones: lo que falló una vez, probado siempre
 ejemplo/                 ventas sintéticas con trampas conocidas y su glosario
 agentes/                 parámetros de los once subagentes, reglas comunes y quién puede ver qué
 ejemplo-secop/           glosario de SECOP II (los datos no se publican: se descargan con ingesta.py)
 corridas/<fecha-nombre>/ spec, reglas, caso conocido, implementaciones, bitácora e informes de cada corrida
 evidencia/               experimentos: oráculos, mutantes, código y advertencias de los generadores de un solo disparo
 DIRECTRICES.md           directrices de nivel senior y cómo validar este repositorio
+CONTRIBUTING.md          cómo aportar sin gastar cuota, y el embudo de validación
+CHANGELOG.md             versiones y aportes aceptados, con crédito
+.github/                 filtro automático (GitHub Actions), formulario de aporte, plantilla y dueño de las revisiones
 ```
 
 ## Licencias

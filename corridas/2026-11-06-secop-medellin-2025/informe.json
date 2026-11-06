@@ -435,7 +435,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.45,
+      "segundos": 0.37,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -850,7 +850,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.48,
+      "segundos": 0.45,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

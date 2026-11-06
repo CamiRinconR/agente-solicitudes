@@ -1,0 +1,31 @@
+{
+  "tabla": "contratos",
+  "llave": "id_contrato",
+  "fuente": {
+    "tipo": "socrata",
+    "dominio": "www.datos.gov.co",
+    "conjunto": "jbjy-vk9h",
+    "titulo": "SECOP II - Contratos Electrónicos",
+    "filtro": "ciudad='Medellín' AND fecha_de_firma >= '2025-01-01T00:00:00' AND fecha_de_firma < '2026-01-01T00:00:00'",
+    "filtro_legible": "entidades con ciudad = Medellín y contratos con fecha_de_firma del 1 de enero al 31 de diciembre de 2025, los dos días completos (con hora)",
+    "licencia": "CC BY-SA 4.0",
+    "atribucion": "Agencia Nacional de Contratación Pública – Colombia Compra Eficiente",
+    "unidad": "contratos"
+  },
+  "columnas": {
+    "id_contrato": "texto",
+    "nit_entidad": "texto",
+    "codigo_entidad": "texto",
+    "nombre_entidad": "texto",
+    "fecha_de_firma": "fecha",
+    "valor_del_contrato": "decimal"
+  },
+  "dominios": {},
+  "rangos": {
+    "fecha_de_firma": ["2025-01-01", "2025-12-31"]
+  },
+  "avisos": {
+    "valor_del_contrato": [0, 100000000000]
+  },
+  "personales_justificadas": {}
+}

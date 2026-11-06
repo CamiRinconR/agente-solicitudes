@@ -1,0 +1,22 @@
+name: validar-aporte
+# Filtro automático de aportes: sin IA y sin llaves. No le gasta nada a nadie.
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Instalar solo lo de requirements.txt
+        run: pip install -r requirements.txt
+      - name: Filtro automático (datos personales, seguridad, «falla antes, pasa después», que no rompa nada)
+        run: python herramientas/validar_aporte.py --base origin/${{ github.base_ref }}

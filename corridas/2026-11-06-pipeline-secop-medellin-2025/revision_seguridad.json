@@ -1,0 +1,114 @@
+{
+  "hallazgos": [
+    {
+      "id": "reglas_sin_caja_ni_compuerta",
+      "archivo": "herramientas/verificar.py",
+      "linea": 109,
+      "descripcion": "reglas.py, escrito por la IA, se importa con exec_module dentro del proceso del verificador (cargar_reglas, verificar.py:98-117). No pasa por seguridad.py ni por dependencias.py, no corre en sandbox-exec y no tiene alarma mientras se importa (la alarma de 120 s solo cubre cada regla). En la prueba, una reglas.py escribió un archivo y abrió una conexión a 127.0.0.1 al importarse; el mismo código en la caja quedó bloqueado. La compuerta sí lo habría detectado (importa socket y abre en modo w), pero nunca se aplica a reglas.py. Además, el informe final (informe_final.py:171-172) dice que reglas.py pasó compuertas y caja. La reglas.py de esta corrida es inofensiva: solo lee el CSV.",
+      "severidad": "alta",
+      "prueba": "seguridad/reglas_sin_caja_ni_compuerta.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": false
+    },
+    {
+      "id": "csv_malformado_se_lee_en_silencio",
+      "archivo": "impl_b.py",
+      "linea": 143,
+      "descripcion": "impl_b.py (_leer_csv) y reglas_base.leer_csv, que usan reglas.py:32 e hipotesis.py:80, leen con el módulo csv en modo no estricto. Con una comilla sin cerrar en la fila 4 de 7, impl_b leyó 4 filas y sumó 300 de 1.000 pesos, sin error. Con una coma de más, las columnas de esa fila se corrieron y el contrato salió como sin_fecha_de_firma. Como reglas.py lee igual que impl_b, R1, R2, R4 y R8 pasaron con la cifra equivocada. impl_a falló en esos dos casos. Pero si la coma de más está en la primera fila de datos, pandas corre todas las columnas sin error, e impl_a.py:113 descarta el id real. De punta a punta, verificar.py dejó a B como resultado_oficial (3 NIT, 300 pesos) con estado revisar, y verificar_grafico.py:95 grafica resultado_oficial sin mirar ese estado.",
+      "severidad": "media",
+      "prueba": "seguridad/csv_malformado_se_lee_en_silencio.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "texto_del_csv_en_mensajes_de_error",
+      "archivo": "reglas.py",
+      "linea": 22,
+      "descripcion": "Una celda de texto en valor_del_contrato llega completa a las salidas publicadas por los mensajes de error. reglas.py:22 hace float() y el ValueError trae la celda; verificar.py la copia en informe.md e informe.json. hipotesis.py:74 arma su error con la celda y solo cambia los dígitos por 9. En la prueba, con un nombre de persona, un correo y una etiqueta HTML ficticios, la celda quedó 9 veces en informe.md, 18 en informe.json y una en el detalle de H1, de unos 4.900 caracteres y sin tope. El barrido de gobernanza solo vio el correo: no ve nombres ni HTML, y en informe.json solo barre resultado_oficial.",
+      "severidad": "media",
+      "prueba": "seguridad/texto_del_csv_en_mensajes_de_error.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "pyc_no_sellado_reemplaza_el_codigo",
+      "archivo": "herramientas/verificar.py",
+      "linea": 109,
+      "descripcion": "El código de la IA se carga con spec_from_file_location: verificar.py:107-109 y los RUNNER de verificar.py, verificar_hipotesis.py y verificar_grafico.py. Si la caché de bytecode trae un .pyc con la fecha y el tamaño del .py, Python lo ejecuta sin releer la fuente. La compuerta y sellos.json solo miran el .py, y PYTHONDONTWRITEBYTECODE impide escribir .pyc pero no leerlos. En la prueba, un .py que devuelve una lista vacía pasó la compuerta, y lo que corrió fue otro código. En esta corrida ya hay reglas.cpython-313.pyc y grafico.cpython-313.pyc vigentes, y cualquier agente que escribe en la corrida podría reemplazarlos; hoy coinciden con su fuente.",
+      "severidad": "media",
+      "prueba": "seguridad/pyc_no_sellado_reemplaza_el_codigo.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": false
+    },
+    {
+      "id": "texto_no_confiable_pasa_tal_cual",
+      "archivo": "impl_a.py",
+      "linea": 249,
+      "descripcion": "impl_a.py:249 e impl_b.py:324 devuelven como entidad el nombre_entidad tal cual, solo sin espacios al borde, como pide la spec (S4). En la prueba, 4 nombres pasaron sin cambios a los resultados de A y de B y a informe.md, donde verificar.tabla_md solo escapa la barra vertical y los saltos de línea: dos fórmulas de Excel que empiezan por = y por @, una etiqueta HTML con onerror y una instrucción dirigida a una IA. informe.json, que leen los agentes correctores, también los lleva. grafico.py sí escapa: el HTML del gráfico no trae etiquetas vivas.",
+      "severidad": "baja",
+      "prueba": "seguridad/texto_no_confiable_pasa_tal_cual.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "red_pandas_read_csv_url",
+      "archivo": "impl_a.py",
+      "linea": 86,
+      "descripcion": "impl_a.py:86 le pasa a pd.read_csv la ruta que llega en datos. Con una URL, pandas la descarga: en la prueba, impl_a.analizar hizo 1 pedido HTTP a un servidor en 127.0.0.1 y devolvió sus filas (impl_b, que usa open, no lo hizo). La compuerta no lo ve, porque pd.read_csv no importa módulos de red. Hoy lo frenan dos cosas: verificar.cargar_spec exige que la ruta exista y sandbox-exec niega la red. En una máquina sin sandbox-exec, caja.py y verificar.py corren sin caja. El fragmento mínimo quedó en la batería y hoy no se bloquea.",
+      "severidad": "baja",
+      "prueba": "seguridad/red_pandas_read_csv_url.py (fragmento, agregado a baterias/seguridad/malos) y seguridad/red_pandas_read_csv_url_confirmar.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": false
+    },
+    {
+      "id": "hipotesis_lee_fechas_distinto",
+      "archivo": "hipotesis.py",
+      "linea": 51,
+      "descripcion": "hipotesis.py lee fecha_de_firma de otra forma que impl_a, impl_b y reglas.py (función _dia y patrones de las líneas 26-27). Acepta dígitos Unicode y días o meses de un dígito, y descarta fechas que no existen, como 2025-02-30. Con 4 contratos de prueba, el resultado oficial usó 2 (100.100 pesos) y hipotesis.py usó 3 (11.100 pesos), sin error. Nada compara las dos cuentas, así que H1 a H5 se publicarían sobre otros contratos.",
+      "severidad": "baja",
+      "prueba": "seguridad/hipotesis_lee_fechas_distinto.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "valor_no_finito_en_impl_b",
+      "archivo": "impl_b.py",
+      "linea": 325,
+      "descripcion": "impl_b.py acepta exponentes (línea 55), y en la línea 325 pasa la suma Decimal a float sin mirar si es finita. En la prueba, 1e309, o dos 1e308 del mismo NIT, dieron valor_contratado infinito sin error, por el mismo camino de verificar.ejecutar_impl. El RUNNER solo cambia NaN por None, así que informe.json lleva Infinity, que no es JSON estándar: un lector estricto lo rechaza. impl_a sí falla, con OverflowError en math.fsum.",
+      "severidad": "baja",
+      "prueba": "seguridad/valor_no_finito_en_impl_b.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "bidi_y_ancho_cero_en_el_grafico",
+      "archivo": "grafico.py",
+      "linea": 58,
+      "descripcion": "_limpio quita solo la categoría Unicode Cc. Los caracteres de formato (Cf) llegan al eje y al cuadro emergente del gráfico publicado. U+202E voltea en pantalla el texto que sigue, y U+200B hace que dos nombres distintos se vean iguales. La prueba encontró los dos en las etiquetas que devuelve grafico.graficar.",
+      "severidad": "baja",
+      "prueba": "seguridad/bidi_y_ancho_cero_en_el_grafico.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "memoria_y_lecturas_repetidas",
+      "archivo": "reglas.py",
+      "linea": 32,
+      "descripcion": "Todo el CSV va a memoria y se relee. reglas.py lo parsea 6 veces en cada pasada de sus 9 reglas; verificar.py hace una pasada por implementación, dentro de su propio proceso y sin tope de memoria. hipotesis.py lo parsea 5 veces. Con el archivo real de 5,6 MB, el pico de memoria fue de 32 MB con leer_csv, 38 MB con impl_b y 12 MB con pandas, y las pasadas tardaron 0,4 s (reglas) y 0,5 s (hipótesis). Nada limita el tamaño del archivo, y pandas no limita el de una celda: impl_a publicó entero un nombre de 200.000 caracteres, que impl_b rechaza por pasar de 131.072.",
+      "severidad": "baja",
+      "prueba": "seguridad/memoria_y_lecturas_repetidas.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    },
+    {
+      "id": "enlace_externo_en_informe_final",
+      "archivo": "herramientas/informe_final.py",
+      "linea": 199,
+      "descripcion": "md_a_html escapa el HTML y después convierte el patrón de enlace de Markdown (texto entre corchetes y una ruta .html entre paréntesis) en una etiqueta de enlace. La ruta acepta dos barras al inicio, así que un nombre_entidad con esa forma sale en informe_final.html como enlace vivo a otro dominio. impl_a lo deja pasar sin cambios, y R5 y R6 lo aceptan porque es el nombre real del NIT. Se confirmó con impl_a, tabla_md y md_a_html.",
+      "severidad": "baja",
+      "prueba": "seguridad/enlace_externo_en_informe_final.py",
+      "confirmado": true,
+      "la_compuerta_lo_bloquea": null
+    }
+  ]
+}

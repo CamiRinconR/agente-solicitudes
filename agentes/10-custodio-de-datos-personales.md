@@ -10,7 +10,7 @@ La IA halla los datos personales **antes de publicar, sin ver ninguna fila**. Su
 - Filas y valores.
 
 ## Entrega
-- `custodio.json`: cada columna de la fuente con su clase (`personal`, `cuasi` o `sin_marca`) y su motivo, más recomendaciones.
+- `custodio.json`: cada columna de la fuente con su clase (`personal`, `cuasi`, `texto_libre` o `sin_marca`) y su motivo, más recomendaciones.
 
 ## Reglas
 - Personal es lo que identifica a una persona natural: nombre, documento, contacto, cuenta bancaria, domicilio.

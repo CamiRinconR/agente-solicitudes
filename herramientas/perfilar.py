@@ -181,7 +181,7 @@ def dependencias(cols, filas, perfiles):
 
 def leer(ruta):
     with open(ruta, newline="", encoding="utf-8-sig") as fh:
-        lector = csv.DictReader(fh)
+        lector = csv.DictReader(fh, strict=True)
         return lector.fieldnames or [], list(lector)
 
 

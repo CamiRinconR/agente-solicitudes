@@ -122,7 +122,7 @@ Sale una fila por entidad, identificada por su NIT (nit_entidad), con la suma de
 | Compuertas | seguridad y librerías | Sin código peligroso ni librerías fuera de la lista, antes de ejecutar (corre en caja de arena: sin red ni escritura) | ✅ | ✅ |
 | Repetible | correr dos veces da lo mismo | La segunda corrida da exactamente el mismo resultado | ✅ | ✅ |
 | Conciliación | todo conteo cierra | Filas leídas = usadas + excluidas por motivo; nada se borra en silencio | — | — |
-| Tiempo | medir | Segundos de una corrida con los datos reales | 0.45 s | 0.48 s |
+| Tiempo | medir | Segundos de una corrida con los datos reales | 0.37 s | 0.45 s |
 
 ## Cifras de cada regla (implementación A)
 - **R1**: resultado 17,248,249,407,618.69 · fuente 17,248,249,407,618.69

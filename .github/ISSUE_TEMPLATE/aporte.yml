@@ -1,0 +1,52 @@
+name: Proponer un aporte (sin usar git)
+description: Comparte un error real, una regla o un caso. El dueño lo valida y, si sirve, lo convierte en cambio.
+title: "Aporte: "
+labels: ["aporte"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por aportar. **No necesitas correr nada ni gastar tu cuota de ningún asistente**: el filtro automático no usa IA, y la prueba con IA la hace el dueño del repositorio con su licencia.
+        No pegues filas de datos, nombres, cédulas ni datos bancarios.
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de aporte
+      options:
+        - Lección (un error real que vi)
+        - Muestra de código peligroso que debería bloquearse
+        - Caso de privacidad (columna o patrón de dato personal)
+        - Caso FAILFAST (un archivo mal formado que debería detener la lectura)
+        - Mutante (un error típico de análisis)
+        - Regla para la ficha de un subagente
+        - Definición para el glosario
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué aportas
+      description: Una o dos frases.
+    validations:
+      required: true
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+      description: Dónde lo viste y con qué cifras (conteos, montos agregados). Sin filas ni datos personales.
+    validations:
+      required: true
+  - type: textarea
+    id: prueba
+    attributes:
+      label: Cómo se prueba
+      description: Qué caso falla sin tu aporte y pasa con él. Puede ser un fragmento de código corto.
+  - type: checkboxes
+    id: confirmo
+    attributes:
+      label: Confirmo
+      options:
+        - label: No incluye datos personales ni datos de SECOP.
+          required: true
+        - label: Acepto que mi usuario de GitHub aparezca en el registro de cambios si se acepta.

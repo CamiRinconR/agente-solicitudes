@@ -18,7 +18,9 @@ import csv
 import hashlib
 import importlib.util
 import json
+import math
 import os
+import re
 import shutil
 import signal
 import subprocess
@@ -41,9 +43,9 @@ RUNNER = r'''
 import importlib.util, json, math, os, sys
 ruta, datos = sys.argv[1], json.loads(sys.argv[2])
 sys.path.insert(0, os.path.dirname(os.path.abspath(ruta)))
-spec = importlib.util.spec_from_file_location("impl_bajo_prueba", ruta)
-mod = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(mod)
+import types
+mod = types.ModuleType("impl_bajo_prueba"); mod.__file__ = ruta
+exec(compile(open(ruta, encoding="utf-8").read(), ruta, "exec"), mod.__dict__)   # desde la fuente sellada, sin .pyc
 conc = mod.conciliar(datos) if hasattr(mod, "conciliar") else None
 res = mod.analizar(datos)
 try:
@@ -95,26 +97,78 @@ def cargar_spec(c):
     return spec
 
 
+RUNNER_REGLAS = r'''
+import json, math, re, signal, sys, types
+ruta, modo, herr = sys.argv[1], sys.argv[2], sys.argv[3]
+sys.path.insert(0, herr)
+import reglas_base
+mod = types.ModuleType("reglas_corrida"); mod.__file__ = ruta
+exec(compile(open(ruta, encoding="utf-8").read(), ruta, "exec"), mod.__dict__)   # desde la fuente sellada
+reglas = list(reglas_base.REGLAS) or list(getattr(mod, "REGLAS", []) or [])
+def sanear(t):
+    t = re.sub(r"'[^']*'", "'•••'", str(t)); t = re.sub(r'"[^"]*"', '"•••"', t)
+    return t[:300]
+if modo == "listar":
+    out = [{"id": r["id"], "tipo": r["tipo"], "descripcion": r["descripcion"]} for r in reglas]
+else:
+    d = json.loads(sys.stdin.read())
+    class T(Exception): pass
+    def alarma(*_): raise T()
+    signal.signal(signal.SIGALRM, alarma)
+    out = []
+    for r in reglas:
+        signal.alarm(TIEMPO)
+        try:
+            s = r["fn"](dict(d["datos"]), [dict(f) for f in d["resultado"]])
+            ok, msg = (bool(s[0]), str(s[1]) if len(s) > 1 else "") if isinstance(s, tuple) else (bool(s), "")
+            out.append({"id": r["id"], "estado": "pasa" if ok else "falla", "mensaje": msg[:600]})
+        except T:
+            out.append({"id": r["id"], "estado": "error", "mensaje": "la regla tardó más de TIEMPO s"})
+        except Exception as e:
+            out.append({"id": r["id"], "estado": "error", "mensaje": f"{type(e).__name__}: {sanear(e)}"})
+        finally:
+            signal.alarm(0)
+print("MARCA" + json.dumps(out, ensure_ascii=False))
+'''
+
+
 def cargar_reglas(c):
-    if str(AQUI) not in sys.path:
-        sys.path.insert(0, str(AQUI))
-    import reglas_base
-    reglas_base.REGLAS.clear()
+    """Las reglas también las escribe la IA: pasan por las compuertas y se ejecutan en la caja de arena,
+    nunca dentro del proceso del verificador."""
     ruta = c / "reglas.py"
     if not ruta.exists():
         return [], ["no existe reglas.py"]
-    try:
-        spec = importlib.util.spec_from_file_location("reglas_corrida", ruta)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-    except Exception as e:
-        return [], [f"reglas.py no carga: {type(e).__name__}: {e}"]
-    reglas = list(reglas_base.REGLAS)
-    if not reglas and isinstance(getattr(mod, "REGLAS", None), list):
-        reglas = list(mod.REGLAS)
+    bloqueos = compuertas(ruta)
+    if bloqueos:
+        return [], [f"reglas.py no pasa las compuertas: {b}" for b in bloqueos]
+    import caja
+    lista, err = caja.correr(RUNNER_REGLAS.replace("MARCA", caja.MARCA).replace("TIEMPO", str(TIEMPO_REGLA)),
+                             str(ruta), "listar", str(AQUI))
+    if err:
+        return [], [f"reglas.py no carga: {sanear(err)}"]
+    reglas = [{**r, "ruta": str(ruta)} for r in lista]
     ids = [r["id"] for r in reglas]
     problemas = [f"id de regla repetido: {i}" for i in sorted(set(ids)) if ids.count(i) > 1]
     return reglas, problemas
+
+
+def correr_reglas(reglas, datos, resultado):
+    """Corre todas las reglas en la caja de arena; el resultado entra por la entrada estándar."""
+    if not reglas:
+        return []
+    import caja
+    salida, err = caja.correr(RUNNER_REGLAS.replace("MARCA", caja.MARCA).replace("TIEMPO", str(TIEMPO_REGLA)),
+                              reglas[0]["ruta"], "correr", str(AQUI), tiempo=TIEMPO_REGLA * max(1, len(reglas)),
+                              entrada=json.dumps({"datos": datos, "resultado": resultado}, ensure_ascii=False))
+    if err:
+        return [{"id": r["id"], "estado": "error", "mensaje": f"las reglas no corrieron: {sanear(err)}"} for r in reglas]
+    return salida
+
+
+def sanear(t):
+    """Los mensajes de error no copian el texto de las celdas a las salidas publicadas."""
+    t = re.sub(r"'[^']*'", "'•••'", str(t))
+    return re.sub(r'"[^"]*"', '"•••"', t)[:300]
 
 
 def cargar_caso(c, spec):
@@ -209,7 +263,7 @@ def ejecutar_impl(ruta, datos, detalle=False):
             out = (d["filas"], None, d.get("conciliacion"), seg)
             return out if detalle else out[:2]
     err = (p.stderr.strip().splitlines() or ["terminó sin devolver resultado"])[-1]
-    out = (None, f"falló al ejecutarse: {err}", None, seg)
+    out = (None, f"falló al ejecutarse: {sanear(err)}", None, seg)
     return out if detalle else out[:2]
 
 
@@ -289,8 +343,8 @@ def revisar_forma(resultado, claves, valores):
         if falta:
             problemas.append(f"la fila {i} no tiene {', '.join(falta)}")
         for v in valores:
-            if v in f and a_num(f[v]) is None:
-                problemas.append(f"la fila {i}: {v}={f[v]!r} no es un número")
+            if v in f and (a_num(f[v]) is None or not math.isfinite(a_num(f[v]))):
+                problemas.append(f"la fila {i}: {v} no es un número finito")
         if len(problemas) >= 5:
             break
     return problemas
@@ -367,9 +421,11 @@ def evaluar_impl(nombre, ruta, spec, reglas, caso):
         if forma:
             r["fallas"].append("forma del resultado: " + "; ".join(forma))
         else:
+            por_id = {x["id"]: x for x in correr_reglas(reglas, spec.get("datos_crudos") or spec["datos"], resultado)}
             for rg in reglas:
+                res_r = por_id.get(rg["id"], {"estado": "error", "mensaje": "la regla no devolvió resultado"})
                 out = {"id": rg["id"], "tipo": rg["tipo"], "descripcion": rg["descripcion"],
-                       **correr_regla(rg, spec.get("datos_crudos") or spec["datos"], resultado)}
+                       "estado": res_r["estado"], "mensaje": res_r.get("mensaje", "")}
                 r["reglas"].append(out)
                 if out["estado"] == "falla":
                     r["fallas"].append(f"regla {rg['id']} ({rg['tipo']}) no pasa: {out['mensaje']}")
@@ -605,8 +661,9 @@ def autoprueba(c):
         print("✗ esperado.json no tiene la forma de la salida: " + "; ".join(forma))
         return 1
     fallas = 0
+    por_id = {x["id"]: x for x in correr_reglas(reglas, caso["datos_crudos"], caso["esperado"])}
     for rg in reglas:
-        out = correr_regla(rg, caso["datos_crudos"], caso["esperado"])
+        out = por_id.get(rg["id"], {"estado": "error", "mensaje": "sin resultado"})
         print(f"{'✓' if out['estado'] == 'pasa' else '✗'} {rg['id']} ({rg['tipo']}): {out['estado']} — {out['mensaje']}")
         fallas += out["estado"] != "pasa"
     print(f"\n{len(reglas) - fallas}/{len(reglas)} reglas pasan sobre el caso conocido con su resultado esperado.")

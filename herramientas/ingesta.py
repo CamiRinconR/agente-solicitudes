@@ -65,7 +65,7 @@ def socrata(fuente, columnas, llave):
             txt = pedir(f"{base}/resource/{fuente['conjunto']}.csv?" + q({
                 "select": ",".join(columnas), "where": fuente["filtro"], "order": llave,
                 "limit": str(PAGINA), "offset": str(off)}))
-            lector = list(csv.reader(io.StringIO(txt)))
+            lector = list(csv.reader(io.StringIO(txt), strict=True))
             if lector and lector[0] != columnas:
                 return None, None, None, f"la fuente devolvió columnas distintas: {lector[0]}"
             filas += lector[1:]

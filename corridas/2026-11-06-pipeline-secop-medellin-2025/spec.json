@@ -1,0 +1,261 @@
+{
+  "peticion": "Valor contratado en 2025 por cada entidad pública con sede en Medellín, según SECOP II. Para cada entidad: nit_entidad, entidad (nombre), valor_contratado y numero_contratos.",
+  "datos": {
+    "contratos": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-secop-medellin-2025/datos/contratos.csv"
+  },
+  "glosario": "/Users/macbookair/agente-solicitudes/ejemplo-secop/negocio.md",
+  "interpretacion": "Sale una fila por entidad, identificada por su NIT (nit_entidad), con la suma de valor_del_contrato (valor_contratado) y el número de contratos (numero_contratos) firmados en 2025: fecha_de_firma del 1 de enero al 31 de diciembre de 2025, los dos días completos, incluidos los firmados el 31 de diciembre con hora. El valor es el que figura hoy en SECOP II con sus adiciones (no hay valor facturado ni pagado en el archivo). Cuentan todos los estados y los contratos de valor cero, que suman 1 al número y 0 al valor. Cada id_contrato cuenta una sola vez. El archivo ya es un recorte de entidades con ciudad = Medellín (lo garantizó la ingesta con el filtro de la fuente; no hay columna ciudad), así que no se filtra por ciudad; entran también las unidades territoriales de entidades nacionales registradas en Medellín (S7, P4). Cuando un NIT aparece con varios nombres o códigos de entidad (el Distrito con su Personería y su Concejo, el Departamento con su Asamblea, los dos grupos del SENA), todo va a la fila de ese NIT y se muestra el nombre con más contratos dentro del NIT. Entidades sin contratos firmados en 2025 no salen.",
+  "definiciones": [
+    {
+      "termino": "Contratado en 2025",
+      "definicion": "Contrato cuya fecha_de_firma cae entre el 2025-01-01 y el 2025-12-31, los dos días completos. La fecha se lee por formato: si empieza por aaaa-mm-dd (con o sin «T» y hora), se usan sus 10 primeros caracteres; si empieza por dd/mm/aaaa (día primero, con o sin hora), el año son los caracteres 7 a 10. Nunca se compara el texto completo con hora contra «2025-12-31» ni se usa un lector de formatos mezclados (pandas.to_datetime con format='mixed' y dayfirst=True invierte las fechas ISO con día <= 12).",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "valor_contratado",
+      "definicion": "Suma de valor_del_contrato de los contratos que cuentan de la entidad, convertido a número decimal con el punto como separador decimal (no hay separador de miles). Sin redondear.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "numero_contratos",
+      "definicion": "Cantidad de contratos que cuentan para la entidad (id_contrato distintos), incluidos los de valor cero. Entero.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "Contrato",
+      "definicion": "Se identifica por id_contrato, comparado sin espacios al inicio y al final y en mayúsculas, y cuenta una sola vez: si se repite, se conserva la primera aparición en el orden del archivo (aunque las repeticiones traigan otro valor u otra fecha) y las demás se excluyen con motivo «repetido_id_contrato». Los repetidos se quitan ANTES de mirar la fecha: si la primera aparición es de otro año, el contrato no cuenta aunque una repetición diga 2025 (S6).",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "Estados que cuentan",
+      "definicion": "Todos: el glosario dice que todo contrato firmado cuenta. El archivo no trae columna de estado y no se filtra nada por estado. Consulta agregada a la fuente (6-nov-2026, mismo filtro de la ingesta): los 49.662 contratos están en estados que el glosario nombra (en ejecución 23.121, modificado 9.838, terminado 8.663, cerrado 7.441, aprobado 456, suspendido 83, cedido 60); ninguno cancelado.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "Contratos de valor cero",
+      "definicion": "Cuentan en numero_contratos y suman 0 a valor_contratado.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "Entidad (clave de la fila)",
+      "definicion": "nit_entidad leído como texto, sin espacios al inicio y al final, sin convertirlo a número (se conservan los 9 o 10 dígitos tal como vienen, sin «.0»). Una fila por NIT distinto, aunque el NIT tenga varios nombre_entidad o varios codigo_entidad.",
+      "fuente": "supuesto"
+    },
+    {
+      "termino": "entidad (nombre que se muestra)",
+      "definicion": "Para cada NIT, el nombre_entidad (solo sin espacios al inicio y al final; se conservan mayúsculas, tildes, signos como «*» o «//» y caracteres de control) que más contratos que cuentan tiene dentro de ese NIT, contado después de quitar repetidos y filtrar 2025. Si hay empate, el menor en orden de texto simple (comparación por puntos de código de Python: min() de los empatados).",
+      "fuente": "supuesto"
+    },
+    {
+      "termino": "Con sede en Medellín",
+      "definicion": "Toda fila del archivo: el glosario dice que el archivo es un recorte de entidades con ciudad = Medellín y la ingesta lo trajo con ese filtro de la fuente (procedencia_contratos.json). No hay columna ciudad que filtrar. Incluye las unidades territoriales de entidades nacionales registradas con ciudad = Medellín (ICBF, SENA, Rama Judicial, Policía, Parques Nacionales, ESAP, DANE, INPEC, Ministerio del Trabajo, Contraloría General: 13 NIT); ver S7 y P4.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "Entidad pública",
+      "definicion": "Toda entidad que aparece en el archivo de SECOP II: no hay columna que distinga públicas de privadas, así que no se excluye ninguna (ver P2).",
+      "fuente": "supuesto"
+    }
+  ],
+  "tratamiento_de_datos": [
+    {
+      "hallazgo": "fecha_de_firma: 49.662 de 49.662 filas en formato aaaa-mm-ddThh:mm:ss.mmm (0 con barras, 0 con zona horaria, 0 vacías); 49.651 con hora distinta de 00:00; rango 2025-01-01 a 2025-12-31; 5 contratos el 2025-12-31 (882.430.259, el último a las 18:51:58) y 18 el 2025-01-01",
+      "tratamiento": "Leer la fecha por formato (aaaa-mm-dd por sus 10 primeros caracteres; dd/mm/aaaa por su año) y quedarse con 2025-01-01 <= fecha <= 2025-12-31. Los de otro año se excluyen con motivo «fuera_de_2025» (hoy 0). No comparar el texto con hora contra «2025-12-31» (L02) ni usar format='mixed' con dayfirst (L01). El glosario describe un recorte más amplio (1-jul-2024 a 30-jun-2026), pero la ingesta trajo solo 2025; el filtro de año se aplica igual.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "fecha_de_firma sin vacíos hoy; el glosario cuenta solo contratos firmados",
+      "tratamiento": "Una fecha_de_firma vacía o que no tiene ninguno de los dos formatos se excluye con motivo «sin_fecha_de_firma» (hoy 0).",
+      "fuente": "glosario"
+    },
+    {
+      "hallazgo": "Consulta agregada a la fuente (6-nov-2026, revisión): 2.785 contratos de entidades con ciudad = Medellín tienen fecha_de_firma vacía y no se ingirieron; todos en estados de no firmados (enviado Proveedor 1.752, En aprobación 1.028, Cancelado 3, Borrador 2)",
+      "tratamiento": "No cuentan: el glosario cuenta los contratos firmados y ubica el año por fecha_de_firma. No se piden de vuelta a la fuente.",
+      "fuente": "glosario"
+    },
+    {
+      "hallazgo": "id_contrato: 49.662 distintos en 49.662 filas, 0 repetidos también tras quitar espacios y pasar a mayúsculas; una sola forma (CO1.PCCNTR.nnnnnnn)",
+      "tratamiento": "Quitar repetidos por id_contrato (sin espacios, en mayúsculas) conservando la primera aparición en el orden del archivo, ANTES de mirar la fecha; las demás se excluyen con motivo «repetido_id_contrato» (hoy 0). Ver S6. Nunca depurar por (entidad, valor, fecha) (L08).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nit_entidad → codigo_entidad: 53 NIT y 57 códigos; 3 NIT tienen varios códigos (890905211 con 3: 1.457 + 438 + 238 contratos; 890900286 con 2: 1.352 + 149; 899999034 con 2: 1.558 + 921); ningún código tiene varios NIT",
+      "tratamiento": "Agrupar solo por nit_entidad, nunca por codigo_entidad (partiría el Distrito, el Departamento y el SENA en 7 filas). Ver S1 y P1.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nit_entidad → nombre_entidad: 59 nombres; 5 NIT tienen más de un nombre (890905211: 3; 890900286: 2; 899999034: 2; 8909801583: 2; 901168222: 2); ningún nombre está en dos NIT; ningún NIT tiene empate de nombres en los datos reales",
+      "tratamiento": "Agrupar por NIT y mostrar el nombre más frecuente dentro del NIT entre los contratos que cuentan; empate por orden de texto simple. Ver S2.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nit_entidad: 43.794 valores de 9 dígitos y 5.868 de 10 dígitos (algunos con dígito de verificación); ningún NIT de 9 dígitos es prefijo de uno de 10; 0 vacíos y 0 espacios sobrantes",
+      "tratamiento": "Leer nit_entidad como texto (dtype str), quitar espacios al inicio y al final y no agregar ni quitar dígitos; nunca convertir a número (evita «890900286.0» y NIT con espacios que parten la fila).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "valor_del_contrato: 0 vacíos, 0 negativos, 542 ceros, 67 valores mayores que 0 y menores que 10 pesos (66 entre 1 y 9, uno de 0,01), 129 con punto decimal (40.412.933.635,69); suma 17.248.249.407.618,69; 26 valores por encima de 100.000 millones (5.558.805.268.311 en total, máximo 552.273.854.028)",
+      "tratamiento": "Convertir a decimal con punto; sumar tal como figura, sin topes ni corrección de valores altos o simbólicos; los ceros cuentan como contrato y suman 0. Un valor vacío se toma como 0 y el contrato cuenta (S3; hoy 0 vacíos). Los valores altos se reportan, no se excluyen (ver P3).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nombre_entidad: 0 vacíos y 0 espacios sobrantes hoy, pero con signos pegados al nombre («//», «*») y un carácter de control U+0096 en un nombre",
+      "tratamiento": "Mostrar el nombre tal como viene, quitando solo espacios al inicio y al final (S4).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "Las 53 NIT del archivo tienen al menos un contrato en 2025 (el archivo solo trae 2025); 0 filas idénticas a otra",
+      "tratamiento": "Sale una fila por NIT con al menos un contrato que cuenta; un NIT sin contratos de 2025 no sale (no se sacan filas en cero). Con los datos reales: 53 filas.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "El archivo no trae columnas ciudad, estado, tipo de contrato ni naturaleza de la entidad (solo id_contrato, nit_entidad, codigo_entidad, nombre_entidad, fecha_de_firma, valor_del_contrato)",
+      "tratamiento": "No filtrar por ciudad ni estado (el recorte ya es Medellín y todo estado cuenta). Lo que dependería de columnas ausentes queda como pregunta (P2, P3).",
+      "fuente": "datos"
+    }
+  ],
+  "supuestos": [
+    {
+      "id": "S1",
+      "decision": "Una fila por nit_entidad: el Distrito de Medellín incluye a su Personería y su Concejo (NIT 890905211), el Departamento de Antioquia incluye a su Asamblea (890900286) y el SENA Regional Antioquia junta sus dos grupos (899999034).",
+      "alternativa": "Una fila por codigo_entidad (57 filas) o por nombre_entidad (59 filas), con NIT repetidos.",
+      "impacto": "No cambia el total; cambia cifras por fila: Personería 438 contratos y 20.404.222.071, Concejo 238 y 12.249.370.898, Asamblea 149 y 4.795.940.859, grupo Intercentros del SENA 921 y 42.570.568.872,91 quedan dentro de su NIT."
+    },
+    {
+      "id": "S2",
+      "decision": "El nombre de cada NIT es el nombre_entidad con más contratos que cuentan dentro del NIT; empate por orden de texto simple.",
+      "alternativa": "El nombre más reciente, el del código principal o los nombres concatenados.",
+      "impacto": "Ninguno en cifras; solo la etiqueta de 5 NIT."
+    },
+    {
+      "id": "S3",
+      "decision": "Un valor_del_contrato vacío se toma como 0 y el contrato cuenta en numero_contratos.",
+      "alternativa": "Excluir el contrato por valor vacío.",
+      "impacto": "Ninguno hoy: 0 vacíos en los datos reales."
+    },
+    {
+      "id": "S4",
+      "decision": "Los nombres se muestran tal como vienen (sin limpiar «//», «*» ni el carácter U+0096), solo sin espacios al inicio y al final.",
+      "alternativa": "Normalizar los nombres para presentación.",
+      "impacto": "Ninguno en cifras."
+    },
+    {
+      "id": "S5",
+      "decision": "Toda entidad del archivo se trata como pública con sede en Medellín (el recorte de la ingesta ya filtró ciudad = Medellín).",
+      "alternativa": "Excluir entidades de naturaleza privada o mixta que publican en SECOP II.",
+      "impacto": "Ver P2: hoy entra la Universidad Pontificia Bolivariana (46 contratos, 361.452.581,11)."
+    },
+    {
+      "id": "S6",
+      "decision": "Si un id_contrato se repite, vale su primera aparición en el orden del archivo, y los repetidos se quitan antes de filtrar por fecha.",
+      "alternativa": "Quedarse con la última aparición, con la que cae en 2025, o filtrar la fecha primero y quitar repetidos después.",
+      "impacto": "Ninguno hoy: 0 id_contrato repetidos en los datos reales (también tras quitar espacios y pasar a mayúsculas)."
+    },
+    {
+      "id": "S7",
+      "decision": "«Con sede en Medellín» es la ciudad con que la entidad está registrada en SECOP II (ciudad = Medellín, el recorte del glosario): cuentan las unidades territoriales de entidades nacionales con ese registro, con lo que contrataron esas unidades.",
+      "alternativa": "Contar solo entidades cuya sede principal está en Medellín y excluir regionales, seccionales y direcciones territoriales de entidades nacionales.",
+      "impacto": "Ver P4: 13 NIT, 5.585 contratos y 1.443.501.542.426,03 (8,4 % del total) dependen de esta decisión."
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "P1",
+      "pregunta": "¿La Personería y el Concejo de Medellín, la Asamblea de Antioquia y los dos grupos del SENA se reportan dentro de su NIT (Distrito, Departamento, SENA) o como entidades aparte?",
+      "por_defecto": "Dentro de su NIT: una fila por nit_entidad (S1).",
+      "por_que_importa": "Si se separan, salen 57 filas en vez de 53 y el Distrito baja en 32.653.592.969 (Personería + Concejo) y el Departamento en 4.795.940.859 (Asamblea); el total no cambia."
+    },
+    {
+      "id": "P2",
+      "pregunta": "¿Se excluye la Universidad Pontificia Bolivariana (universidad privada que publica en SECOP II) u otra entidad que no sea pública?",
+      "por_defecto": "No se excluye: entra toda entidad del archivo (S5).",
+      "por_que_importa": "Excluirla quita 1 fila, 46 contratos y 361.452.581,11 del total."
+    },
+    {
+      "id": "P3",
+      "pregunta": "¿Las operaciones de crédito público (deuda) registradas como contratos en SECOP II cuentan como valor contratado?",
+      "por_defecto": "Cuentan: el glosario define el valor contratado como valor_del_contrato sin excluir tipos, y el archivo no trae el tipo de contrato.",
+      "por_que_importa": "Consulta agregada a la fuente (6-nov-2026, mismo filtro de la ingesta): 9 contratos de tipo «Operaciones de Crédito Público» por 1.000.192.780.000 (5,8 % del total de 17.248.249.407.618,69): 3 del Distrito (890905211) por 1.000.000.000.000 y 6 del Departamento (890900286) por 192.780.000. Excluirlos exige volver a ingerir con la columna tipo_de_contrato."
+    },
+    {
+      "id": "P4",
+      "pregunta": "¿Las regionales, seccionales y direcciones territoriales de entidades nacionales registradas en SECOP II con ciudad = Medellín (ICBF Regional Antioquia, SENA Regional Antioquia, Rama Judicial seccional Medellín, Policía Metropolitana del Valle de Aburrá, Parques Nacionales y FONAM, ESAP, DANE, INPEC, Ministerio del Trabajo, Contraloría General) cuentan como entidades con sede en Medellín?",
+      "por_defecto": "Cuentan, con lo que contrató la unidad registrada en Medellín (S7).",
+      "por_que_importa": "Excluirlas quita 13 filas, 5.585 contratos y 1.443.501.542.426,03 (8,4 % del total), 1.205.877.899.422 de ellos del ICBF. Una de ellas (Parques Nacionales, Dirección Territorial Pacífico, 135 contratos y 4.442.449.016,40) tiene su sede en Cali aunque SECOP II la registra en Medellín."
+    }
+  ],
+  "salida": {
+    "claves": [
+      "nit_entidad",
+      "entidad"
+    ],
+    "valores": [
+      "valor_contratado",
+      "numero_contratos"
+    ],
+    "tolerancia": 0.5,
+    "orden": "valor_contratado de mayor a menor; en empate, nit_entidad ascendente como texto",
+    "descripcion": "analizar(datos) devuelve una lista de filas (list[dict]), una por nit_entidad con al menos un contrato que cuenta, con exactamente las claves nit_entidad (texto, dígitos tal como vienen, sin espacios ni «.0»), entidad (texto, el nombre elegido según la definición), valor_contratado (float, sin redondear) y numero_contratos (int). conciliar(datos) devuelve {\"filas_leidas\": int, \"usadas\": int, \"excluidas\": {\"repetido_id_contrato\": int, \"sin_fecha_de_firma\": int, \"fuera_de_2025\": int}}, con filas_leidas = usadas + suma de excluidas; cada fila excluida va a un solo motivo, en este orden de prioridad: repetido, sin fecha, fuera de 2025. Con los datos reales se espera: 53 filas, 49.662 contratos usados, 0 excluidos y 17.248.249.407.618,69 en total."
+  },
+  "reglas": [
+    {
+      "id": "R1",
+      "tipo": "conservacion",
+      "descripcion": "La suma de valor_contratado del resultado es igual a la suma de valor_del_contrato de los contratos únicos firmados en 2025, calculada directo de la fuente"
+    },
+    {
+      "id": "R2",
+      "tipo": "conservacion",
+      "descripcion": "La suma de numero_contratos del resultado es igual al número de id_contrato distintos firmados en 2025 (los de valor cero incluidos)"
+    },
+    {
+      "id": "R3",
+      "tipo": "unicidad",
+      "descripcion": "Cada nit_entidad aparece una sola vez en el resultado"
+    },
+    {
+      "id": "R4",
+      "tipo": "completitud",
+      "descripcion": "Los NIT del resultado son exactamente los que tienen al menos un contrato firmado en 2025: no falta ninguno ni sobra ninguno"
+    },
+    {
+      "id": "R5",
+      "tipo": "dominio",
+      "descripcion": "numero_contratos es un entero >= 1, valor_contratado es >= 0 y no supera el total de la fuente, nit_entidad son solo dígitos sin espacios y entidad no está vacía"
+    },
+    {
+      "id": "R6",
+      "tipo": "otra",
+      "descripcion": "entidad es el nombre_entidad (sin espacios al inicio ni al final) con más contratos únicos de 2025 dentro de su NIT; en empate, el menor en orden de texto"
+    },
+    {
+      "id": "R7",
+      "tipo": "otra",
+      "descripcion": "El resultado viene ordenado por valor_contratado de mayor a menor y, en empate, por nit_entidad ascendente como texto"
+    },
+    {
+      "id": "R8",
+      "tipo": "conservacion",
+      "descripcion": "Para cada nit_entidad del resultado, valor_contratado y numero_contratos son iguales a la suma de valor_del_contrato y al número de id_contrato distintos de ese NIT firmados en 2025, calculados directo de la fuente"
+    },
+    {
+      "id": "R9",
+      "tipo": "dominio",
+      "descripcion": "Cada fila del resultado tiene exactamente las claves nit_entidad, entidad, valor_contratado y numero_contratos, con sus tipos (nit_entidad y entidad texto, valor_contratado número, numero_contratos entero), y el resultado no viene vacío"
+    }
+  ],
+  "columnas_usadas": [
+    "id_contrato",
+    "nit_entidad",
+    "nombre_entidad",
+    "fecha_de_firma",
+    "valor_del_contrato"
+  ],
+  "anticipo": {
+    "medida": "valor_contratado",
+    "minimo": 10000000000000,
+    "maximo": 25000000000000,
+    "razon": "El perfil suma 17,25 billones de valor_del_contrato en 49.662 contratos, todos con fecha_de_firma en 2025 y sin repetidos ni vacíos, así que casi nada debería quedar fuera; un orden de magnitud razonable para lo que contratan en un año el Distrito, el Departamento y las demás entidades con sede en Medellín es de 10 a 25 billones. Una cifra fuera de ese rango indica fechas mal leídas, filas multiplicadas o valores mal convertidos."
+  },
+  "conciliacion_requerida": true
+}

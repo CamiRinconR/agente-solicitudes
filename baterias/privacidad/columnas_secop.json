@@ -29,9 +29,7 @@
   ],
   "texto_libre": [
     "objeto_del_contrato",
-    "descripcion_del_proceso",
-    "justificacion_modalidad_de",
-    "descripcion_documentos_tipo"
+    "descripcion_del_proceso"
   ],
   "sin_marca": [
     "nombre_entidad",
@@ -47,6 +45,8 @@
     "estado_contrato",
     "modalidad_de_contratacion",
     "tipo_de_contrato",
-    "urlproceso"
+    "urlproceso",
+    "justificacion_modalidad_de",
+    "descripcion_documentos_tipo"
   ]
 }
