@@ -1,12 +1,15 @@
 # Aportar con tu agente
 
-<p align="center"><img src="clase/compartir-repo.png" alt="Lámina para compartir el repositorio: código QR a github.com/CristianBTA/agente-solicitudes" width="760"></p>
-<p align="center">Lámina para proyectar en clase: <a href="clase/compartir-repo.pdf">PDF</a> · <a href="clase/compartir-repo.png">PNG</a> · <a href="clase/compartir-repo.html">HTML a pantalla completa</a></p>
+Instructivo para aportar a este repositorio con la IA que ya usas. El aporte no te cuesta más que esa conversación.
 
 ## Para la persona: tres pasos
 
 1. Abre la IA que ya usas (Claude, ChatGPT, Copilot, Gemini u otra). Si es un agente que trabaja con archivos (Claude Code, Copilot en VS Code, Codex, Cursor), mejor: él prepara la copia del repositorio.
-2. Cópiale el texto de [«Conectar la IA»](README.md#conectar-la-ia) (o este archivo completo, si no puede abrir enlaces). Ella empieza: te pregunta tu idea. Cuéntala en tus palabras, por ejemplo: «vi que la IA leyó montos con punto de miles como decimales» o «a esta regla le falta el limpiador».
+2. Cópiale este texto:
+   ```text
+   Lee https://raw.githubusercontent.com/CristianBTA/agente-solicitudes/main/APORTAR-CON-TU-AGENTE.md, sigue sus «Instrucciones para el agente» y empieza mi aporte al repositorio CristianBTA/agente-solicitudes.
+   ```
+   Ella empieza: te pregunta tu idea. Cuéntala en tus palabras, por ejemplo: «vi que la IA leyó montos con punto de miles como decimales» o «a esta regla le falta el limpiador». Si tu IA no puede abrir enlaces, pégale este archivo completo.
 3. Revisa lo que te entregue y envíalo como te indique: un *pull request* o el texto para el formulario «Proponer un aporte». **Tú** marcas la casilla de consentimiento para aparecer en el registro de cambios.
 
 No necesitas invitación. Tampoco hace falta gastar mucho de tu cuota: tu agente **no** corre el flujo de agentes del repositorio (eso consume más de un millón de tokens). Solo arma el aporte y corre un filtro gratuito, sin IA. En las pruebas, un aporte completo costó cerca de 110.000 tokens.
@@ -40,7 +43,7 @@ Empieza tú, en un solo mensaje corto:
    - «este archivo mal formado se leyó sin error»;
    - «a este subagente le falta una regla»;
    - «esta palabra del negocio significa…».
-3. **Elige tu modo, sin preguntarle:**
+3. **Elige tu modo tú mismo; no le preguntes cuál prefiere.** Si no tienes terminal, eres B:
    - **A**, si puedes usar una terminal con git: sigue el paso 0.
    - **B**, si eres un chat sin terminal: salta al paso 1 y entrega con el paso 4B. Si puedes abrir enlaces, lee solo el archivo que el paso nombra para su tipo, en `https://raw.githubusercontent.com/CristianBTA/agente-solicitudes/main/<ruta>`. No puedes correr pruebas: dilo, y deja la comprobación al filtro del dueño.
 
@@ -175,3 +178,7 @@ En pocas líneas:
 - [ ] `validar_aporte.py` pasa, o dejé dicho por qué no se pudo correr.
 - [ ] Sin firmas de asistentes en el commit ni en el pull request.
 - [ ] No corrí el pipeline ni gasté más de lo necesario.
+
+---
+
+Lámina con el QR de este instructivo, para proyectar en clase: [PDF](clase/compartir-repo.pdf) · [PNG](clase/compartir-repo.png).
