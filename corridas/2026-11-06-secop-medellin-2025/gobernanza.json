@@ -1,0 +1,120 @@
+{
+  "tablas": {
+    "contratos": {
+      "ruta": "/Users/macbookair/agente-solicitudes/ejemplo-secop/datos/contratos.csv",
+      "filas": 91072,
+      "columnas": {
+        "nombre_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "nit_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "departamento": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "ciudad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "orden": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "sector": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "rama": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "entidad_centralizada": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "codigo_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "proceso_de_compra": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "id_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "referencia_del_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "estado_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "tipo_de_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "modalidad_de_contratacion": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_de_firma": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_de_inicio_del_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_de_fin_del_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "valor_del_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "valor_facturado": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "valor_pagado": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "dias_adicionados": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "liquidaci_n": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "ultima_actualizacion": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        }
+      }
+    }
+  },
+  "salidas": {
+    "informe.md": {},
+    "informe.json": {}
+  },
+  "k_anonimato": {
+    "aplica": false,
+    "motivo": "el resultado no publica columnas de personas (son agregados)"
+  },
+  "custodio": {
+    "hay_custodio": false
+  },
+  "personales_usadas": [],
+  "problemas": [],
+  "estado": "aprobado"
+}

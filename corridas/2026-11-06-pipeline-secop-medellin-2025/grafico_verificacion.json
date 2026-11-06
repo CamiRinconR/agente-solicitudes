@@ -42,6 +42,11 @@
       "detalle": "ninguno"
     },
     {
+      "comprobacion": "sin textos con forma de instrucción para una IA",
+      "ok": true,
+      "detalle": "ninguno"
+    },
+    {
       "comprobacion": "sin datos personales en el gráfico",
       "ok": true,
       "detalle": "ninguno"

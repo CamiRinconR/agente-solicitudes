@@ -30,7 +30,7 @@ sys.path.insert(0, str(AQUI))
 import caja  # noqa: E402
 import dependencias  # noqa: E402
 import seguridad  # noqa: E402
-from gobernanza import escanear_texto  # noqa: E402
+from gobernanza import escanear_texto, parece_instruccion  # noqa: E402
 
 RUNNER = r'''
 import importlib.util, json, sys
@@ -153,7 +153,7 @@ def comprobar(c):
     checks.append({"comprobacion": "fuente y fecha de consulta visibles", "ok": tiene_fuente and tiene_fecha,
                    "detalle": f"fuente «{palabra}»: {'sí' if tiene_fuente else 'no'} · fecha {fechas[:1]}: {'sí' if tiene_fecha else 'no'}"})
     if meta.get("periodo_incompleto"):
-        marcado = bool(re.search(r"incomplet|parcial|corte|hasta el", todo, re.I))
+        marcado = bool(re.search(r"\b(incomplet\w*|parcial\w*|corte|hasta el)\b", todo, re.I))   # «Recorte» no cuenta
         checks.append({"comprobacion": "período incompleto marcado", "ok": marcado, "detalle": "marcado" if marcado else "no se marca"})
     # El riesgo: un texto de los DATOS que trae «<» (p. ej. un nombre con <a href>) y llega sin escapar, o enlaces y
     # scripts en cualquier parte. El formato que pone el graficador (<b>, <br>, <span>) es legítimo en Plotly.
@@ -164,6 +164,9 @@ def comprobar(c):
     checks.append({"comprobacion": "sin HTML de los datos sin escapar, ni enlaces o scripts", "ok": ok_html,
                    "detalle": "ninguno" if ok_html else (f"texto de los datos sin escapar: {sin_escapar}" if sin_escapar else "")
                    + (f" · etiquetas peligrosas {peligrosas}" if peligrosas else "") + " (Plotly interpreta HTML; escape «<» como &lt;)"})
+    ordenes = [t[:60] for t in textos(fig) if parece_instruccion(t)]
+    checks.append({"comprobacion": "sin textos con forma de instrucción para una IA", "ok": not ordenes,
+                   "detalle": "ninguno" if not ordenes else f"{len(ordenes)}: {ordenes[:2]} (un dato con forma de orden no se publica como dato normal: revisarlo en la fuente)"})
     pii = escanear_texto(todo)
     checks.append({"comprobacion": "sin datos personales en el gráfico", "ok": not pii, "detalle": str(pii or "ninguno")})
     return checks, fig

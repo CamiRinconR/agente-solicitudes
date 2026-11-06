@@ -114,7 +114,7 @@ def perfil_columna(nombre, valores):
     no_vacios = [v for v in limpios if v]
     distintos = set(valores)
     p = {"columna": nombre, "vacios": n - len(no_vacios), "distintos": len(distintos)}
-    p["formas"] = Counter(forma(v) for v in valores).most_common(6)
+    p["formas"] = Counter(forma(v) if not parece_instruccion(v) else "[omitida]" for v in valores).most_common(6)
     p["espacios_sobrantes"] = sum(1 for v in valores if v != v.strip())
     nums = [numero(v) for v in no_vacios]
     if no_vacios and all(x is not None for x in nums):

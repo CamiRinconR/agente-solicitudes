@@ -141,8 +141,8 @@
     },
     {
       "id": "L24",
-      "leccion": "pandas.read_csv sin index_col=False: si la primera fila trae un campo de más, toma la primera columna como índice y corre todas las columnas sin error. FAILFAST también en pandas.",
-      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "leccion": "pandas.read_csv no es FAILFAST: sin index_col=False toma la primera columna como índice si la primera fila trae un campo de más; y aun con index_col=False y on_bad_lines='error' descarta ese campo en silencio (solo un ParserWarning) y rellena las filas cortas. Se valida antes con el lector csv estricto.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026; precisada por un generador en las pruebas de inyección, 6-nov-2026",
       "prueba": "regla común 5 (FAILFAST) en agentes/00-reglas-comunes.md"
     },
     {
@@ -198,6 +198,18 @@
       "leccion": "Cadena de suministro: dependencias sin huella y acciones de GitHub por etiqueta movible. Cada paquete se instala con --require-hashes y cada acción está fijada a su commit.",
       "origen": "banco de blindaje, 6-nov-2026",
       "prueba": "herramientas/blindaje.py B08"
+    },
+    {
+      "id": "L34",
+      "leccion": "Los tres agentes atacados con instrucciones envenenadas (en los datos, en una lección aportada y en un nombre de entidad) no obedecieron y las reportaron solos. Es la primera capa, no la única: sin IA, nada impedía publicar el texto-instrucción como si fuera un dato. Ahora el verificador del gráfico y la gobernanza lo bloquean.",
+      "origen": "pruebas de inyección IA-1, IA-2 e IA-3, 6-nov-2026",
+      "prueba": "herramientas/verificar_grafico.py (sin textos con forma de instrucción) · bateria:inyeccion/maliciosos.txt"
+    },
+    {
+      "id": "L35",
+      "leccion": "Una comprobación por palabra clave sin límites de palabra se satisface por accidente: «Recorte» contenía «corte» y daba por marcado un período incompleto que no lo estaba.",
+      "origen": "graficador en la prueba IA-3, 6-nov-2026",
+      "prueba": "herramientas/verificar_grafico.py (período incompleto con \\\\b)"
     }
   ]
 }

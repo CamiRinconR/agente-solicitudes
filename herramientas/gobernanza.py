@@ -197,6 +197,9 @@ def gobernar(c):
     k = k_anonimato(inf.get("resultado_oficial") or [], spec["salida"]["claves"])
     custodio = comparar_custodio(c, tablas)
     problemas = [f"{n}: {h}" for n, h in salidas.items() if h]
+    for p in [c / "informe.md", c / "informe_final.md"]:
+        if p.exists() and parece_instruccion(re.sub(r"(?s)<!--.*?-->", "", p.read_text(encoding="utf-8", errors="ignore"))):
+            problemas.append(f"{p.name}: trae un texto con forma de instrucción para una IA (posible inyección en los datos)")
     if k.get("aplica") and not k.get("ok"):
         problemas.append(f"k-anonimato {k['k']} < {K_MINIMO} en {k['columnas']}")
     if custodio.get("ia_no_vio"):

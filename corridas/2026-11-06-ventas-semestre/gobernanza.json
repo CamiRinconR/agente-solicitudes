@@ -1,0 +1,74 @@
+{
+  "tablas": {
+    "ventas": {
+      "ruta": "/Users/macbookair/agente-solicitudes/ejemplo/datos/ventas.csv",
+      "filas": 1520,
+      "columnas": {
+        "numero_documento": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "tipo_documento": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "cliente_id": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "subtotal": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "iva": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "total": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        }
+      }
+    },
+    "clientes": {
+      "ruta": "/Users/macbookair/agente-solicitudes/ejemplo/datos/clientes.csv",
+      "filas": 65,
+      "columnas": {
+        "cliente_id": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "nombre": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "region": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_actualizacion": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        }
+      }
+    }
+  },
+  "salidas": {
+    "informe.md": {},
+    "informe.json": {}
+  },
+  "k_anonimato": {
+    "aplica": false,
+    "motivo": "el resultado no publica columnas de personas (son agregados)"
+  },
+  "custodio": {
+    "hay_custodio": false
+  },
+  "personales_usadas": [],
+  "problemas": [],
+  "estado": "aprobado"
+}
