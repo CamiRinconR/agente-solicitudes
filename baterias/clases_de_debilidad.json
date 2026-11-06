@@ -1,120 +1,120 @@
 {
-  "_nota": "Cada debilidad confirmada por el revisor ciego, con el control sin IA que la detiene hoy (o null si solo la frena una instrucción). La cobertura es la parte con control automático.",
-  "clases": [
-    {
-      "id": "reglas_sin_caja_ni_compuerta",
-      "severidad": "alta",
-      "archivo": "herramientas/verificar.py",
-      "control": "verificar.py: compuertas y caja de arena para reglas.py (B15, L15)"
-    },
-    {
-      "id": "csv_malformado_se_lee_en_silencio",
-      "severidad": "media",
-      "archivo": "impl_b.py",
-      "control": "robustez.py (archivos rotos) + limpieza FAILFAST"
-    },
-    {
-      "id": "texto_del_csv_en_mensajes_de_error",
-      "severidad": "media",
-      "archivo": "reglas.py",
-      "control": "verificar.py: mensajes saneados (L17)"
-    },
-    {
-      "id": "pyc_no_sellado_reemplaza_el_codigo",
-      "severidad": "media",
-      "archivo": "herramientas/verificar.py",
-      "control": "ejecución desde la fuente (L20)"
-    },
-    {
-      "id": "texto_no_confiable_pasa_tal_cual",
-      "severidad": "baja",
-      "archivo": "impl_a.py",
-      "control": "verificar_grafico.py: HTML, invisibles e instrucciones; informe con escape (B17)"
-    },
-    {
-      "id": "red_pandas_read_csv_url",
-      "severidad": "baja",
-      "archivo": "impl_a.py",
-      "control": "caja sin red (B11) + compuerta: URL en el código (L18)"
-    },
-    {
-      "id": "hipotesis_lee_fechas_distinto",
-      "severidad": "baja",
-      "archivo": "hipotesis.py",
-      "control": null,
-      "nota": "el análisis ahora lo hacen las personas: no aplica al código de la IA"
-    },
-    {
-      "id": "valor_no_finito_en_impl_b",
-      "severidad": "baja",
-      "archivo": "impl_b.py",
-      "control": "verificar.py: valores finitos + robustez.py (números venenosos)"
-    },
-    {
-      "id": "bidi_y_ancho_cero_en_el_grafico",
-      "severidad": "baja",
-      "archivo": "grafico.py",
-      "control": "verificar_grafico.py: invisibles o bidireccionales"
-    },
-    {
-      "id": "memoria_y_lecturas_repetidas",
-      "severidad": "baja",
-      "archivo": "reglas.py",
-      "control": "caja: tope de memoria por huella física (B10)"
-    },
-    {
-      "id": "enlace_externo_en_informe_final",
-      "severidad": "baja",
-      "archivo": "herramientas/informe_final.py",
-      "control": "informe_final.py: enlaces solo locales (L19)"
-    },
-    {
-      "id": "lee_fuera_de_datos",
-      "severidad": "media",
-      "archivo": "hipotesis.py",
-      "control": "compuerta: .parent y rutas fijas + caja sin /Users (B01, L22)"
-    },
-    {
-      "id": "controles_bidi_en_codigo",
-      "severidad": "media",
-      "archivo": "reglas.py",
-      "control": "compuerta: Bandit B613 (L21)"
-    },
-    {
-      "id": "html_de_plotly_en_nombres",
-      "severidad": "media",
-      "archivo": "grafico.py",
-      "control": "verificar_grafico.py: HTML de los datos sin escapar (L23)"
-    },
-    {
-      "id": "procedencia_fija_en_grafico",
-      "severidad": "media",
-      "archivo": "grafico.py",
-      "control": "verificar_grafico.py: procedencia de control"
-    },
-    {
-      "id": "csv_comilla_sin_cerrar",
-      "severidad": "baja",
-      "archivo": "impl_b.py",
-      "control": "robustez.py (comilla sin cerrar) + limpieza FAILFAST"
-    },
-    {
-      "id": "pandas_indice_implicito",
-      "severidad": "baja",
-      "archivo": "impl_a.py",
-      "control": "robustez.py (campo de más en la primera fila) + limpieza FAILFAST (L24)"
-    },
-    {
-      "id": "suma_desborda_float",
-      "severidad": "baja",
-      "archivo": "impl_b.py",
-      "control": "verificar.py: valores finitos + robustez.py (número enorme)"
-    },
-    {
-      "id": "marcas_desde_encabezado",
-      "severidad": "baja",
-      "archivo": "impl_a.py",
-      "control": "robustez.py (encabezado_calidad_inesperado: una marca calidad_* que el plan no declara no puede excluir filas ni cambiar la cifra)"
-    }
-  ]
+ "_nota": "Cada debilidad confirmada por el revisor ciego, con el control sin IA que la detiene hoy (o null si solo la frena una instrucción). La cobertura es la parte con control automático.",
+ "clases": [
+  {
+   "id": "reglas_sin_caja_ni_compuerta",
+   "severidad": "alta",
+   "archivo": "herramientas/verificar.py",
+   "control": "verificar.py: compuertas y caja de arena para reglas.py (B15, L15)"
+  },
+  {
+   "id": "csv_malformado_se_lee_en_silencio",
+   "severidad": "media",
+   "archivo": "impl_b.py",
+   "control": "robustez.py (archivos rotos) + limpieza FAILFAST"
+  },
+  {
+   "id": "texto_del_csv_en_mensajes_de_error",
+   "severidad": "media",
+   "archivo": "reglas.py",
+   "control": "verificar.py: mensajes saneados (L17)"
+  },
+  {
+   "id": "pyc_no_sellado_reemplaza_el_codigo",
+   "severidad": "media",
+   "archivo": "herramientas/verificar.py",
+   "control": "ejecución desde la fuente (L20)"
+  },
+  {
+   "id": "texto_no_confiable_pasa_tal_cual",
+   "severidad": "baja",
+   "archivo": "impl_a.py",
+   "control": "verificar_grafico.py: HTML, invisibles e instrucciones; informe con escape (B17)"
+  },
+  {
+   "id": "red_pandas_read_csv_url",
+   "severidad": "baja",
+   "archivo": "impl_a.py",
+   "control": "caja sin red (B11) + compuerta: URL en el código (L18)"
+  },
+  {
+   "id": "hipotesis_lee_fechas_distinto",
+   "severidad": "baja",
+   "archivo": "hipotesis.py",
+   "control": null,
+   "nota": "el análisis ahora lo hacen las personas: no aplica al código de la IA"
+  },
+  {
+   "id": "valor_no_finito_en_impl_b",
+   "severidad": "baja",
+   "archivo": "impl_b.py",
+   "control": "verificar.py: valores finitos + robustez.py (números venenosos)"
+  },
+  {
+   "id": "bidi_y_ancho_cero_en_el_grafico",
+   "severidad": "baja",
+   "archivo": "grafico.py",
+   "control": "verificar_grafico.py: invisibles o bidireccionales"
+  },
+  {
+   "id": "memoria_y_lecturas_repetidas",
+   "severidad": "baja",
+   "archivo": "reglas.py",
+   "control": "caja: tope de memoria por huella física (B10)"
+  },
+  {
+   "id": "enlace_externo_en_informe_final",
+   "severidad": "baja",
+   "archivo": "herramientas/informe_final.py",
+   "control": "informe_final.py: enlaces solo locales (L19)"
+  },
+  {
+   "id": "lee_fuera_de_datos",
+   "severidad": "media",
+   "archivo": "hipotesis.py",
+   "control": "compuerta: .parent y rutas fijas + caja sin /Users (B01, L22)"
+  },
+  {
+   "id": "controles_bidi_en_codigo",
+   "severidad": "media",
+   "archivo": "reglas.py",
+   "control": "compuerta: Bandit B613 (L21)"
+  },
+  {
+   "id": "html_de_plotly_en_nombres",
+   "severidad": "media",
+   "archivo": "grafico.py",
+   "control": "verificar_grafico.py: HTML de los datos sin escapar (L23)"
+  },
+  {
+   "id": "procedencia_fija_en_grafico",
+   "severidad": "media",
+   "archivo": "grafico.py",
+   "control": "verificar_grafico.py: procedencia de control"
+  },
+  {
+   "id": "csv_comilla_sin_cerrar",
+   "severidad": "baja",
+   "archivo": "impl_b.py",
+   "control": "robustez.py (comilla sin cerrar) + limpieza FAILFAST"
+  },
+  {
+   "id": "pandas_indice_implicito",
+   "severidad": "baja",
+   "archivo": "impl_a.py",
+   "control": "robustez.py (campo de más en la primera fila) + limpieza FAILFAST (L24)"
+  },
+  {
+   "id": "suma_desborda_float",
+   "severidad": "baja",
+   "archivo": "impl_b.py",
+   "control": "verificar.py: valores finitos + robustez.py (número enorme)"
+  },
+  {
+   "id": "marcas_desde_encabezado",
+   "severidad": "baja",
+   "archivo": "impl_a.py",
+   "control": "robustez.py (encabezado_calidad_inesperado: una marca calidad_* que el plan no declara no puede excluir filas ni cambiar la cifra) + limpieza.py (FAILFAST ante columnas crudas calidad_*, blindaje B19) + verificar.informe_md (solo nombres de marca [a-z0-9_] y motivos sin forma de instrucción, blindaje B18)"
+  }
+ ]
 }

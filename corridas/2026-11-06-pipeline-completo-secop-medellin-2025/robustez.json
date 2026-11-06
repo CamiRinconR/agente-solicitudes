@@ -81,7 +81,7 @@
         {
           "variante": "encabezado_calidad_inesperado",
           "resultado": "resiste",
-          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada (solo la anotó como aviso en «marcadas»)"
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
         }
       ],
       "ceden": []
@@ -161,7 +161,7 @@
         {
           "variante": "encabezado_calidad_inesperado",
           "resultado": "resiste",
-          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada (solo la anotó como aviso en «marcadas»)"
+          "detalle": "se detuvo antes: la limpieza la rechazó: ValueError"
         }
       ],
       "ceden": []

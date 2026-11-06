@@ -210,6 +210,30 @@
       "leccion": "Una comprobación por palabra clave sin límites de palabra se satisface por accidente: «Recorte» contenía «corte» y daba por marcado un período incompleto que no lo estaba.",
       "origen": "graficador en la prueba IA-3, 6-nov-2026",
       "prueba": "herramientas/verificar_grafico.py (período incompleto con \\\\b)"
+    },
+    {
+      "id": "L36",
+      "leccion": "B01 resistía por la razón equivocada: la caja cambia HOME a su carpeta temporal y el ataque con «~» nunca llegaba a la carpeta personal. Se ataca con la ruta real (base de usuarios) y solo cuenta como resiste un PermissionError; el control positivo sin la negación debe ceder.",
+      "origen": "agente de cierre de marcas_desde_encabezado, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B01"
+    },
+    {
+      "id": "L37",
+      "leccion": "Con dos copias del repositorio en la misma máquina, la ruta absoluta sellada en la especificación existe pero es del OTRO clon: cada clon debe verificar sus propios datos (rutas.py da prioridad a la copia propia).",
+      "origen": "simulación de un participante con agy, 6-nov-2026",
+      "prueba": "herramientas/validar_aporte.py (corrida sintética en un clon)"
+    },
+    {
+      "id": "L38",
+      "leccion": "El prefijo calidad_ es de la capa limpia: una columna cruda con ese nombre se confundiría con una marca y excluiría filas. La limpieza se detiene (FAILFAST) y pide renombrarla en el contrato de ingesta.",
+      "origen": "agente de cierre de marcas_desde_encabezado, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B19"
+    },
+    {
+      "id": "L39",
+      "leccion": "Los nombres de marcas y los motivos de exclusión los escribe el código de la IA: en el informe solo pasan nombres [a-z0-9_] y motivos sin marcado ni forma de instrucción.",
+      "origen": "revisor ciego (marcas_desde_encabezado), 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B18"
     }
   ]
 }

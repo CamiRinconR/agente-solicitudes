@@ -31,7 +31,10 @@ def entorno(tmp):
 
 
 def perfil(tmp, lecturas=()):
-    leer = [os.path.realpath(RAIZ), os.path.realpath(tmp)] + [os.path.realpath(str(p)) for p in lecturas]
+    # El intérprete necesita leer su propia instalación (pyvenv.cfg, biblioteca estándar, paquetes): si el entorno vive
+    # fuera del repositorio (un worktree que usa el .venv de la copia principal), sin esto Python ni arranca.
+    entorno_py = [os.path.realpath(sys.prefix), os.path.realpath(sys.base_prefix)]
+    leer = [os.path.realpath(RAIZ), os.path.realpath(tmp)] + entorno_py + [os.path.realpath(str(p)) for p in lecturas]
     permitir = "".join(f'(allow file-read-data (subpath "{p}"))' for p in dict.fromkeys(leer))
     return ('(version 1)(allow default)(deny network*)(deny file-write*)'
             f'(allow file-write* (subpath "{os.path.realpath(tmp)}") (literal "/dev/null") (literal "/dev/dtracehelper"))'

@@ -111,6 +111,11 @@ def limpiar(plan_ruta, entrada=None, salida=None, informe=True):
     for i, f in enumerate(crudas, 2):
         if None in f or any(v is None for v in f.values()):
             raise ValueError(f"FAILFAST: la línea {i} de {ent.name} no tiene el mismo número de campos que el encabezado")
+    reservadas = [c for c in cols if c.lower().startswith("calidad_")]
+    if reservadas:
+        raise ValueError(f"FAILFAST: {ent.name} ya trae columnas con el prefijo calidad_, reservado para las marcas de la capa "
+                         f"limpia: {reservadas[:5]}. Una implementación las tomaría por marcas y excluiría filas; renómbralas "
+                         f"en el contrato de ingesta")
     if len(cols) == 1 and any(sep in cols[0] for sep in (";", "\t", "|")):
         raise ValueError(f"FAILFAST: {ent.name} tiene una sola columna con «;», tabulador o «|»: el separador no es la coma")
     huella_cruda = hashlib.sha256(ent.read_bytes()).hexdigest()

@@ -21,6 +21,7 @@ import json
 import math
 import os
 import re
+import unicodedata
 import shutil
 import signal
 import subprocess
@@ -467,6 +468,22 @@ def icono(estado):
     return {"pasa": "✅", "falla": "❌", "error": "⚠️"}.get(estado, "—")
 
 
+def nombre_marca_md(k):
+    """Una marca es un nombre de columna: solo [a-z0-9_]. Cualquier otra cosa (texto, HTML, una instrucción) no se copia."""
+    k = str(k)
+    return k if re.fullmatch(r"[a-z0-9_]{1,80}", k) else "[nombre de marca no válido: se omite]"
+
+
+def motivo_md(k):
+    """Un motivo de exclusión lo escribe el código de la IA: sin invisibles ni marcado, corto, y nunca una instrucción."""
+    from gobernanza import parece_instruccion
+    s = "".join(ch for ch in str(k) if ch.isprintable() and unicodedata.category(ch) not in ("Cf", "Co", "Cs"))
+    if parece_instruccion(s):
+        return "[motivo omitido: parece una instrucción]"
+    s = re.sub(r"[<>|`*_\[\]]", " ", s).strip()
+    return (s[:80] + "…") if len(s) > 80 else (s or "[motivo vacío]")
+
+
 def informe_md(spec, inf):
     claves, valores = spec["salida"]["claves"], spec["salida"]["valores"]
     L = [f"# {spec.get('peticion', 'Petición')}", ""]
@@ -537,8 +554,8 @@ def informe_md(spec, inf):
     if ca_conc:
         L += ["", "## Conciliación de filas (implementación A)",
               f"- Filas leídas: **{fmt(a_num(ca_conc.get('filas_leidas')))}** · usadas: **{fmt(a_num(ca_conc.get('usadas')))}**"]
-        L += [f"- Excluidas por «{k}»: {fmt(a_num(v))}" for k, v in (ca_conc.get("excluidas") or {}).items()]
-        L += [f"- Marcadas (se usan, pero se avisa) por «{k}»: {fmt(a_num(v))}" for k, v in (ca_conc.get("marcadas") or {}).items()]
+        L += [f"- Excluidas por «{motivo_md(k)}»: {fmt(a_num(v))}" for k, v in (ca_conc.get("excluidas") or {}).items()]
+        L += [f"- Marcadas (se usan, pero se avisa) por «{nombre_marca_md(k)}»: {fmt(a_num(v))}" for k, v in (ca_conc.get("marcadas") or {}).items()]
         if inf.get("conciliaciones_iguales") is not None:
             L.append(f"- La conciliación de B {'es igual' if inf['conciliaciones_iguales'] else '**es distinta**'}.")
     ant = inf.get("anticipo")
