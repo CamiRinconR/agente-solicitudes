@@ -92,8 +92,29 @@ def llaves_distintas(dominio, conjunto, col, tope=50000):
     return {r.get(col): int(r.get("n", 0)) for r in filas if r.get(col) not in (None, "")}, len(filas) >= tope, seg
 
 
+def buscar_en_otro(dominio, otro, col, valores, lote=40):
+    """Cuántos de estos valores exactos aparecen en la columna del otro conjunto (para llaves con millones de valores)."""
+    hallados = set()
+    for i in range(0, len(valores), lote):
+        trozo = [v.replace("'", "''") for v in valores[i:i + lote]]
+        lista = ", ".join(f"'{v}'" for v in trozo)
+        filas, _ = soql(dominio, otro, f"SELECT {col}, count(*) AS n WHERE {col} IN ({lista}) GROUP BY {col} LIMIT {lote * 2}")
+        hallados |= {r.get(col) for r in filas}
+    return hallados
+
+
 def medir_cruce(dominio, aqui, cruce):
     a, a_lleno, s1 = llaves_distintas(dominio, aqui, cruce["llave_aqui"])
+    if a_lleno:
+        # Llave de alta cardinalidad (por ejemplo, un id por contrato): comparar «los primeros 50.000» de cada lado
+        # mediría subconjuntos sin relación. Se toma una muestra de llaves de aquí y se buscan tal cual allá.
+        muestra = [k for k in a if isinstance(k, str)][:: max(1, len(a) // 200)][:200]
+        t = time.time()
+        hallados = buscar_en_otro(dominio, cruce["con"], cruce["llave_alla"], muestra)
+        frac = len([k for k in muestra if k in hallados]) / max(1, len(muestra))
+        return {"ok": frac >= 0.5, "llaves_aqui": "más de 50.000", "muestra": len(muestra), "coinciden_llaves": round(frac, 3),
+                "segundos": round(s1 + time.time() - t, 1),
+                "detalle": f"{frac:.1%} de una muestra de {len(muestra)} llaves de aquí aparece allá (búsqueda exacta)"}
     b, b_lleno, s2 = llaves_distintas(dominio, cruce["con"], cruce["llave_alla"])
     metodo = cruce.get("normalizacion", "")
     bn = {normalizar(k, metodo) for k in b}

@@ -8,15 +8,15 @@ MARCA = "agente-solicitudes/"
 
 
 def resolver(ruta):
-    p = Path(ruta)
-    if p.exists():
-        return str(p)
+    # Primero la copia de ESTE repositorio: con dos clones en la misma máquina (el del dueño y el que revisa un aporte,
+    # o un worktree), la ruta absoluta sellada existe pero apunta al OTRO clon; verificar contra esos archivos rompe el
+    # linaje (y la caja de arena, con razón, no deja leerlos).
     s = str(ruta)
     if MARCA in s:
         q = RAIZ / s.split(MARCA, 1)[1]
         if q.exists():
             return str(q)
-    return str(p)
+    return str(Path(ruta))
 
 
 def resolver_datos(spec):
