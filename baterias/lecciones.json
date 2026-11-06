@@ -234,6 +234,12 @@
       "leccion": "Los nombres de marcas y los motivos de exclusión los escribe el código de la IA: en el informe solo pasan nombres [a-z0-9_] y motivos sin marcado ni forma de instrucción.",
       "origen": "revisor ciego (marcas_desde_encabezado), 6-nov-2026",
       "prueba": "herramientas/blindaje.py B18"
+    },
+    {
+      "id": "L-CamiRinconR-formulas",
+      "leccion": "Un consolidado de ventas en Excel guarda columnas calculadas con fórmula (=DAY(J2), =H2-I2) en las filas viejas y con valor en las recientes; si se exporta así, la columna llega con texto «=DAY(J2)» en vez del número y se lee sin error. El lector se detiene ante una celda que empieza por «=».",
+      "origen": "consolidado de ventas de una distribuidora agrícola exportado de un ERP comercial, 6-nov-2026",
+      "prueba": "bateria:failfast/formula_de_excel_como_texto.csv"
     }
   ]
 }

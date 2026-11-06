@@ -25,7 +25,8 @@ def regla(id, tipo, descripcion):
 
 def leer_csv(ruta):
     """Filas del CSV como diccionarios de texto, sin convertir nada. FAILFAST: una comilla sin cerrar o una
-    fila con más o menos campos que el encabezado detienen la lectura; nunca se leen en silencio."""
+    fila con más o menos campos que el encabezado o una celda con una fórmula de Excel como texto («=DAY(J2)»)
+    detienen la lectura; nunca se leen en silencio."""
     with open(ruta, newline="", encoding="utf-8-sig") as fh:
         lector = csv.DictReader(fh, strict=True)
         filas = list(lector)
@@ -35,6 +36,10 @@ def leer_csv(ruta):
     for i, f in enumerate(filas, 2):
         if None in f or any(v is None for v in f.values()):
             raise ValueError(f"la línea {i} del CSV no tiene el mismo número de campos que el encabezado")
+        for col, v in f.items():
+            if v.lstrip().startswith("="):
+                raise ValueError(f"la línea {i}, columna «{col}», trae una fórmula de Excel como texto, no su valor: "
+                                 "hay que exportar los valores (Pegado especial → Valores) antes de leer")
     return filas
 
 

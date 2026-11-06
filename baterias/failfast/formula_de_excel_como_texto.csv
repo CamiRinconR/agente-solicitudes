@@ -1,0 +1,3 @@
+numero_documento,fecha,subtotal,dia,rentabilidad
+FEV-0000001,2026-10-01,78000,=DAY(B2),=C2-73701
+FEV-0000002,2026-10-02,17000,2,4700
