@@ -1,0 +1,328 @@
+{
+  "peticion": "Ventas totales por región del primer semestre de 2026",
+  "estado": "aprobado",
+  "motivos": [],
+  "preguntas_abiertas": 0,
+  "sellos": {
+    "estado": "intactos",
+    "cambios": []
+  },
+  "reglas_rotas": [],
+  "reglas": [
+    {
+      "id": "R1",
+      "tipo": "conservacion",
+      "descripcion": "La suma de ventas_netas de todas las filas es igual a las ventas netas del semestre calculadas directo de ventas (FV menos NC sobre subtotal, cada documento una vez, fechas dd/mm/aaaa o aaaa-mm-dd), sin unir con clientes"
+    },
+    {
+      "id": "R2",
+      "tipo": "cobertura",
+      "descripcion": "La fila «Sin región» vale exactamente las ventas netas del semestre de los documentos sin cliente_id o con un cliente_id que, tras quitar espacios y pasar a mayúsculas, no está en el maestro de clientes"
+    },
+    {
+      "id": "R3",
+      "tipo": "unicidad",
+      "descripcion": "Cada región aparece una sola vez en el resultado (ninguna fila repetida)"
+    },
+    {
+      "id": "R4",
+      "tipo": "dominio",
+      "descripcion": "El resultado tiene exactamente seis filas, una por cada etiqueta de la lista cerrada (Antioquia, Bogotá D.C., Caldas, Risaralda, Valle del Cauca, Sin región), escritas tal cual, aunque valgan 0; ninguna región queda partida por variantes de escritura"
+    },
+    {
+      "id": "R5",
+      "tipo": "completitud",
+      "descripcion": "Las cinco regiones oficiales juntas valen las ventas netas del semestre de los documentos cuyo cliente está en el maestro (lo identificado no se pierde ni se va a «Sin región»)"
+    },
+    {
+      "id": "R6",
+      "tipo": "rango",
+      "descripcion": "Cada ventas_netas es un número finito y ninguna fila supera en valor absoluto la suma del subtotal de todas las FV del semestre (cota bruta); el IVA no entra"
+    },
+    {
+      "id": "R7",
+      "tipo": "orden",
+      "descripcion": "Las filas salen en el orden de la spec: las cinco regiones oficiales de mayor a menor ventas_netas (los empates, en cualquier orden) y «Sin región» de última"
+    }
+  ],
+  "implementaciones": {
+    "a": {
+      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-ventas-semestre/impl_a.py",
+      "fallas": [],
+      "reglas": [
+        {
+          "id": "R1",
+          "tipo": "conservacion",
+          "descripcion": "La suma de ventas_netas de todas las filas es igual a las ventas netas del semestre calculadas directo de ventas (FV menos NC sobre subtotal, cada documento una vez, fechas dd/mm/aaaa o aaaa-mm-dd), sin unir con clientes",
+          "estado": "pasa",
+          "mensaje": "resultado 2,386,197,500 · fuente 2,386,197,500 (1116 documentos del semestre)"
+        },
+        {
+          "id": "R2",
+          "tipo": "cobertura",
+          "descripcion": "La fila «Sin región» vale exactamente las ventas netas del semestre de los documentos sin cliente_id o con un cliente_id que, tras quitar espacios y pasar a mayúsculas, no está en el maestro de clientes",
+          "estado": "pasa",
+          "mensaje": "«Sin región» en el resultado 42,052,800 · fuente 42,052,800 (17 documentos sin cliente identificado)"
+        },
+        {
+          "id": "R3",
+          "tipo": "unicidad",
+          "descripcion": "Cada región aparece una sola vez en el resultado (ninguna fila repetida)",
+          "estado": "pasa",
+          "mensaje": "6 filas, 6 regiones distintas; repetidas: ninguna"
+        },
+        {
+          "id": "R4",
+          "tipo": "dominio",
+          "descripcion": "El resultado tiene exactamente seis filas, una por cada etiqueta de la lista cerrada (Antioquia, Bogotá D.C., Caldas, Risaralda, Valle del Cauca, Sin región), escritas tal cual, aunque valgan 0; ninguna región queda partida por variantes de escritura",
+          "estado": "pasa",
+          "mensaje": "6 filas de 6; faltan: ninguna; fuera de la lista: ninguna"
+        },
+        {
+          "id": "R5",
+          "tipo": "completitud",
+          "descripcion": "Las cinco regiones oficiales juntas valen las ventas netas del semestre de los documentos cuyo cliente está en el maestro (lo identificado no se pierde ni se va a «Sin región»)",
+          "estado": "pasa",
+          "mensaje": "regiones oficiales en el resultado 2,344,144,700 · fuente 2,344,144,700 (1099 documentos con cliente identificado)"
+        },
+        {
+          "id": "R6",
+          "tipo": "rango",
+          "descripcion": "Cada ventas_netas es un número finito y ninguna fila supera en valor absoluto la suma del subtotal de todas las FV del semestre (cota bruta); el IVA no entra",
+          "estado": "pasa",
+          "mensaje": "cota bruta FV del semestre 2,444,548,000; filas fuera de rango: ninguna"
+        },
+        {
+          "id": "R7",
+          "tipo": "orden",
+          "descripcion": "Las filas salen en el orden de la spec: las cinco regiones oficiales de mayor a menor ventas_netas (los empates, en cualquier orden) y «Sin región» de última",
+          "estado": "pasa",
+          "mensaje": "orden: ['Antioquia', 'Bogotá D.C.', 'Caldas', 'Valle del Cauca', 'Risaralda', 'Sin región']; pares fuera de orden: ninguno"
+        }
+      ],
+      "reglas_con_error": [],
+      "compuertas": [],
+      "resultado": [
+        {
+          "region": "Antioquia",
+          "ventas_netas": 1047887700
+        },
+        {
+          "region": "Bogotá D.C.",
+          "ventas_netas": 500740800
+        },
+        {
+          "region": "Caldas",
+          "ventas_netas": 406930100
+        },
+        {
+          "region": "Valle del Cauca",
+          "ventas_netas": 275593500
+        },
+        {
+          "region": "Risaralda",
+          "ventas_netas": 112992600
+        },
+        {
+          "region": "Sin región",
+          "ventas_netas": 42052800
+        }
+      ],
+      "conciliacion": null,
+      "segundos": 0.3,
+      "repetible": true,
+      "caso_conocido": {
+        "solo_en_primero": [],
+        "solo_en_segundo": [],
+        "diferencias": [],
+        "claves_repetidas_primero": [],
+        "claves_repetidas_segundo": [],
+        "ok": true,
+        "obtenido": [
+          {
+            "region": "Bogotá D.C.",
+            "ventas_netas": 3650000
+          },
+          {
+            "region": "Antioquia",
+            "ventas_netas": 2850000
+          },
+          {
+            "region": "Valle del Cauca",
+            "ventas_netas": 2300000
+          },
+          {
+            "region": "Caldas",
+            "ventas_netas": 1550000
+          },
+          {
+            "region": "Risaralda",
+            "ventas_netas": 0
+          },
+          {
+            "region": "Sin región",
+            "ventas_netas": 600000
+          }
+        ]
+      }
+    },
+    "b": {
+      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-ventas-semestre/impl_b.py",
+      "fallas": [],
+      "reglas": [
+        {
+          "id": "R1",
+          "tipo": "conservacion",
+          "descripcion": "La suma de ventas_netas de todas las filas es igual a las ventas netas del semestre calculadas directo de ventas (FV menos NC sobre subtotal, cada documento una vez, fechas dd/mm/aaaa o aaaa-mm-dd), sin unir con clientes",
+          "estado": "pasa",
+          "mensaje": "resultado 2,386,197,500 · fuente 2,386,197,500 (1116 documentos del semestre)"
+        },
+        {
+          "id": "R2",
+          "tipo": "cobertura",
+          "descripcion": "La fila «Sin región» vale exactamente las ventas netas del semestre de los documentos sin cliente_id o con un cliente_id que, tras quitar espacios y pasar a mayúsculas, no está en el maestro de clientes",
+          "estado": "pasa",
+          "mensaje": "«Sin región» en el resultado 42,052,800 · fuente 42,052,800 (17 documentos sin cliente identificado)"
+        },
+        {
+          "id": "R3",
+          "tipo": "unicidad",
+          "descripcion": "Cada región aparece una sola vez en el resultado (ninguna fila repetida)",
+          "estado": "pasa",
+          "mensaje": "6 filas, 6 regiones distintas; repetidas: ninguna"
+        },
+        {
+          "id": "R4",
+          "tipo": "dominio",
+          "descripcion": "El resultado tiene exactamente seis filas, una por cada etiqueta de la lista cerrada (Antioquia, Bogotá D.C., Caldas, Risaralda, Valle del Cauca, Sin región), escritas tal cual, aunque valgan 0; ninguna región queda partida por variantes de escritura",
+          "estado": "pasa",
+          "mensaje": "6 filas de 6; faltan: ninguna; fuera de la lista: ninguna"
+        },
+        {
+          "id": "R5",
+          "tipo": "completitud",
+          "descripcion": "Las cinco regiones oficiales juntas valen las ventas netas del semestre de los documentos cuyo cliente está en el maestro (lo identificado no se pierde ni se va a «Sin región»)",
+          "estado": "pasa",
+          "mensaje": "regiones oficiales en el resultado 2,344,144,700 · fuente 2,344,144,700 (1099 documentos con cliente identificado)"
+        },
+        {
+          "id": "R6",
+          "tipo": "rango",
+          "descripcion": "Cada ventas_netas es un número finito y ninguna fila supera en valor absoluto la suma del subtotal de todas las FV del semestre (cota bruta); el IVA no entra",
+          "estado": "pasa",
+          "mensaje": "cota bruta FV del semestre 2,444,548,000; filas fuera de rango: ninguna"
+        },
+        {
+          "id": "R7",
+          "tipo": "orden",
+          "descripcion": "Las filas salen en el orden de la spec: las cinco regiones oficiales de mayor a menor ventas_netas (los empates, en cualquier orden) y «Sin región» de última",
+          "estado": "pasa",
+          "mensaje": "orden: ['Antioquia', 'Bogotá D.C.', 'Caldas', 'Valle del Cauca', 'Risaralda', 'Sin región']; pares fuera de orden: ninguno"
+        }
+      ],
+      "reglas_con_error": [],
+      "compuertas": [],
+      "resultado": [
+        {
+          "region": "Antioquia",
+          "ventas_netas": 1047887700
+        },
+        {
+          "region": "Bogotá D.C.",
+          "ventas_netas": 500740800
+        },
+        {
+          "region": "Caldas",
+          "ventas_netas": 406930100
+        },
+        {
+          "region": "Valle del Cauca",
+          "ventas_netas": 275593500
+        },
+        {
+          "region": "Risaralda",
+          "ventas_netas": 112992600
+        },
+        {
+          "region": "Sin región",
+          "ventas_netas": 42052800
+        }
+      ],
+      "conciliacion": null,
+      "segundos": 0.18,
+      "repetible": true,
+      "caso_conocido": {
+        "solo_en_primero": [],
+        "solo_en_segundo": [],
+        "diferencias": [],
+        "claves_repetidas_primero": [],
+        "claves_repetidas_segundo": [],
+        "ok": true,
+        "obtenido": [
+          {
+            "region": "Bogotá D.C.",
+            "ventas_netas": 3650000
+          },
+          {
+            "region": "Antioquia",
+            "ventas_netas": 2850000
+          },
+          {
+            "region": "Valle del Cauca",
+            "ventas_netas": 2300000
+          },
+          {
+            "region": "Caldas",
+            "ventas_netas": 1550000
+          },
+          {
+            "region": "Risaralda",
+            "ventas_netas": 0
+          },
+          {
+            "region": "Sin región",
+            "ventas_netas": 600000
+          }
+        ]
+      }
+    }
+  },
+  "concordancia": {
+    "solo_en_primero": [],
+    "solo_en_segundo": [],
+    "diferencias": [],
+    "claves_repetidas_primero": [],
+    "claves_repetidas_segundo": [],
+    "ok": true
+  },
+  "resultado_oficial": [
+    {
+      "region": "Antioquia",
+      "ventas_netas": 1047887700
+    },
+    {
+      "region": "Bogotá D.C.",
+      "ventas_netas": 500740800
+    },
+    {
+      "region": "Caldas",
+      "ventas_netas": 406930100
+    },
+    {
+      "region": "Valle del Cauca",
+      "ventas_netas": 275593500
+    },
+    {
+      "region": "Risaralda",
+      "ventas_netas": 112992600
+    },
+    {
+      "region": "Sin región",
+      "ventas_netas": 42052800
+    }
+  ],
+  "fuente_resultado": "a",
+  "anticipo": null,
+  "conciliaciones_iguales": null,
+  "caja_de_arena": true
+}

@@ -1,0 +1,8 @@
+{
+  "spec.json": "46fa79bba610ae6503924e1820dac5d2800f25b943a7b2b953dfe60be4aec622",
+  "reglas.py": "fb7502e3c4eda62ab72f2696f2792aebbbe26dcd903b43725cac781f8a905ee1",
+  "caso_conocido/clientes.csv": "e7ba220221f30b46f1806fc6c765f3d1adce3c3713345cd0ec9f423b65c42458",
+  "caso_conocido/cuentas.md": "5e0ee72d892f27681305aa75a6c95860e08ed7e3664a128896efe2f7f45fff87",
+  "caso_conocido/esperado.json": "6d34e2b6fba6bf14d64cc2b33084b2448e23ae8629c73a9562c9a796bcb3fd86",
+  "caso_conocido/ventas.csv": "687bbd2faf3d1ff8c713a366175ad00423b2037cce4666c1315753ca6bed4b61"
+}

@@ -1,0 +1,19 @@
+{
+  "fuente": {"tipo": "socrata", "dominio": "www.datos.gov.co", "conjunto": "jbjy-vk9h", "titulo": "SECOP II - Contratos Electrónicos",
+             "filtro": "ciudad='Medellín' AND fecha_de_firma >= '2024-07-01T00:00:00' AND fecha_de_firma < '2026-07-01T00:00:00'",
+             "filtro_legible": "ciudad = Medellín y fecha de firma del 1 de julio de 2024 al 30 de junio de 2026, los dos días completos",
+             "licencia": "CC BY-SA 4.0", "atribucion": "Agencia Nacional de Contratación Pública – Colombia Compra Eficiente", "unidad": "contratos"},
+  "tabla": "contratos",
+  "llave": "id_contrato",
+  "columnas": {
+    "nombre_entidad": "texto", "nit_entidad": "texto", "departamento": "texto", "ciudad": "texto", "orden": "texto", "sector": "texto",
+    "rama": "texto", "entidad_centralizada": "texto", "codigo_entidad": "texto", "proceso_de_compra": "texto", "id_contrato": "texto",
+    "referencia_del_contrato": "texto", "estado_contrato": "texto", "tipo_de_contrato": "texto", "modalidad_de_contratacion": "texto",
+    "fecha_de_firma": "fecha", "fecha_de_inicio_del_contrato": "fecha", "fecha_de_fin_del_contrato": "fecha",
+    "valor_del_contrato": "decimal", "valor_facturado": "decimal", "valor_pagado": "decimal", "dias_adicionados": "entero",
+    "liquidaci_n": "texto", "ultima_actualizacion": "fecha"
+  },
+  "dominios": {"ciudad": ["Medellín"]},
+  "rangos": {"fecha_de_firma": ["2024-07-01", "2026-06-30"]},
+  "avisos": {"valor_del_contrato": [1, null]}
+}

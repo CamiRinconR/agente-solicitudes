@@ -1,0 +1,8 @@
+{
+  "_nota": "Únicas librerías de terceros que puede importar el código que escribe la IA. Todo lo demás debe ser biblioteca estándar. Las versiones exactas están en requirements.txt y solo se instala desde ahí: pip install -r requirements.txt. Agregar una librería es una decisión humana: se comprueba en pypi.org (que exista, su antigüedad, quién la mantiene y su repositorio), se agrega aquí y a requirements.txt.",
+  "permitidas": {
+    "pandas": {"import": "pandas", "para": "tablas y lectura de CSV"},
+    "numpy": {"import": "numpy", "para": "cálculo numérico (dependencia de pandas)"},
+    "plotly": {"import": "plotly", "para": "gráficos (módulo 4 del curso)"}
+  }
+}

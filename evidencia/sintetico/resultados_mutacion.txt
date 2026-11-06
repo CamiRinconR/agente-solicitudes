@@ -1,0 +1,61 @@
+
+m00_referencia_sin_errores: sin fallas
+
+m01_iva_incluido: 4 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,766,790,034 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R2 (cobertura) no pasa: «Sin región» en el resultado 49,699,787 · fuente 42,052,800 (17 documentos sin cliente identificado)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,717,090,247 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 3.391.500 · esperado 2.850.000; Bogotá D.C..ventas_netas: obtenido 4.343.500 · esperado 3.650.000; Caldas.ventas_netas: obtenido 1.844.500 · esperado 1.550.000; Sin región.ventas_netas: obtenido 714.000 · esperado 600.000; Valle del Cauca.ventas_netas: obtenido 2.528.000 · esperado 2.300.000
+
+m02_nc_sumadas: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,502,898,500 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,460,845,700 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 3.450.000 · esperado 2.850.000; Caldas.ventas_netas: obtenido 1.750.000 · esperado 1.550.000; Sin región.ventas_netas: obtenido 700.000 · esperado 600.000
+
+m03_nc_ignoradas: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,444,548,000 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,402,495,200 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 3.150.000 · esperado 2.850.000; Caldas.ventas_netas: obtenido 1.650.000 · esperado 1.550.000; Sin región.ventas_netas: obtenido 650.000 · esperado 600.000
+
+m04_repetidas_contadas: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,443,142,300 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,401,089,500 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Bogotá D.C..ventas_netas: obtenido 4.250.000 · esperado 3.650.000
+
+m05_fechas_mes_primero: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,272,404,900 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,230,352,100 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 3.350.000 · esperado 2.850.000; Caldas.ventas_netas: obtenido 1.000.000 · esperado 1.550.000
+
+m06_fechas_iso_invertidas: 4 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,115,422,700 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R2 (cobertura) no pasa: «Sin región» en el resultado 42,692,400 · fuente 42,052,800 (17 documentos sin cliente identificado)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,072,730,300 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Bogotá D.C..ventas_netas: obtenido 3.050.000 · esperado 3.650.000; Valle del Cauca.ventas_netas: obtenido 3.000.000 · esperado 2.300.000
+
+m07_maestro_primer_registro: 1 falla(s)
+  - caso con respuesta conocida no coincide: Bogotá D.C..ventas_netas: obtenido 1.150.000 · esperado 3.650.000; Risaralda.ventas_netas: obtenido 2.500.000 · esperado 0
+
+m08_maestro_ultimo_registro: 1 falla(s)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 1.150.000 · esperado 2.850.000; Bogotá D.C..ventas_netas: obtenido 5.350.000 · esperado 3.650.000
+
+m09_maestro_sin_depurar: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,577,074,600 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,535,021,800 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Bogotá D.C..ventas_netas: obtenido 5.350.000 · esperado 3.650.000; Risaralda.ventas_netas: obtenido 2.500.000 · esperado 0
+
+m10_ids_sin_normalizar: 3 falla(s)
+  - regla R2 (cobertura) no pasa: «Sin región» en el resultado 126,504,400 · fuente 42,052,800 (17 documentos sin cliente identificado)
+  - regla R5 (completitud) no pasa: regiones oficiales en el resultado 2,259,693,100 · fuente 2,344,144,700 (1099 documentos con cliente identificado)
+  - caso con respuesta conocida no coincide: Antioquia.ventas_netas: obtenido 150.000 · esperado 2.850.000; Bogotá D.C..ventas_netas: obtenido 1.150.000 · esperado 3.650.000; Sin región.ventas_netas: obtenido 6.600.000 · esperado 600.000; Valle del Cauca.ventas_netas: obtenido 1.500.000 · esperado 2.300.000
+
+m11_huerfanas_descartadas: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 2,344,144,700 · fuente 2,386,197,500 (1116 documentos del semestre)
+  - regla R2 (cobertura) no pasa: «Sin región» en el resultado 0 · fuente 42,052,800 (17 documentos sin cliente identificado)
+  - caso con respuesta conocida no coincide: Sin región.ventas_netas: obtenido 0 · esperado 600.000
+
+m12_regiones_sin_unificar: 4 falla(s)
+  - regla R3 (unicidad) no pasa: 15 filas, 14 regiones distintas; repetidas: ['Antioquia']
+  - regla R4 (dominio) no pasa: 15 filas de 6; faltan: ninguna; fuera de la lista: ['ANTIOQUIA', 'BOGOTA DC', 'Bogota D.C.', 'Bogotá', 'CALDAS', 'Valle', 'Valle del cauca', 'risaralda']
+  - regla R5 (completitud) no pasa: falta alguna región oficial con valor numérico; fuente 2,344,144,700
+  - caso con respuesta conocida no coincide: solo en obtenido: [['ANTIOQUIA'], ['BOGOTA DC'], ['Bogota D.C.'], ['Bogotá'], ['CALDAS']]; Antioquia.ventas_netas: obtenido 700.000 · esperado 2.850.000; Bogotá D.C..ventas_netas: obtenido 0 · esperado 3.650.000; Caldas.ventas_netas: obtenido 650.000 · esperado 1.550.000; Valle del Cauca.ventas_netas: obtenido 0 · esperado 2.300.000; claves repetidas: [['Antioquia']]

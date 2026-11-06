@@ -1,0 +1,8 @@
+[
+  {"region": "Bogotá D.C.", "ventas_netas": 3650000},
+  {"region": "Antioquia", "ventas_netas": 2850000},
+  {"region": "Valle del Cauca", "ventas_netas": 2300000},
+  {"region": "Caldas", "ventas_netas": 1550000},
+  {"region": "Risaralda", "ventas_netas": 0},
+  {"region": "Sin región", "ventas_netas": 600000}
+]

@@ -1,0 +1,1055 @@
+{
+  "tablas": {
+    "contratos": {
+      "ruta": "ejemplo-secop/datos/contratos.csv",
+      "filas": 91072,
+      "columnas": [
+        "nombre_entidad",
+        "nit_entidad",
+        "departamento",
+        "ciudad",
+        "orden",
+        "sector",
+        "rama",
+        "entidad_centralizada",
+        "codigo_entidad",
+        "proceso_de_compra",
+        "id_contrato",
+        "referencia_del_contrato",
+        "estado_contrato",
+        "tipo_de_contrato",
+        "modalidad_de_contratacion",
+        "fecha_de_firma",
+        "fecha_de_inicio_del_contrato",
+        "fecha_de_fin_del_contrato",
+        "valor_del_contrato",
+        "valor_facturado",
+        "valor_pagado",
+        "dias_adicionados",
+        "liquidaci_n",
+        "ultima_actualizacion"
+      ],
+      "filas_identicas_a_otra_anterior": 0,
+      "ejemplo_fila_repetida": null,
+      "perfil_columnas": [
+        {
+          "columna": "nombre_entidad",
+          "vacios": 0,
+          "distintos": 62,
+          "formas": [
+            [
+              "A+␣A+␣A+",
+              37121
+            ],
+            [
+              "A+␣AA␣A+␣A␣A+␣AA␣A+",
+              9657
+            ],
+            [
+              "Aa+␣Aa+␣Aa+␣Aa+␣A+",
+              7557
+            ],
+            [
+              "A+␣A+␣A+␣A+␣AA␣A+",
+              5287
+            ],
+            [
+              "A+␣A+␣A+␣AA␣A+␣A+␣A+␣A+",
+              3322
+            ],
+            [
+              "A+␣A+␣A+␣Aa+␣a+␣Aa+␣Aa+␣Aa+",
+              3276
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": []
+        },
+        {
+          "columna": "nit_entidad",
+          "vacios": 0,
+          "distintos": 56,
+          "formas": [
+            [
+              "999999999",
+              80578
+            ],
+            [
+              "9999999999",
+              10494
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 800072977.0,
+            "max": 8909847618.0,
+            "suma": 160762474815819.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        },
+        {
+          "columna": "departamento",
+          "vacios": 0,
+          "distintos": 1,
+          "formas": [
+            [
+              "Aa+",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Antioquia",
+              91072
+            ]
+          ]
+        },
+        {
+          "columna": "ciudad",
+          "vacios": 0,
+          "distintos": 1,
+          "formas": [
+            [
+              "Aa+",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Medellín",
+              91072
+            ]
+          ]
+        },
+        {
+          "columna": "orden",
+          "vacios": 0,
+          "distintos": 3,
+          "formas": [
+            [
+              "Aa+",
+              90297
+            ],
+            [
+              "Aa+␣Aa+",
+              775
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Nacional",
+              55312
+            ],
+            [
+              "Territorial",
+              34985
+            ],
+            [
+              "Corporación Autónoma",
+              775
+            ]
+          ]
+        },
+        {
+          "columna": "sector",
+          "vacios": 0,
+          "distintos": 17,
+          "formas": [
+            [
+              "Aa+␣Aa+",
+              56653
+            ],
+            [
+              "a+",
+              10767
+            ],
+            [
+              "Aa+",
+              8771
+            ],
+            [
+              "Aa+␣a␣Aa+␣Aa+",
+              6519
+            ],
+            [
+              "Aa␣a+/Aa␣a+",
+              4387
+            ],
+            [
+              "Aa+,␣Aa+␣a␣Aa+",
+              3726
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Educación Nacional",
+              49757
+            ],
+            [
+              "deportes",
+              9657
+            ],
+            [
+              "Servicio Público",
+              6360
+            ],
+            [
+              "Trabajo",
+              5142
+            ],
+            [
+              "No aplica/No pertenece",
+              4387
+            ],
+            [
+              "Salud y Protección Social",
+              3841
+            ],
+            [
+              "Vivienda, Ciudad y Territorio",
+              3726
+            ],
+            [
+              "Cultura",
+              3508
+            ],
+            [
+              "Ambiente y Desarrollo Sostenible",
+              2472
+            ],
+            [
+              "defensa",
+              1110
+            ],
+            [
+              "Ciencia Tecnología",
+              323
+            ],
+            [
+              "Información Estadística",
+              213
+            ],
+            [
+              "Hacienda y Crédito Público",
+              206
+            ],
+            [
+              "Ley de Justicia",
+              203
+            ],
+            [
+              "Transporte",
+              90
+            ],
+            [
+              "Tecnologías de la Información y las Comunicaciones",
+              46
+            ],
+            [
+              "Planeación",
+              31
+            ]
+          ]
+        },
+        {
+          "columna": "rama",
+          "vacios": 0,
+          "distintos": 4,
+          "formas": [
+            [
+              "Aa+␣Aa+",
+              49002
+            ],
+            [
+              "Aa+",
+              42070
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Corporación Autónoma",
+              49002
+            ],
+            [
+              "Ejecutivo",
+              41644
+            ],
+            [
+              "Legislativo",
+              296
+            ],
+            [
+              "Judicial",
+              130
+            ]
+          ]
+        },
+        {
+          "columna": "entidad_centralizada",
+          "vacios": 0,
+          "distintos": 2,
+          "formas": [
+            [
+              "Aa+",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Centralizada",
+              80040
+            ],
+            [
+              "Descentralizada",
+              11032
+            ]
+          ]
+        },
+        {
+          "columna": "codigo_entidad",
+          "vacios": 0,
+          "distintos": 60,
+          "formas": [
+            [
+              "999999999",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 700082035.0,
+            "max": 734296023.0,
+            "suma": 64126345784818.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        },
+        {
+          "columna": "proceso_de_compra",
+          "vacios": 0,
+          "distintos": 86561,
+          "formas": [
+            [
+              "AA9.A+.9999999",
+              89576
+            ],
+            [
+              "AA9.A+.99999999",
+              1496
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "posible_clave": true,
+          "valores_repetidos": 656,
+          "valores_repetidos_tras_normalizar": 656,
+          "ejemplos_repetidos": [
+            "CO1.BDOS.7369106",
+            "CO1.BDOS.7645319",
+            "CO1.BDOS.7506954",
+            "CO1.BDOS.6506902",
+            "CO1.BDOS.9306645"
+          ]
+        },
+        {
+          "columna": "id_contrato",
+          "vacios": 0,
+          "distintos": 91072,
+          "formas": [
+            [
+              "AA9.A+.9999999",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "posible_clave": true,
+          "valores_repetidos": 0,
+          "valores_repetidos_tras_normalizar": 0,
+          "ejemplos_repetidos": []
+        },
+        {
+          "columna": "referencia_del_contrato",
+          "vacios": 0,
+          "distintos": 90422,
+          "formas": [
+            [
+              "9999999999",
+              15086
+            ],
+            [
+              "A␣-99999␣AA␣9999",
+              6669
+            ],
+            [
+              "AA9.A+.9999999",
+              5834
+            ],
+            [
+              "A-9999␣AA␣9999",
+              4662
+            ],
+            [
+              "A␣-9999␣AA␣9999",
+              4661
+            ],
+            [
+              "A-99999␣AA␣9999",
+              4652
+            ]
+          ],
+          "espacios_sobrantes": 3,
+          "posible_clave": true,
+          "valores_repetidos": 639,
+          "valores_repetidos_tras_normalizar": 1209,
+          "ejemplos_repetidos": [
+            "P-1324  DE 2025",
+            "002 DE 2025",
+            "014 DE 2025",
+            "019 DE 2025",
+            "037 DE 2025"
+          ]
+        },
+        {
+          "columna": "estado_contrato",
+          "vacios": 0,
+          "distintos": 7,
+          "formas": [
+            [
+              "Aa␣a+",
+              42410
+            ],
+            [
+              "Aa+",
+              34803
+            ],
+            [
+              "a+",
+              13859
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "En ejecución",
+              42410
+            ],
+            [
+              "Modificado",
+              20718
+            ],
+            [
+              "terminado",
+              13541
+            ],
+            [
+              "Cerrado",
+              13271
+            ],
+            [
+              "Aprobado",
+              625
+            ],
+            [
+              "cedido",
+              318
+            ],
+            [
+              "Suspendido",
+              189
+            ]
+          ]
+        },
+        {
+          "columna": "tipo_de_contrato",
+          "vacios": 0,
+          "distintos": 18,
+          "formas": [
+            [
+              "Aa+␣a+␣a+",
+              82970
+            ],
+            [
+              "Aa+",
+              7411
+            ],
+            [
+              "Aa+␣999␣a+␣9999",
+              652
+            ],
+            [
+              "Aa+␣a+",
+              24
+            ],
+            [
+              "Aa+␣a+␣Aa+␣Aa+",
+              12
+            ],
+            [
+              "Aa␣Aa+",
+              3
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Prestación de servicios",
+              81790
+            ],
+            [
+              "Otro",
+              4673
+            ],
+            [
+              "Arrendamiento de inmuebles",
+              1161
+            ],
+            [
+              "Suministros",
+              997
+            ],
+            [
+              "Compraventa",
+              947
+            ],
+            [
+              "Decreto 092 de 2017",
+              652
+            ],
+            [
+              "Obra",
+              461
+            ],
+            [
+              "Comodato",
+              109
+            ],
+            [
+              "Interventoría",
+              103
+            ],
+            [
+              "Seguros",
+              65
+            ],
+            [
+              "Consultoría",
+              55
+            ],
+            [
+              "Servicios financieros",
+              22
+            ],
+            [
+              "Arrendamiento de muebles",
+              19
+            ],
+            [
+              "Operaciones de Crédito Público",
+              12
+            ],
+            [
+              "No Especificado",
+              3
+            ],
+            [
+              "Concesión",
+              1
+            ],
+            [
+              "Venta inmuebles",
+              1
+            ],
+            [
+              "Venta muebles",
+              1
+            ]
+          ]
+        },
+        {
+          "columna": "modalidad_de_contratacion",
+          "vacios": 0,
+          "distintos": 12,
+          "formas": [
+            [
+              "Aa+␣a+",
+              82770
+            ],
+            [
+              "Aa+␣a+␣a+",
+              4465
+            ],
+            [
+              "Aa+␣Aa+␣(a+␣a+)",
+              1932
+            ],
+            [
+              "Aa+␣a+␣a+␣a+",
+              853
+            ],
+            [
+              "Aa+␣a+␣a+␣(a+␣a+)",
+              615
+            ],
+            [
+              "Aa+␣Aa+␣a+␣Aa+␣Aa+",
+              315
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "Contratación directa",
+              80235
+            ],
+            [
+              "Contratación régimen especial",
+              4465
+            ],
+            [
+              "Mínima cuantía",
+              2424
+            ],
+            [
+              "Contratación Directa (con ofertas)",
+              1932
+            ],
+            [
+              "Selección abreviada subasta inversa",
+              713
+            ],
+            [
+              "Contratación régimen especial (con ofertas)",
+              615
+            ],
+            [
+              "Selección Abreviada de Menor Cuantía",
+              315
+            ],
+            [
+              "Concurso de méritos abierto",
+              140
+            ],
+            [
+              "Licitación pública",
+              111
+            ],
+            [
+              "Licitación pública Obra Publica",
+              107
+            ],
+            [
+              "Seleccion Abreviada Menor Cuantia Sin Manifestacion Interes",
+              13
+            ],
+            [
+              "Enajenación de bienes con sobre cerrado",
+              2
+            ]
+          ]
+        },
+        {
+          "columna": "fecha_de_firma",
+          "vacios": 0,
+          "distintos": 91071,
+          "formas": [
+            [
+              "9999-99-99A99:99:99.999",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 91072,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2024-07-01",
+              "2026-06-30"
+            ],
+            "con_hora": 91072,
+            "hora_distinta_de_00:00": 91050,
+            "con_zona_horaria": 0,
+            "ojo": "las fechas traen hora: comparar contra 'aaaa-mm-dd' como texto deja por fuera el último día; compara solo los primeros 10 caracteres o convierte a fecha"
+          }
+        },
+        {
+          "columna": "fecha_de_inicio_del_contrato",
+          "vacios": 622,
+          "distintos": 19606,
+          "formas": [
+            [
+              "9999-99-99A99:99:99.999",
+              90450
+            ],
+            [
+              "",
+              622
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 90450,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2024-07-01",
+              "2035-11-07"
+            ],
+            "con_hora": 90450,
+            "hora_distinta_de_00:00": 88220,
+            "con_zona_horaria": 0,
+            "ojo": "las fechas traen hora: comparar contra 'aaaa-mm-dd' como texto deja por fuera el último día; compara solo los primeros 10 caracteres o convierte a fecha"
+          }
+        },
+        {
+          "columna": "fecha_de_fin_del_contrato",
+          "vacios": 1,
+          "distintos": 4296,
+          "formas": [
+            [
+              "9999-99-99A99:99:99.999",
+              91071
+            ],
+            [
+              "",
+              1
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 91071,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2012-01-31",
+              "2057-11-06"
+            ],
+            "con_hora": 91071,
+            "hora_distinta_de_00:00": 89090,
+            "con_zona_horaria": 0,
+            "ojo": "las fechas traen hora: comparar contra 'aaaa-mm-dd' como texto deja por fuera el último día; compara solo los primeros 10 caracteres o convierte a fecha"
+          }
+        },
+        {
+          "columna": "valor_del_contrato",
+          "vacios": 0,
+          "distintos": 29425,
+          "formas": [
+            [
+              "99999999",
+              61029
+            ],
+            [
+              "9999999",
+              21176
+            ],
+            [
+              "999999999",
+              4447
+            ],
+            [
+              "9999999999",
+              2173
+            ],
+            [
+              "9",
+              1210
+            ],
+            [
+              "999999",
+              390
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 712569236855.0,
+            "suma": 26425963694971.29,
+            "negativos": 0,
+            "ceros": 1091
+          }
+        },
+        {
+          "columna": "valor_facturado",
+          "vacios": 0,
+          "distintos": 18985,
+          "formas": [
+            [
+              "9",
+              47961
+            ],
+            [
+              "99999999",
+              31335
+            ],
+            [
+              "9999999",
+              8490
+            ],
+            [
+              "999999999",
+              1456
+            ],
+            [
+              "9999999999",
+              688
+            ],
+            [
+              "99999999.99",
+              286
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 317392476922.0,
+            "suma": 9566479528963.56,
+            "negativos": 0,
+            "ceros": 47961
+          }
+        },
+        {
+          "columna": "valor_pagado",
+          "vacios": 0,
+          "distintos": 18497,
+          "formas": [
+            [
+              "9",
+              48752
+            ],
+            [
+              "99999999",
+              30740
+            ],
+            [
+              "9999999",
+              8461
+            ],
+            [
+              "999999999",
+              1396
+            ],
+            [
+              "9999999999",
+              660
+            ],
+            [
+              "99999999.99",
+              257
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 317392476922.0,
+            "suma": 9124605164168.27,
+            "negativos": 0,
+            "ceros": 48752
+          }
+        },
+        {
+          "columna": "dias_adicionados",
+          "vacios": 0,
+          "distintos": 348,
+          "formas": [
+            [
+              "9",
+              76315
+            ],
+            [
+              "99",
+              12898
+            ],
+            [
+              "999",
+              1854
+            ],
+            [
+              "9999",
+              5
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 1826.0,
+            "suma": 840755.0,
+            "negativos": 0,
+            "ceros": 73698
+          }
+        },
+        {
+          "columna": "liquidaci_n",
+          "vacios": 0,
+          "distintos": 2,
+          "formas": [
+            [
+              "Aa",
+              91072
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "No",
+              82132
+            ],
+            [
+              "Si",
+              8940
+            ]
+          ]
+        },
+        {
+          "columna": "ultima_actualizacion",
+          "vacios": 43149,
+          "distintos": 47914,
+          "formas": [
+            [
+              "9999-99-99A99:99:99.999",
+              47923
+            ],
+            [
+              "",
+              43149
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 47923,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2024-07-05",
+              "2026-11-04"
+            ],
+            "con_hora": 47923,
+            "hora_distinta_de_00:00": 47917,
+            "con_zona_horaria": 0,
+            "ojo": "las fechas traen hora: comparar contra 'aaaa-mm-dd' como texto deja por fuera el último día; compara solo los primeros 10 caracteres o convierte a fecha"
+          }
+        }
+      ],
+      "codigo_con_varios_valores": [
+        {
+          "desde": "nit_entidad",
+          "hacia": "entidad_centralizada",
+          "valores_de_desde": 56,
+          "con_mas_de_uno": 6,
+          "ejemplos": {
+            "890980134": {
+              "Descentralizada": 3712,
+              "Centralizada": 1430
+            },
+            "899999034": {
+              "Centralizada": 4108,
+              "Descentralizada": 1016
+            },
+            "800223337": {
+              "Descentralizada": 1836,
+              "Centralizada": 709
+            }
+          }
+        },
+        {
+          "desde": "codigo_entidad",
+          "hacia": "entidad_centralizada",
+          "valores_de_desde": 60,
+          "con_mas_de_uno": 6,
+          "ejemplos": {
+            "704629146": {
+              "Descentralizada": 3712,
+              "Centralizada": 1430
+            },
+            "704161363": {
+              "Centralizada": 2260,
+              "Descentralizada": 1016
+            },
+            "703738849": {
+              "Descentralizada": 1836,
+              "Centralizada": 709
+            }
+          }
+        },
+        {
+          "desde": "nit_entidad",
+          "hacia": "nombre_entidad",
+          "valores_de_desde": 56,
+          "con_mas_de_uno": 5,
+          "ejemplos": {
+            "8909801583": {
+              "Institución Universitaria Pascual Bravo COMPRADOR": 7557,
+              "IU PASCUAL BRAVO COMPRADOR": 737
+            },
+            "899999034": {
+              "SENA REGIONAL ANTIOQUIA Grupo de Apoyo Administrativo Mixto": 3276,
+              "SENA REGIONAL ANTIOQUIA Grupo Administrativo Intercentros Medellin": 1848
+            },
+            "890905211": {
+              "DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN": 2831,
+              "PERSONERIA DISTRITAL DE MEDELLIN*": 877,
+              "CONCEJO MUNICIPAL DE MEDELLIN": 642
+            }
+          }
+        },
+        {
+          "desde": "nit_entidad",
+          "hacia": "rama",
+          "valores_de_desde": 56,
+          "con_mas_de_uno": 2,
+          "ejemplos": {
+            "890905211": {
+              "Ejecutivo": 3473,
+              "Corporación Autónoma": 877
+            },
+            "890900286": {
+              "Ejecutivo": 2145,
+              "Legislativo": 296
+            }
+          }
+        },
+        {
+          "desde": "codigo_entidad",
+          "hacia": "nombre_entidad",
+          "valores_de_desde": 60,
+          "con_mas_de_uno": 2,
+          "ejemplos": {
+            "712721034": {
+              "Institución Universitaria Pascual Bravo COMPRADOR": 7557,
+              "IU PASCUAL BRAVO COMPRADOR": 737
+            },
+            "704740679": {
+              "IU. Digital": 1770,
+              "INSTITUCIÓN UNIVERSITARIA DIGITAL DE ANTIOQUIA": 71
+            }
+          }
+        },
+        {
+          "desde": "nit_entidad",
+          "hacia": "sector",
+          "valores_de_desde": 56,
+          "con_mas_de_uno": 1,
+          "ejemplos": {
+            "890905211": {
+              "Servicio Público": 3708,
+              "No aplica/No pertenece": 642
+            }
+          }
+        }
+      ]
+    }
+  },
+  "cruces": []
+}

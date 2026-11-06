@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+informe_extra.json
+*.tmp
+# Los datos de SECOP II no se publican: se descargan con herramientas/ingesta.py y el contrato de datos
+ejemplo-secop/datos/
+corridas/*/datos/
+corridas/*/limpio/
+evidencia/secop/referencia_servidor.json
+caso_conocido/_limpio/

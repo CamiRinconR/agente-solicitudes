@@ -1,0 +1,193 @@
+{
+  "peticion": "Ventas totales por región del primer semestre de 2026",
+  "resultado": [
+    {
+      "region": "Antioquia",
+      "ventas": 1047887700
+    },
+    {
+      "region": "Bogotá D.C.",
+      "ventas": 500740800
+    },
+    {
+      "region": "Caldas",
+      "ventas": 406930100
+    },
+    {
+      "region": "Risaralda",
+      "ventas": 112992600
+    },
+    {
+      "region": "Valle del Cauca",
+      "ventas": 275593500
+    },
+    {
+      "region": "Sin región",
+      "ventas": 42052800
+    }
+  ],
+  "total": 2386197500,
+  "alternativas": {
+    "iva_incluido (usar total en vez de subtotal)": {
+      "total": 2766790034,
+      "cambio_en_el_total": 380592534,
+      "por_region": {
+        "Antioquia": 1215737652,
+        "Bogotá D.C.": 579804284,
+        "Caldas": 475626120,
+        "Risaralda": 130137592,
+        "Sin región": 49699787,
+        "Valle del Cauca": 315784599
+      }
+    },
+    "notas_credito_sumadas": {
+      "total": 2502898500,
+      "cambio_en_el_total": 116701000,
+      "por_region": {
+        "Antioquia": 1105934900,
+        "Bogotá D.C.": 518610000,
+        "Caldas": 428206100,
+        "Risaralda": 117651000,
+        "Sin región": 42052800,
+        "Valle del Cauca": 290443700
+      }
+    },
+    "notas_credito_ignoradas": {
+      "total": 2444548000,
+      "cambio_en_el_total": 58350500,
+      "por_region": {
+        "Antioquia": 1076911300,
+        "Bogotá D.C.": 509675400,
+        "Caldas": 417568100,
+        "Risaralda": 115321800,
+        "Sin región": 42052800,
+        "Valle del Cauca": 283018600
+      }
+    },
+    "filas_repetidas_contadas_dos_veces": {
+      "total": 2443142300,
+      "cambio_en_el_total": 56944800,
+      "por_region": {
+        "Antioquia": 1076999800,
+        "Bogotá D.C.": 500740800,
+        "Caldas": 427021000,
+        "Risaralda": 115268100,
+        "Sin región": 42052800,
+        "Valle del Cauca": 281059800
+      }
+    },
+    "fechas_con_barras_leidas_mes_primero": {
+      "total": 2272404900,
+      "cambio_en_el_total": -113792600,
+      "por_region": {
+        "Antioquia": 998991400,
+        "Bogotá D.C.": 474452500,
+        "Caldas": 394086200,
+        "Risaralda": 105781000,
+        "Sin región": 42052800,
+        "Valle del Cauca": 257041000
+      }
+    },
+    "fechas_iso_invertidas (pandas dayfirst=True)": {
+      "total": 2115422700,
+      "cambio_en_el_total": -270774800,
+      "por_region": {
+        "Antioquia": 890228900,
+        "Bogotá D.C.": 464722100,
+        "Caldas": 373984200,
+        "Risaralda": 100457300,
+        "Sin región": 42692400,
+        "Valle del Cauca": 243337800
+      }
+    },
+    "maestro_primer_registro_del_archivo": {
+      "total": 2386197500,
+      "cambio_en_el_total": 0,
+      "por_region": {
+        "Antioquia": 1022357500,
+        "Bogotá D.C.": 455023600,
+        "Caldas": 406930100,
+        "Risaralda": 184240000,
+        "Sin región": 42052800,
+        "Valle del Cauca": 275593500
+      }
+    },
+    "maestro_ultimo_registro_del_archivo": {
+      "total": 2386197500,
+      "cambio_en_el_total": 0,
+      "por_region": {
+        "Antioquia": 954520200,
+        "Bogotá D.C.": 507533500,
+        "Caldas": 467242700,
+        "Risaralda": 139254800,
+        "Sin región": 42052800,
+        "Valle del Cauca": 275593500
+      }
+    },
+    "maestro_sin_depurar (la unión duplica ventas)": {
+      "total": 2577074600,
+      "cambio_en_el_total": 190877100,
+      "por_region": {
+        "Antioquia": 1047887700,
+        "Bogotá D.C.": 533795700,
+        "Caldas": 467242700,
+        "Risaralda": 210502200,
+        "Sin región": 42052800,
+        "Valle del Cauca": 275593500
+      }
+    },
+    "codigos_de_cliente_sin_normalizar": {
+      "total": 2386197500,
+      "cambio_en_el_total": 0,
+      "por_region": {
+        "Antioquia": 1007388600,
+        "Bogotá D.C.": 483655200,
+        "Caldas": 398616300,
+        "Risaralda": 110576500,
+        "Sin región": 126504400,
+        "Valle del Cauca": 259456500
+      }
+    },
+    "ventas_sin_cliente_descartadas": {
+      "total": 2344144700,
+      "cambio_en_el_total": -42052800,
+      "por_region": {
+        "Antioquia": 1047887700,
+        "Bogotá D.C.": 500740800,
+        "Caldas": 406930100,
+        "Risaralda": 112992600,
+        "Valle del Cauca": 275593500
+      }
+    },
+    "regiones_sin_unificar": {
+      "total": 2386197500,
+      "cambio_en_el_total": 0,
+      "por_region": {
+        " Antioquia": 62940800,
+        "ANTIOQUIA": 143648900,
+        "Antioquia": 841298000,
+        "BOGOTA DC": 26262200,
+        "Bogota D.C.": 31357600,
+        "Bogotá": 36413700,
+        "Bogotá D.C.": 406707300,
+        "CALDAS ": 201463200,
+        "Caldas": 205466900,
+        "Risaralda": 33198700,
+        "Sin región": 42052800,
+        "Valle": 45550800,
+        "Valle del Cauca": 138637200,
+        "Valle del cauca": 91405500,
+        "risaralda": 79793900
+      }
+    }
+  },
+  "conteos": {
+    "filas_ventas_csv": 1520,
+    "documentos_unicos": 1490,
+    "documentos_en_periodo": 1116,
+    "filas_repetidas": 30,
+    "registros_maestro": 65,
+    "clientes": 60,
+    "clientes_con_dos_registros": 5
+  }
+}

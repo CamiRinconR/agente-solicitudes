@@ -1,0 +1,52 @@
+{
+  "_nota": "Clase esperada de columnas de SECOP II - Contratos Electrónicos (jbjy-vk9h). Que SECOP sea público no autoriza a usar cédulas, nombres de personas ni datos bancarios (Ley 1581 de 2012): estas columnas no se ingieren sin justificación escrita.",
+  "personal": [
+    "documento_proveedor",
+    "proveedor_adjudicado",
+    "codigo_proveedor",
+    "nombre_representante_legal",
+    "identificaci_n_representante_legal",
+    "domicilio_representante_legal",
+    "n_mero_de_cuenta",
+    "nombre_del_banco",
+    "tipo_de_cuenta",
+    "nombre_ordenador_del_gasto",
+    "n_mero_de_documento_ordenador_del_gasto",
+    "nombre_supervisor",
+    "n_mero_de_documento_supervisor",
+    "nombre_ordenador_de_pago",
+    "n_mero_de_documento_ordenador_de_pago",
+    "direcci_n_de_ejecuci_n_del_contrato"
+  ],
+  "cuasi_o_personal": [
+    "tipodocproveedor",
+    "tipo_de_documento_supervisor",
+    "tipo_de_documento_ordenador_del_gasto",
+    "tipo_de_documento_ordenador_de_pago",
+    "g_nero_representante_legal",
+    "nacionalidad_representante_legal",
+    "tipo_de_identificaci_n_representante_legal"
+  ],
+  "texto_libre": [
+    "objeto_del_contrato",
+    "descripcion_del_proceso",
+    "justificacion_modalidad_de",
+    "descripcion_documentos_tipo"
+  ],
+  "sin_marca": [
+    "nombre_entidad",
+    "nit_entidad",
+    "codigo_entidad",
+    "id_contrato",
+    "proceso_de_compra",
+    "valor_del_contrato",
+    "fecha_de_firma",
+    "ciudad",
+    "departamento",
+    "documentos_tipo",
+    "estado_contrato",
+    "modalidad_de_contratacion",
+    "tipo_de_contrato",
+    "urlproceso"
+  ]
+}

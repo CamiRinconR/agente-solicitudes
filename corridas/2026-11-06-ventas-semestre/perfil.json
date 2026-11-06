@@ -1,0 +1,684 @@
+{
+  "tablas": {
+    "ventas": {
+      "ruta": "ejemplo/datos/ventas.csv",
+      "filas": 1520,
+      "columnas": [
+        "numero_documento",
+        "tipo_documento",
+        "fecha",
+        "cliente_id",
+        "subtotal",
+        "iva",
+        "total"
+      ],
+      "filas_identicas_a_otra_anterior": 30,
+      "ejemplo_fila_repetida": {
+        "numero_documento": "FV-000338",
+        "tipo_documento": "FV",
+        "fecha": "2026-04-09",
+        "cliente_id": "C022",
+        "subtotal": "4270000",
+        "iva": "811300",
+        "total": "5081300"
+      },
+      "perfil_columnas": [
+        {
+          "columna": "numero_documento",
+          "vacios": 0,
+          "distintos": 1490,
+          "formas": [
+            [
+              "AA-999999",
+              1520
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "posible_clave": true,
+          "valores_repetidos": 30,
+          "valores_repetidos_tras_normalizar": 30,
+          "ejemplos_repetidos": [
+            "FV-000338",
+            "FV-000309",
+            "FV-000264",
+            "FV-000089",
+            "FV-001098"
+          ]
+        },
+        {
+          "columna": "tipo_documento",
+          "vacios": 0,
+          "distintos": 2,
+          "formas": [
+            [
+              "AA",
+              1520
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "valores": [
+            [
+              "FV",
+              1430
+            ],
+            [
+              "NC",
+              90
+            ]
+          ]
+        },
+        {
+          "columna": "fecha",
+          "vacios": 0,
+          "distintos": 434,
+          "formas": [
+            [
+              "9999-99-99",
+              1096
+            ],
+            [
+              "99/99/9999",
+              424
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 1096,
+            "con_barras": 424,
+            "rango_aaaa-mm-dd": [
+              "2025-12-01",
+              "2026-07-31"
+            ],
+            "barras_primer_numero_mayor_que_12": 258,
+            "barras_segundo_numero_mayor_que_12": 0,
+            "barras_ambiguas (ambos <= 12 y distintos)": 150,
+            "lectura_demostrada": "día primero (dd/mm/aaaa)",
+            "barras_por_anio": {
+              "2025": 53,
+              "2026": 371
+            }
+          }
+        },
+        {
+          "columna": "cliente_id",
+          "vacios": 6,
+          "distintos": 104,
+          "formas": [
+            [
+              "A999",
+              1474
+            ],
+            [
+              "a999",
+              12
+            ],
+            [
+              "A999␣",
+              11
+            ],
+            [
+              "␣a999",
+              9
+            ],
+            [
+              "␣A999",
+              8
+            ],
+            [
+              "",
+              6
+            ]
+          ],
+          "espacios_sobrantes": 28,
+          "variantes_de_escritura": [
+            {
+              "escrituras": {
+                "C049": 21,
+                "c049": 1,
+                " C049": 1
+              },
+              "filas": 23
+            },
+            {
+              "escrituras": {
+                "C011": 36,
+                " c011": 1
+              },
+              "filas": 37
+            },
+            {
+              "escrituras": {
+                "C016": 21,
+                "C016 ": 1
+              },
+              "filas": 22
+            },
+            {
+              "escrituras": {
+                "C030": 22,
+                " c030": 1
+              },
+              "filas": 23
+            },
+            {
+              "escrituras": {
+                "C034": 25,
+                "C034 ": 2
+              },
+              "filas": 27
+            },
+            {
+              "escrituras": {
+                "C006": 14,
+                "c006": 1
+              },
+              "filas": 15
+            },
+            {
+              "escrituras": {
+                "C010": 25,
+                " C010": 1,
+                "C010 ": 1
+              },
+              "filas": 27
+            },
+            {
+              "escrituras": {
+                "C052": 22,
+                "C052 ": 1
+              },
+              "filas": 23
+            },
+            {
+              "escrituras": {
+                "C014": 23,
+                " C014": 1
+              },
+              "filas": 24
+            },
+            {
+              "escrituras": {
+                "c055": 1,
+                "C055": 28,
+                " c055": 1
+              },
+              "filas": 30
+            },
+            {
+              "escrituras": {
+                "C035": 22,
+                "c035": 1,
+                " C035": 1
+              },
+              "filas": 24
+            },
+            {
+              "escrituras": {
+                "C022": 34,
+                " c022": 1
+              },
+              "filas": 35
+            },
+            {
+              "escrituras": {
+                "C020": 26,
+                "c020": 1
+              },
+              "filas": 27
+            },
+            {
+              "escrituras": {
+                "C007": 24,
+                "C007 ": 1
+              },
+              "filas": 25
+            },
+            {
+              "escrituras": {
+                "C023": 22,
+                " c023": 2
+              },
+              "filas": 24
+            },
+            {
+              "escrituras": {
+                "C018": 20,
+                "c018": 1
+              },
+              "filas": 21
+            },
+            {
+              "escrituras": {
+                "C024": 18,
+                " c024": 1,
+                "C024 ": 1
+              },
+              "filas": 20
+            },
+            {
+              "escrituras": {
+                "C031": 27,
+                " C031": 1
+              },
+              "filas": 28
+            },
+            {
+              "escrituras": {
+                "C046": 21,
+                "c046": 1
+              },
+              "filas": 22
+            },
+            {
+              "escrituras": {
+                "C012": 21,
+                "c012": 1
+              },
+              "filas": 22
+            },
+            {
+              "escrituras": {
+                "C021": 24,
+                "C021 ": 1,
+                " c021": 1
+              },
+              "filas": 26
+            },
+            {
+              "escrituras": {
+                "C041": 17,
+                " C041": 1,
+                " c041": 1
+              },
+              "filas": 19
+            },
+            {
+              "escrituras": {
+                "C047": 19,
+                " C047": 1
+              },
+              "filas": 20
+            },
+            {
+              "escrituras": {
+                "C040": 22,
+                "c040": 1
+              },
+              "filas": 23
+            },
+            {
+              "escrituras": {
+                "C002": 22,
+                "c002": 1
+              },
+              "filas": 23
+            },
+            {
+              "escrituras": {
+                "C044": 13,
+                "C044 ": 1
+              },
+              "filas": 14
+            },
+            {
+              "escrituras": {
+                "C058": 29,
+                "c058": 1
+              },
+              "filas": 30
+            },
+            {
+              "escrituras": {
+                "C026": 25,
+                "C026 ": 1
+              },
+              "filas": 26
+            },
+            {
+              "escrituras": {
+                "C019": 28,
+                "C019 ": 1
+              },
+              "filas": 29
+            },
+            {
+              "escrituras": {
+                "C009": 20,
+                "c009": 1
+              },
+              "filas": 21
+            },
+            {
+              "escrituras": {
+                "C033": 28,
+                " C033": 1
+              },
+              "filas": 29
+            }
+          ]
+        },
+        {
+          "columna": "subtotal",
+          "vacios": 0,
+          "distintos": 1463,
+          "formas": [
+            [
+              "9999999",
+              1207
+            ],
+            [
+              "999999",
+              304
+            ],
+            [
+              "99999",
+              9
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 62800.0,
+            "max": 4499200.0,
+            "suma": 3479385600.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        },
+        {
+          "columna": "iva",
+          "vacios": 0,
+          "distintos": 1255,
+          "formas": [
+            [
+              "999999",
+              1166
+            ],
+            [
+              "9",
+              222
+            ],
+            [
+              "99999",
+              132
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 0.0,
+            "max": 854259.0,
+            "suma": 563541349.0,
+            "negativos": 0,
+            "ceros": 222
+          }
+        },
+        {
+          "columna": "total",
+          "vacios": 0,
+          "distintos": 1470,
+          "formas": [
+            [
+              "9999999",
+              1258
+            ],
+            [
+              "999999",
+              259
+            ],
+            [
+              "99999",
+              3
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "numerico": {
+            "min": 74732.0,
+            "max": 5350359.0,
+            "suma": 4042926949.0,
+            "negativos": 0,
+            "ceros": 0
+          }
+        }
+      ]
+    },
+    "clientes": {
+      "ruta": "ejemplo/datos/clientes.csv",
+      "filas": 65,
+      "columnas": [
+        "cliente_id",
+        "nombre",
+        "region",
+        "fecha_actualizacion"
+      ],
+      "filas_identicas_a_otra_anterior": 0,
+      "ejemplo_fila_repetida": null,
+      "perfil_columnas": [
+        {
+          "columna": "cliente_id",
+          "vacios": 0,
+          "distintos": 60,
+          "formas": [
+            [
+              "A999",
+              65
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "posible_clave": true,
+          "valores_repetidos": 5,
+          "valores_repetidos_tras_normalizar": 5,
+          "ejemplos_repetidos": [
+            "C002",
+            "C019",
+            "C023",
+            "C035",
+            "C037"
+          ]
+        },
+        {
+          "columna": "nombre",
+          "vacios": 0,
+          "distintos": 60,
+          "formas": [
+            [
+              "Aa+␣999␣A.A.A.",
+              65
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "variantes_de_escritura": [],
+          "posible_clave": true,
+          "valores_repetidos": 5,
+          "valores_repetidos_tras_normalizar": 5,
+          "ejemplos_repetidos": [
+            "Distribuidora 002 S.A.S.",
+            "Distribuidora 019 S.A.S.",
+            "Distribuidora 023 S.A.S.",
+            "Distribuidora 035 S.A.S.",
+            "Distribuidora 037 S.A.S."
+          ]
+        },
+        {
+          "columna": "region",
+          "vacios": 0,
+          "distintos": 14,
+          "formas": [
+            [
+              "Aa+",
+              34
+            ],
+            [
+              "Aa+␣A.A.",
+              12
+            ],
+            [
+              "A+␣",
+              5
+            ],
+            [
+              "Aa+␣a+␣Aa+",
+              4
+            ],
+            [
+              "A+",
+              3
+            ],
+            [
+              "␣Aa+",
+              2
+            ]
+          ],
+          "espacios_sobrantes": 7,
+          "variantes_de_escritura": [
+            {
+              "escrituras": {
+                "CALDAS ": 5,
+                "Caldas": 6
+              },
+              "filas": 11
+            },
+            {
+              "escrituras": {
+                "Antioquia": 22,
+                " Antioquia": 2,
+                "ANTIOQUIA": 3
+              },
+              "filas": 27
+            },
+            {
+              "escrituras": {
+                "Bogotá D.C.": 11,
+                "BOGOTA DC": 1,
+                "Bogota D.C.": 1
+              },
+              "filas": 13
+            },
+            {
+              "escrituras": {
+                "Valle del Cauca": 4,
+                "Valle del cauca": 2
+              },
+              "filas": 6
+            },
+            {
+              "escrituras": {
+                "Risaralda": 4,
+                "risaralda": 2
+              },
+              "filas": 6
+            }
+          ],
+          "valores": [
+            [
+              "Antioquia",
+              22
+            ],
+            [
+              "Bogotá D.C.",
+              11
+            ],
+            [
+              "Caldas",
+              6
+            ],
+            [
+              "CALDAS ",
+              5
+            ],
+            [
+              "Valle del Cauca",
+              4
+            ],
+            [
+              "Risaralda",
+              4
+            ],
+            [
+              "ANTIOQUIA",
+              3
+            ],
+            [
+              " Antioquia",
+              2
+            ],
+            [
+              "Valle del cauca",
+              2
+            ],
+            [
+              "risaralda",
+              2
+            ],
+            [
+              "BOGOTA DC",
+              1
+            ],
+            [
+              "Valle",
+              1
+            ],
+            [
+              "Bogotá",
+              1
+            ],
+            [
+              "Bogota D.C.",
+              1
+            ]
+          ]
+        },
+        {
+          "columna": "fecha_actualizacion",
+          "vacios": 0,
+          "distintos": 64,
+          "formas": [
+            [
+              "9999-99-99",
+              65
+            ]
+          ],
+          "espacios_sobrantes": 0,
+          "fechas": {
+            "aaaa-mm-dd": 65,
+            "con_barras": 0,
+            "rango_aaaa-mm-dd": [
+              "2023-01-23",
+              "2026-04-30"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "cruces": [
+    {
+      "columna": "cliente_id",
+      "desde": "ventas",
+      "hacia": "clientes",
+      "filas_con_valor": 1514,
+      "vacios": 6,
+      "cruzan_exacto": 1458,
+      "cruzan_solo_tras_quitar_espacios_y_mayusculas": 40,
+      "no_cruzan": 16,
+      "ejemplos_que_no_cruzan": [
+        "C901",
+        "C902",
+        "C903",
+        "C904",
+        "C905"
+      ]
+    },
+    {
+      "columna": "cliente_id",
+      "desde": "clientes",
+      "hacia": "ventas",
+      "filas_con_valor": 65,
+      "vacios": 0,
+      "cruzan_exacto": 65,
+      "cruzan_solo_tras_quitar_espacios_y_mayusculas": 0,
+      "no_cruzan": 0,
+      "ejemplos_que_no_cruzan": []
+    }
+  ]
+}

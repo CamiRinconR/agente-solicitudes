@@ -1,0 +1,60 @@
+
+s_agrupar_por_nombre: 6 falla(s)
+  - regla R3 (unicidad) no pasa: 59 filas · 1 NIT distintos · repetidos: ['']
+  - regla R4 (completitud) no pasa: fuente 53 NIT · resultado 1 NIT · faltan ['800072977', '800117519', '800140985', '800157073', '800165798'] · sobran ['']
+  - regla R5 (dominio) no pasa: 59 filas · fuera de dominio 59: [('', 1457, 7655008958131.82), ('', 1352, 4889582139982.26), ('', 2147, 1205877899422.0), ('', 4748, 910623211099.5), ('', 1483, 536457169412.0)] · total fuente 17,248,249,407,618.69
+  - regla R6 (otra) no pasa: 59 filas · 5 NIT con más de un nombre · nombre distinto al esperado 59: [('', 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN', None), ('', 'DEPARTAMENTO DE ANTIOQUIA//', None), ('', 'ICBF REGIONAL ANTIOQUIA', None), ('', 'INSTITUTO DE DEPORTES Y RECREACION DE MEDELLIN', None), ('', 'EMPRESA DE DESARROLLO URBANO DE MEDELLIN', None)]
+  - regla R8 (conservacion) no pasa: 59 filas · NIT con valor o número distinto al de la fuente 59: [('', (7655008958131.82, 0.0), (1457.0, 0)), ('', (4889582139982.26, 0.0), (1352.0, 0)), ('', (1205877899422.0, 0.0), (2147.0, 0)), ('', (910623211099.5, 0.0), (4748.0, 0)), ('', (536457169412.0, 0.0), (1483.0, 0))]
+  - caso con respuesta conocida no coincide: solo en obtenido: [['', 'ALFA SEDE NORTE'], ['', 'B BETA'], ['', 'BETA COMPRADOR'], ['', 'DELTA DISTRITAL*'], ['', 'ENTIDAD ALFA']]; solo en esperado: [['800000001', 'ENTIDAD ALFA'], ['8000000025', 'B BETA'], ['900000004', 'DELTA DISTRITAL*']]
+
+s_contar_procesos: 2 falla(s)
+  - regla R2 (conservacion) no pasa: resultado 47,724 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 20: [('890905211', (7687662551100.82, 7687662551100.819), (2069.0, 2133)), ('890900286', (4894378080841.26, 4894378080841.26), (1303.0, 1501)), ('800194096', (910623211099.5, 910623211099.5), (4628.0, 4748)), ('800223337', (536457169412.0, 536457169412.0), (1454.0, 1483)), ('800214750', (444005396038.0, 444005396038.0), (19217.0, 19225))]
+
+s_corte_texto_31_dic: 4 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 17,247,366,977,359.69 · fuente 17,248,249,407,618.69
+  - regla R2 (conservacion) no pasa: resultado 49,657 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 4: [('890905211', (7686896584462.82, 7687662551100.819), (2132.0, 2133)), ('899999239', (1205811786089.0, 1205877899422.0), (2146.0, 2147)), ('901540992', (50942363386.62, 50992713674.619995), (454.0, 456)), ('800117519', (2433532387.0, 2433532387.0), (103.0, 104))]
+  - caso con respuesta conocida no coincide: 900000004/DELTA DISTRITAL*.valor_contratado: obtenido 123.456,78 · esperado 2.223.457; 900000004/DELTA DISTRITAL*.numero_contratos: obtenido 2 · esperado 4
+
+s_excluir_credito_publico: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 16,248,056,627,618.69 · fuente 17,248,249,407,618.69
+  - regla R2 (conservacion) no pasa: resultado 49,653 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 2: [('890905211', (6687662551100.82, 7687662551100.819), (2130.0, 2133)), ('890900286', (4894185300841.26, 4894378080841.26), (1495.0, 1501))]
+
+s_fecha_inicio: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 16,271,213,827,605.16 · fuente 17,248,249,407,618.69
+  - regla R2 (conservacion) no pasa: resultado 49,158 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 20: [('890905211', (7466837992123.06, 7687662551100.819), (2123.0, 2133)), ('890900286', (4040595222132.26, 4894378080841.26), (1463.0, 1501)), ('899999239', (1306716923182.0, 1205877899422.0), (2191.0, 2147)), ('800194096', (910476887566.5, 910623211099.5), (4739.0, 4748)), ('800223337', (525290140805.0, 536457169412.0), (1379.0, 1483))]
+
+s_referencia: sin fallas
+
+s_sin_valor_cero_en_conteo: 3 falla(s)
+  - regla R2 (conservacion) no pasa: resultado 49,120 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 17: [('890905211', (7687662551100.82, 7687662551100.819), (2102.0, 2133)), ('890900286', (4894378080841.26, 4894378080841.26), (1439.0, 1501)), ('899999239', (1205877899422.0, 1205877899422.0), (2110.0, 2147)), ('800194096', (910623211099.5, 910623211099.5), (4743.0, 4748)), ('800223337', (536457169412.0, 536457169412.0), (1446.0, 1483))]
+  - caso con respuesta conocida no coincide: 8000000025/B BETA.numero_contratos: obtenido 1 · esperado 2; 900000004/DELTA DISTRITAL*.numero_contratos: obtenido 3 · esperado 4
+
+s_sobre_depurar: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 16,668,560,100,081.02 · fuente 17,248,249,407,618.69
+  - regla R2 (conservacion) no pasa: resultado 23,838 · fuente 49,662 contratos
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 33: [('890905211', (7658315489107.82, 7687662551100.819), (1767.0, 2133)), ('890900286', (4882256709299.26, 4894378080841.26), (1238.0, 1501)), ('899999239', (1188291670701.0, 1205877899422.0), (1315.0, 2147)), ('800194096', (839905770825.5, 910623211099.5), (1354.0, 4748)), ('800223337', (523653120435.0, 536457169412.0), (1213.0, 1483))]
+
+s_solo_activos: 5 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 16,123,959,513,754.79 · fuente 17,248,249,407,618.69
+  - regla R2 (conservacion) no pasa: resultado 33,558 · fuente 49,662 contratos
+  - regla R4 (completitud) no pasa: fuente 53 NIT · resultado 50 NIT · faltan ['811010134', '811015194', '811019616'] · sobran []
+  - regla R8 (conservacion) no pasa: 50 filas · NIT con valor o número distinto al de la fuente 39: [('890905211', (7468700840816.01, 7687662551100.819), (1127.0, 2133)), ('890900286', (4742977996396.49, 4894378080841.26), (1120.0, 1501)), ('899999239', (997379525332.0, 1205877899422.0), (1912.0, 2147)), ('800194096', (874674453777.5, 910623211099.5), (3307.0, 4748)), ('800223337', (501173484030.0, 536457169412.0), (1314.0, 1483))]
+  - caso con respuesta conocida no coincide: 800000001/ENTIDAD ALFA.valor_contratado: obtenido 3.800.000,50 · esperado 4.550.000,50; 800000001/ENTIDAD ALFA.numero_contratos: obtenido 3 · esperado 4; 900000004/DELTA DISTRITAL*.valor_contratado: obtenido 2.123.457 · esperado 2.223.457; 900000004/DELTA DISTRITAL*.numero_contratos: obtenido 2 · esperado 4
+
+s_truncar_centavos: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 17,248,249,407,552.00 · fuente 17,248,249,407,618.69
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 24: [('890905211', (7687662551100.0, 7687662551100.819), (2133.0, 2133)), ('890900286', (4894378080840.0, 4894378080841.26), (1501.0, 1501)), ('8909801583', (154148574052.0, 154148574056.59003), (4504.0, 4504)), ('899999034', (137999589473.0, 137999589486.42), (2479.0, 2479)), ('901168222', (83810716152.0, 83810716152.94), (995.0, 995))]
+  - caso con respuesta conocida no coincide: 900000004/DELTA DISTRITAL*.valor_contratado: obtenido 2.223.456 · esperado 2.223.457
+
+s_valor_pagado: 3 falla(s)
+  - regla R1 (conservacion) no pasa: resultado 6,187,695,224,252.53 · fuente 17,248,249,407,618.69
+  - regla R8 (conservacion) no pasa: 53 filas · NIT con valor o número distinto al de la fuente 53: [('890905211', (4523909067215.06, 7687662551100.819), (2133.0, 2133)), ('890900286', (652270738299.81, 4894378080841.26), (1501.0, 1501)), ('900602106', (250288343386.49, 287021806541.0), (531.0, 531)), ('8909801583', (126935481739.95, 154148574056.59003), (4504.0, 4504)), ('899999034', (115993799839.16, 137999589486.42), (2479.0, 2479))]
+  - caso con respuesta conocida no coincide: 800000001/ENTIDAD ALFA.valor_contratado: obtenido 1.150.000 · esperado 4.550.000,50; 900000004/DELTA DISTRITAL*.valor_contratado: obtenido 1.100.000 · esperado 2.223.457
+
+s_zona_horaria: 1 falla(s)
+  - caso con respuesta conocida no coincide: solo en obtenido: [['900000003', 'ENTIDAD GAMA']]; 900000004/DELTA DISTRITAL*.valor_contratado: obtenido 2.100.000,22 · esperado 2.223.457; 900000004/DELTA DISTRITAL*.numero_contratos: obtenido 3 · esperado 4

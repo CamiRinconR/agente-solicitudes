@@ -1,0 +1,1217 @@
+{
+  "peticion": "Valor contratado en 2025 por cada entidad pública con sede en Medellín, según SECOP II. Para cada entidad: nit_entidad, entidad (nombre), valor_contratado y numero_contratos.",
+  "estado": "aprobado",
+  "motivos": [],
+  "preguntas_abiertas": 2,
+  "sellos": {
+    "estado": "intactos",
+    "cambios": []
+  },
+  "reglas_rotas": [],
+  "reglas": [
+    {
+      "id": "R1",
+      "tipo": "conservacion",
+      "descripcion": "La suma de valor_contratado del resultado es igual a la suma de valor_del_contrato de los contratos únicos firmados en 2025 en Medellín, calculada directo de la fuente"
+    },
+    {
+      "id": "R2",
+      "tipo": "conservacion",
+      "descripcion": "La suma de numero_contratos del resultado es igual al número de id_contrato distintos firmados en 2025 en Medellín (los de valor cero incluidos)"
+    },
+    {
+      "id": "R3",
+      "tipo": "unicidad",
+      "descripcion": "Cada nit_entidad aparece una sola vez en el resultado"
+    },
+    {
+      "id": "R4",
+      "tipo": "completitud",
+      "descripcion": "Los NIT del resultado son exactamente los que tienen al menos un contrato firmado en 2025 en Medellín: no falta ninguno ni sobra ninguno (ni entidades sin contratos en 2025)"
+    },
+    {
+      "id": "R5",
+      "tipo": "dominio",
+      "descripcion": "numero_contratos es un entero mayor o igual a 1, valor_contratado es mayor o igual a 0 y no supera el total de la fuente, y nit_entidad son solo dígitos"
+    },
+    {
+      "id": "R6",
+      "tipo": "otra",
+      "descripcion": "entidad es el nombre_entidad (sin espacios al inicio ni al final) que más contratos únicos de 2025 tiene dentro de su NIT; si hay empate, el primero en orden alfabético"
+    },
+    {
+      "id": "R7",
+      "tipo": "otra",
+      "descripcion": "El resultado viene ordenado por valor_contratado de mayor a menor y, en empate, por nit_entidad ascendente"
+    },
+    {
+      "id": "R8",
+      "tipo": "conservacion",
+      "descripcion": "Para cada nit_entidad del resultado, valor_contratado y numero_contratos son iguales a la suma de valor_del_contrato y al número de id_contrato distintos de ese NIT firmados en 2025 en Medellín, calculados directo de la fuente"
+    }
+  ],
+  "implementaciones": {
+    "a": {
+      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-secop-medellin-2025/impl_a.py",
+      "fallas": [],
+      "reglas": [
+        {
+          "id": "R1",
+          "tipo": "conservacion",
+          "descripcion": "La suma de valor_contratado del resultado es igual a la suma de valor_del_contrato de los contratos únicos firmados en 2025 en Medellín, calculada directo de la fuente",
+          "estado": "pasa",
+          "mensaje": "resultado 17,248,249,407,618.69 · fuente 17,248,249,407,618.69"
+        },
+        {
+          "id": "R2",
+          "tipo": "conservacion",
+          "descripcion": "La suma de numero_contratos del resultado es igual al número de id_contrato distintos firmados en 2025 en Medellín (los de valor cero incluidos)",
+          "estado": "pasa",
+          "mensaje": "resultado 49,662 · fuente 49,662 contratos"
+        },
+        {
+          "id": "R3",
+          "tipo": "unicidad",
+          "descripcion": "Cada nit_entidad aparece una sola vez en el resultado",
+          "estado": "pasa",
+          "mensaje": "53 filas · 53 NIT distintos · repetidos: []"
+        },
+        {
+          "id": "R4",
+          "tipo": "completitud",
+          "descripcion": "Los NIT del resultado son exactamente los que tienen al menos un contrato firmado en 2025 en Medellín: no falta ninguno ni sobra ninguno (ni entidades sin contratos en 2025)",
+          "estado": "pasa",
+          "mensaje": "fuente 53 NIT · resultado 53 NIT · faltan [] · sobran []"
+        },
+        {
+          "id": "R5",
+          "tipo": "dominio",
+          "descripcion": "numero_contratos es un entero mayor o igual a 1, valor_contratado es mayor o igual a 0 y no supera el total de la fuente, y nit_entidad son solo dígitos",
+          "estado": "pasa",
+          "mensaje": "53 filas · fuera de dominio 0: [] · total fuente 17,248,249,407,618.69"
+        },
+        {
+          "id": "R6",
+          "tipo": "otra",
+          "descripcion": "entidad es el nombre_entidad (sin espacios al inicio ni al final) que más contratos únicos de 2025 tiene dentro de su NIT; si hay empate, el primero en orden alfabético",
+          "estado": "pasa",
+          "mensaje": "53 filas · 5 NIT con más de un nombre · nombre distinto al esperado 0: []"
+        },
+        {
+          "id": "R7",
+          "tipo": "otra",
+          "descripcion": "El resultado viene ordenado por valor_contratado de mayor a menor y, en empate, por nit_entidad ascendente",
+          "estado": "pasa",
+          "mensaje": "53 filas · filas fuera de orden: []"
+        },
+        {
+          "id": "R8",
+          "tipo": "conservacion",
+          "descripcion": "Para cada nit_entidad del resultado, valor_contratado y numero_contratos son iguales a la suma de valor_del_contrato y al número de id_contrato distintos de ese NIT firmados en 2025 en Medellín, calculados directo de la fuente",
+          "estado": "pasa",
+          "mensaje": "53 filas · NIT con valor o número distinto al de la fuente 0: []"
+        }
+      ],
+      "reglas_con_error": [],
+      "compuertas": [],
+      "resultado": [
+        {
+          "nit_entidad": "890905211",
+          "entidad": "DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN",
+          "valor_contratado": 7687662551100.82,
+          "numero_contratos": 2133
+        },
+        {
+          "nit_entidad": "890900286",
+          "entidad": "DEPARTAMENTO DE ANTIOQUIA//",
+          "valor_contratado": 4894378080841.26,
+          "numero_contratos": 1501
+        },
+        {
+          "nit_entidad": "899999239",
+          "entidad": "ICBF REGIONAL ANTIOQUIA",
+          "valor_contratado": 1205877899422.0,
+          "numero_contratos": 2147
+        },
+        {
+          "nit_entidad": "800194096",
+          "entidad": "INSTITUTO DE DEPORTES Y RECREACION DE MEDELLIN",
+          "valor_contratado": 910623211099.5,
+          "numero_contratos": 4748
+        },
+        {
+          "nit_entidad": "800223337",
+          "entidad": "EMPRESA DE DESARROLLO URBANO DE MEDELLIN",
+          "valor_contratado": 536457169412.0,
+          "numero_contratos": 1483
+        },
+        {
+          "nit_entidad": "800214750",
+          "entidad": "INSTITUCIÓN UNIVERSITARIA ITM",
+          "valor_contratado": 444005396038.0,
+          "numero_contratos": 19225
+        },
+        {
+          "nit_entidad": "900602106",
+          "entidad": "AGENCIA DE EDUCACIÓN POSTSECUNDARIA DE MEDELLÍN -SAPIENCIA-",
+          "valor_contratado": 287021806541.0,
+          "numero_contratos": 531
+        },
+        {
+          "nit_entidad": "811000231",
+          "entidad": "CORPORACIÓN AUTÓNOMA REGIONAL DEL CENTRO DE ANTIOQUIA",
+          "valor_contratado": 168962517840.0,
+          "numero_contratos": 313
+        },
+        {
+          "nit_entidad": "8909801583",
+          "entidad": "Institución Universitaria Pascual Bravo COMPRADOR",
+          "valor_contratado": 154148574056.59,
+          "numero_contratos": 4504
+        },
+        {
+          "nit_entidad": "899999034",
+          "entidad": "SENA REGIONAL ANTIOQUIA Grupo de Apoyo Administrativo Mixto",
+          "valor_contratado": 137999589486.42,
+          "numero_contratos": 2479
+        },
+        {
+          "nit_entidad": "811007127",
+          "entidad": "INSTITUTO DEPARTAMENTAL DE DEPORTES DE ANTIOQUIA",
+          "valor_contratado": 102791984650.0,
+          "numero_contratos": 610
+        },
+        {
+          "nit_entidad": "901168222",
+          "entidad": "IU. Digital",
+          "valor_contratado": 83810716152.94,
+          "numero_contratos": 995
+        },
+        {
+          "nit_entidad": "900014480",
+          "entidad": "ISVIMED",
+          "valor_contratado": 82413192884.0,
+          "numero_contratos": 625
+        },
+        {
+          "nit_entidad": "890980134",
+          "entidad": "INSTITUCIÓN UNIVERSITARIA COLEGIO MAYOR DE ANTIOQUIA",
+          "valor_contratado": 75125373654.2,
+          "numero_contratos": 2324
+        },
+        {
+          "nit_entidad": "890980150",
+          "entidad": "BIBLIOTECA PUBLICA PILOTO DE MEDELLIN PARA AMERICA LATINA",
+          "valor_contratado": 56809551956.09,
+          "numero_contratos": 2075
+        },
+        {
+          "nit_entidad": "8909801366",
+          "entidad": "POLITECNICO COLOMBIANO JAIME ISAZA CADAVID",
+          "valor_contratado": 53888360017.63,
+          "numero_contratos": 1115
+        },
+        {
+          "nit_entidad": "901540992",
+          "entidad": "DISPENSARIO MEDICO DE MEDELLIN//",
+          "valor_contratado": 50992713674.62,
+          "numero_contratos": 456
+        },
+        {
+          "nit_entidad": "800165798",
+          "entidad": "Rama Judicial  Dirección Seccional de Administración Judicial de Medellín",
+          "valor_contratado": 45325402851.43,
+          "numero_contratos": 68
+        },
+        {
+          "nit_entidad": "900323466",
+          "entidad": "RUTA N MEDELLIN",
+          "valor_contratado": 37009175344.76,
+          "numero_contratos": 197
+        },
+        {
+          "nit_entidad": "900679194",
+          "entidad": "CORPORACIÓN GILBERTO ECHEVERRI MEJÍA",
+          "valor_contratado": 35605413920.66,
+          "numero_contratos": 86
+        },
+        {
+          "nit_entidad": "811032187",
+          "entidad": "EMPRESA DE VIVIENDA DE ANTIOQUIA-VIVA",
+          "valor_contratado": 32960910006.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "8110303954",
+          "entidad": "ASOCIACIÓN DE MUNICIPIOS DEL NORTE ANTIOQUEÑO- AMUNORTE",
+          "valor_contratado": 30651467501.489998,
+          "numero_contratos": 203
+        },
+        {
+          "nit_entidad": "800140985",
+          "entidad": "POLICIA METROPOLITANA DEL VALLE DE ABURRA",
+          "valor_contratado": 25202790489.16,
+          "numero_contratos": 75
+        },
+        {
+          "nit_entidad": "900158929",
+          "entidad": "FONDO DE VALORIZACION DEL MUNICIPIO DE MEDELLIN",
+          "valor_contratado": 21110441923.0,
+          "numero_contratos": 111
+        },
+        {
+          "nit_entidad": "811038424",
+          "entidad": "RIA S.A*",
+          "valor_contratado": 14449363018.0,
+          "numero_contratos": 355
+        },
+        {
+          "nit_entidad": "811006762",
+          "entidad": "ASOCIACIÓN CANAL LOCAL DE TELEVISIÓN DE MEDELLIN - TELEMEDELLIN",
+          "valor_contratado": 13370140253.98,
+          "numero_contratos": 31
+        },
+        {
+          "nit_entidad": "901037393",
+          "entidad": "SUBCUENTA DEL SISTEMA DE PARQUES NACIONALES NATURALES DEL FONDO NACIONAL AMBIENTAL -FONAM DTPA",
+          "valor_contratado": 10809464136.54,
+          "numero_contratos": 229
+        },
+        {
+          "nit_entidad": "900552743",
+          "entidad": "MESAN",
+          "valor_contratado": 8688609863.83,
+          "numero_contratos": 56
+        },
+        {
+          "nit_entidad": "811004962",
+          "entidad": "PARQUES NACIONALES NATURALES DE COLOMBIA - DIRECCION TERRITORIAL ANDES OCCIDENTALES**",
+          "valor_contratado": 5971734230.8,
+          "numero_contratos": 217
+        },
+        {
+          "nit_entidad": "900857221",
+          "entidad": "MCM",
+          "valor_contratado": 4950958039.5,
+          "numero_contratos": 91
+        },
+        {
+          "nit_entidad": "805003737",
+          "entidad": "PARQUES NACIONALES NATURALES- DIRECCION TERRITORIAL PACIFICO",
+          "valor_contratado": 4442449016.4,
+          "numero_contratos": 135
+        },
+        {
+          "nit_entidad": "811000372",
+          "entidad": "CGA",
+          "valor_contratado": 3602837632.0,
+          "numero_contratos": 31
+        },
+        {
+          "nit_entidad": "811010134",
+          "entidad": "COMPLEJO CARCELARIO Y PENITENCIARIO EL PEDREGAL DE MEDELLIN",
+          "valor_contratado": 3512587787.98,
+          "numero_contratos": 22
+        },
+        {
+          "nit_entidad": "800157073",
+          "entidad": "AEROPUERTO OLAYA HERRERA",
+          "valor_contratado": 3371443864.0,
+          "numero_contratos": 46
+        },
+        {
+          "nit_entidad": "811026988",
+          "entidad": "CONTRALORÍA DISTRITAL DE MEDELLÍN",
+          "valor_contratado": 3040213268.86,
+          "numero_contratos": 44
+        },
+        {
+          "nit_entidad": "900246990",
+          "entidad": "MUNICIPIOS ASOCIADOS DEL NORDESTE Y MAGDALENA MEDIO",
+          "valor_contratado": 2774348084.02,
+          "numero_contratos": 17
+        },
+        {
+          "nit_entidad": "800117519",
+          "entidad": "ESAP TERRITORIAL ANTIOQUIA",
+          "valor_contratado": 2433532387.0,
+          "numero_contratos": 104
+        },
+        {
+          "nit_entidad": "811036423",
+          "entidad": "ACI Medellín",
+          "valor_contratado": 1814688711.0,
+          "numero_contratos": 39
+        },
+        {
+          "nit_entidad": "800072977",
+          "entidad": "FONDANE - DIR TER NOROCCIDENTE",
+          "valor_contratado": 922133666.77,
+          "numero_contratos": 86
+        },
+        {
+          "nit_entidad": "811011575",
+          "entidad": "INSTITUTO NACIONAL PENITENCIARIO Y CARCELARIO REGIONAL NOROESTE",
+          "valor_contratado": 672389563.1,
+          "numero_contratos": 13
+        },
+        {
+          "nit_entidad": "901665080",
+          "entidad": "REGION ADMINISTRATIVA Y DE PLANIFICACION RAP DEL AGUA Y LA MONTAÑA",
+          "valor_contratado": 609229897.0,
+          "numero_contratos": 15
+        },
+        {
+          "nit_entidad": "900793275",
+          "entidad": "ASOCIACION DE MUNICIPIOS DEL MAGDALENA MEDIO ANTIOQUEÑO",
+          "valor_contratado": 442895472.0,
+          "numero_contratos": 43
+        },
+        {
+          "nit_entidad": "8909029226",
+          "entidad": "Universidad Pontificia Bolivariana",
+          "valor_contratado": 361452581.11,
+          "numero_contratos": 46
+        },
+        {
+          "nit_entidad": "901212832",
+          "entidad": "PROVINCIA ADMINISTRATIVA Y DE PLANIFICACIÓN CARTAMA",
+          "valor_contratado": 333898412.0,
+          "numero_contratos": 15
+        },
+        {
+          "nit_entidad": "890904171",
+          "entidad": "MUNICIPIOS ASOCIADOS DEL VALLE DE ABURRÁ -MASA",
+          "valor_contratado": 256500000.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "811038085",
+          "entidad": "MINISTERIO DEL TRABAJO DIRECCIÓN TERRITORIAL DE ANTIOQUIA",
+          "valor_contratado": 226832934.43,
+          "numero_contratos": 7
+        },
+        {
+          "nit_entidad": "899999067",
+          "entidad": "CONTRALORIA GENERAL DE LA REPUBLICA-CGR- GERENCIA DEPARTAMENTAL ANTIOQUIA",
+          "valor_contratado": 104736454.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "811017316",
+          "entidad": "INSTITUCION EDUCATIVA LORENZA VILLEGAS DE SANTOS",
+          "valor_contratado": 64132462.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811018605",
+          "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA LUIS AMIGO",
+          "valor_contratado": 59331432.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811019616",
+          "entidad": "INSTITUCION EDUCATIVA RODRIGO LARA BONILLA",
+          "valor_contratado": 52637508.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811015194",
+          "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA SAN JOSE",
+          "valor_contratado": 46208524.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811022161",
+          "entidad": "INSTITUCION EDUCATIVA LA CANDELARIA",
+          "valor_contratado": 28367554.8,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811003979",
+          "entidad": "MUNICIPIOS UNIDOS DEL SUR DE ANTIOQUIA MUSA",
+          "valor_contratado": 2000000.0,
+          "numero_contratos": 2
+        }
+      ],
+      "conciliacion": null,
+      "segundos": 0.45,
+      "repetible": true,
+      "caso_conocido": {
+        "solo_en_primero": [],
+        "solo_en_segundo": [],
+        "diferencias": [],
+        "claves_repetidas_primero": [],
+        "claves_repetidas_segundo": [],
+        "ok": true,
+        "obtenido": [
+          {
+            "nit_entidad": "800000001",
+            "entidad": "ENTIDAD ALFA",
+            "valor_contratado": 4550000.5,
+            "numero_contratos": 4
+          },
+          {
+            "nit_entidad": "900000004",
+            "entidad": "DELTA DISTRITAL*",
+            "valor_contratado": 2223456.9999999995,
+            "numero_contratos": 4
+          },
+          {
+            "nit_entidad": "8000000025",
+            "entidad": "B BETA",
+            "valor_contratado": 1200000.0,
+            "numero_contratos": 2
+          }
+        ]
+      }
+    },
+    "b": {
+      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-secop-medellin-2025/impl_b.py",
+      "fallas": [],
+      "reglas": [
+        {
+          "id": "R1",
+          "tipo": "conservacion",
+          "descripcion": "La suma de valor_contratado del resultado es igual a la suma de valor_del_contrato de los contratos únicos firmados en 2025 en Medellín, calculada directo de la fuente",
+          "estado": "pasa",
+          "mensaje": "resultado 17,248,249,407,618.69 · fuente 17,248,249,407,618.69"
+        },
+        {
+          "id": "R2",
+          "tipo": "conservacion",
+          "descripcion": "La suma de numero_contratos del resultado es igual al número de id_contrato distintos firmados en 2025 en Medellín (los de valor cero incluidos)",
+          "estado": "pasa",
+          "mensaje": "resultado 49,662 · fuente 49,662 contratos"
+        },
+        {
+          "id": "R3",
+          "tipo": "unicidad",
+          "descripcion": "Cada nit_entidad aparece una sola vez en el resultado",
+          "estado": "pasa",
+          "mensaje": "53 filas · 53 NIT distintos · repetidos: []"
+        },
+        {
+          "id": "R4",
+          "tipo": "completitud",
+          "descripcion": "Los NIT del resultado son exactamente los que tienen al menos un contrato firmado en 2025 en Medellín: no falta ninguno ni sobra ninguno (ni entidades sin contratos en 2025)",
+          "estado": "pasa",
+          "mensaje": "fuente 53 NIT · resultado 53 NIT · faltan [] · sobran []"
+        },
+        {
+          "id": "R5",
+          "tipo": "dominio",
+          "descripcion": "numero_contratos es un entero mayor o igual a 1, valor_contratado es mayor o igual a 0 y no supera el total de la fuente, y nit_entidad son solo dígitos",
+          "estado": "pasa",
+          "mensaje": "53 filas · fuera de dominio 0: [] · total fuente 17,248,249,407,618.69"
+        },
+        {
+          "id": "R6",
+          "tipo": "otra",
+          "descripcion": "entidad es el nombre_entidad (sin espacios al inicio ni al final) que más contratos únicos de 2025 tiene dentro de su NIT; si hay empate, el primero en orden alfabético",
+          "estado": "pasa",
+          "mensaje": "53 filas · 5 NIT con más de un nombre · nombre distinto al esperado 0: []"
+        },
+        {
+          "id": "R7",
+          "tipo": "otra",
+          "descripcion": "El resultado viene ordenado por valor_contratado de mayor a menor y, en empate, por nit_entidad ascendente",
+          "estado": "pasa",
+          "mensaje": "53 filas · filas fuera de orden: []"
+        },
+        {
+          "id": "R8",
+          "tipo": "conservacion",
+          "descripcion": "Para cada nit_entidad del resultado, valor_contratado y numero_contratos son iguales a la suma de valor_del_contrato y al número de id_contrato distintos de ese NIT firmados en 2025 en Medellín, calculados directo de la fuente",
+          "estado": "pasa",
+          "mensaje": "53 filas · NIT con valor o número distinto al de la fuente 0: []"
+        }
+      ],
+      "reglas_con_error": [],
+      "compuertas": [],
+      "resultado": [
+        {
+          "nit_entidad": "890905211",
+          "entidad": "DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN",
+          "valor_contratado": 7687662551100.82,
+          "numero_contratos": 2133
+        },
+        {
+          "nit_entidad": "890900286",
+          "entidad": "DEPARTAMENTO DE ANTIOQUIA//",
+          "valor_contratado": 4894378080841.26,
+          "numero_contratos": 1501
+        },
+        {
+          "nit_entidad": "899999239",
+          "entidad": "ICBF REGIONAL ANTIOQUIA",
+          "valor_contratado": 1205877899422.0,
+          "numero_contratos": 2147
+        },
+        {
+          "nit_entidad": "800194096",
+          "entidad": "INSTITUTO DE DEPORTES Y RECREACION DE MEDELLIN",
+          "valor_contratado": 910623211099.5,
+          "numero_contratos": 4748
+        },
+        {
+          "nit_entidad": "800223337",
+          "entidad": "EMPRESA DE DESARROLLO URBANO DE MEDELLIN",
+          "valor_contratado": 536457169412.0,
+          "numero_contratos": 1483
+        },
+        {
+          "nit_entidad": "800214750",
+          "entidad": "INSTITUCIÓN UNIVERSITARIA ITM",
+          "valor_contratado": 444005396038.0,
+          "numero_contratos": 19225
+        },
+        {
+          "nit_entidad": "900602106",
+          "entidad": "AGENCIA DE EDUCACIÓN POSTSECUNDARIA DE MEDELLÍN -SAPIENCIA-",
+          "valor_contratado": 287021806541.0,
+          "numero_contratos": 531
+        },
+        {
+          "nit_entidad": "811000231",
+          "entidad": "CORPORACIÓN AUTÓNOMA REGIONAL DEL CENTRO DE ANTIOQUIA",
+          "valor_contratado": 168962517840.0,
+          "numero_contratos": 313
+        },
+        {
+          "nit_entidad": "8909801583",
+          "entidad": "Institución Universitaria Pascual Bravo COMPRADOR",
+          "valor_contratado": 154148574056.59,
+          "numero_contratos": 4504
+        },
+        {
+          "nit_entidad": "899999034",
+          "entidad": "SENA REGIONAL ANTIOQUIA Grupo de Apoyo Administrativo Mixto",
+          "valor_contratado": 137999589486.42,
+          "numero_contratos": 2479
+        },
+        {
+          "nit_entidad": "811007127",
+          "entidad": "INSTITUTO DEPARTAMENTAL DE DEPORTES DE ANTIOQUIA",
+          "valor_contratado": 102791984650.0,
+          "numero_contratos": 610
+        },
+        {
+          "nit_entidad": "901168222",
+          "entidad": "IU. Digital",
+          "valor_contratado": 83810716152.94,
+          "numero_contratos": 995
+        },
+        {
+          "nit_entidad": "900014480",
+          "entidad": "ISVIMED",
+          "valor_contratado": 82413192884.0,
+          "numero_contratos": 625
+        },
+        {
+          "nit_entidad": "890980134",
+          "entidad": "INSTITUCIÓN UNIVERSITARIA COLEGIO MAYOR DE ANTIOQUIA",
+          "valor_contratado": 75125373654.2,
+          "numero_contratos": 2324
+        },
+        {
+          "nit_entidad": "890980150",
+          "entidad": "BIBLIOTECA PUBLICA PILOTO DE MEDELLIN PARA AMERICA LATINA",
+          "valor_contratado": 56809551956.09,
+          "numero_contratos": 2075
+        },
+        {
+          "nit_entidad": "8909801366",
+          "entidad": "POLITECNICO COLOMBIANO JAIME ISAZA CADAVID",
+          "valor_contratado": 53888360017.63,
+          "numero_contratos": 1115
+        },
+        {
+          "nit_entidad": "901540992",
+          "entidad": "DISPENSARIO MEDICO DE MEDELLIN//",
+          "valor_contratado": 50992713674.62,
+          "numero_contratos": 456
+        },
+        {
+          "nit_entidad": "800165798",
+          "entidad": "Rama Judicial  Dirección Seccional de Administración Judicial de Medellín",
+          "valor_contratado": 45325402851.43,
+          "numero_contratos": 68
+        },
+        {
+          "nit_entidad": "900323466",
+          "entidad": "RUTA N MEDELLIN",
+          "valor_contratado": 37009175344.76,
+          "numero_contratos": 197
+        },
+        {
+          "nit_entidad": "900679194",
+          "entidad": "CORPORACIÓN GILBERTO ECHEVERRI MEJÍA",
+          "valor_contratado": 35605413920.66,
+          "numero_contratos": 86
+        },
+        {
+          "nit_entidad": "811032187",
+          "entidad": "EMPRESA DE VIVIENDA DE ANTIOQUIA-VIVA",
+          "valor_contratado": 32960910006.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "8110303954",
+          "entidad": "ASOCIACIÓN DE MUNICIPIOS DEL NORTE ANTIOQUEÑO- AMUNORTE",
+          "valor_contratado": 30651467501.49,
+          "numero_contratos": 203
+        },
+        {
+          "nit_entidad": "800140985",
+          "entidad": "POLICIA METROPOLITANA DEL VALLE DE ABURRA",
+          "valor_contratado": 25202790489.16,
+          "numero_contratos": 75
+        },
+        {
+          "nit_entidad": "900158929",
+          "entidad": "FONDO DE VALORIZACION DEL MUNICIPIO DE MEDELLIN",
+          "valor_contratado": 21110441923.0,
+          "numero_contratos": 111
+        },
+        {
+          "nit_entidad": "811038424",
+          "entidad": "RIA S.A*",
+          "valor_contratado": 14449363018.0,
+          "numero_contratos": 355
+        },
+        {
+          "nit_entidad": "811006762",
+          "entidad": "ASOCIACIÓN CANAL LOCAL DE TELEVISIÓN DE MEDELLIN - TELEMEDELLIN",
+          "valor_contratado": 13370140253.98,
+          "numero_contratos": 31
+        },
+        {
+          "nit_entidad": "901037393",
+          "entidad": "SUBCUENTA DEL SISTEMA DE PARQUES NACIONALES NATURALES DEL FONDO NACIONAL AMBIENTAL -FONAM DTPA",
+          "valor_contratado": 10809464136.54,
+          "numero_contratos": 229
+        },
+        {
+          "nit_entidad": "900552743",
+          "entidad": "MESAN",
+          "valor_contratado": 8688609863.83,
+          "numero_contratos": 56
+        },
+        {
+          "nit_entidad": "811004962",
+          "entidad": "PARQUES NACIONALES NATURALES DE COLOMBIA - DIRECCION TERRITORIAL ANDES OCCIDENTALES**",
+          "valor_contratado": 5971734230.8,
+          "numero_contratos": 217
+        },
+        {
+          "nit_entidad": "900857221",
+          "entidad": "MCM",
+          "valor_contratado": 4950958039.5,
+          "numero_contratos": 91
+        },
+        {
+          "nit_entidad": "805003737",
+          "entidad": "PARQUES NACIONALES NATURALES- DIRECCION TERRITORIAL PACIFICO",
+          "valor_contratado": 4442449016.4,
+          "numero_contratos": 135
+        },
+        {
+          "nit_entidad": "811000372",
+          "entidad": "CGA",
+          "valor_contratado": 3602837632.0,
+          "numero_contratos": 31
+        },
+        {
+          "nit_entidad": "811010134",
+          "entidad": "COMPLEJO CARCELARIO Y PENITENCIARIO EL PEDREGAL DE MEDELLIN",
+          "valor_contratado": 3512587787.98,
+          "numero_contratos": 22
+        },
+        {
+          "nit_entidad": "800157073",
+          "entidad": "AEROPUERTO OLAYA HERRERA",
+          "valor_contratado": 3371443864.0,
+          "numero_contratos": 46
+        },
+        {
+          "nit_entidad": "811026988",
+          "entidad": "CONTRALORÍA DISTRITAL DE MEDELLÍN",
+          "valor_contratado": 3040213268.86,
+          "numero_contratos": 44
+        },
+        {
+          "nit_entidad": "900246990",
+          "entidad": "MUNICIPIOS ASOCIADOS DEL NORDESTE Y MAGDALENA MEDIO",
+          "valor_contratado": 2774348084.02,
+          "numero_contratos": 17
+        },
+        {
+          "nit_entidad": "800117519",
+          "entidad": "ESAP TERRITORIAL ANTIOQUIA",
+          "valor_contratado": 2433532387.0,
+          "numero_contratos": 104
+        },
+        {
+          "nit_entidad": "811036423",
+          "entidad": "ACI Medellín",
+          "valor_contratado": 1814688711.0,
+          "numero_contratos": 39
+        },
+        {
+          "nit_entidad": "800072977",
+          "entidad": "FONDANE - DIR TER NOROCCIDENTE",
+          "valor_contratado": 922133666.77,
+          "numero_contratos": 86
+        },
+        {
+          "nit_entidad": "811011575",
+          "entidad": "INSTITUTO NACIONAL PENITENCIARIO Y CARCELARIO REGIONAL NOROESTE",
+          "valor_contratado": 672389563.1,
+          "numero_contratos": 13
+        },
+        {
+          "nit_entidad": "901665080",
+          "entidad": "REGION ADMINISTRATIVA Y DE PLANIFICACION RAP DEL AGUA Y LA MONTAÑA",
+          "valor_contratado": 609229897.0,
+          "numero_contratos": 15
+        },
+        {
+          "nit_entidad": "900793275",
+          "entidad": "ASOCIACION DE MUNICIPIOS DEL MAGDALENA MEDIO ANTIOQUEÑO",
+          "valor_contratado": 442895472.0,
+          "numero_contratos": 43
+        },
+        {
+          "nit_entidad": "8909029226",
+          "entidad": "Universidad Pontificia Bolivariana",
+          "valor_contratado": 361452581.11,
+          "numero_contratos": 46
+        },
+        {
+          "nit_entidad": "901212832",
+          "entidad": "PROVINCIA ADMINISTRATIVA Y DE PLANIFICACIÓN CARTAMA",
+          "valor_contratado": 333898412.0,
+          "numero_contratos": 15
+        },
+        {
+          "nit_entidad": "890904171",
+          "entidad": "MUNICIPIOS ASOCIADOS DEL VALLE DE ABURRÁ -MASA",
+          "valor_contratado": 256500000.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "811038085",
+          "entidad": "MINISTERIO DEL TRABAJO DIRECCIÓN TERRITORIAL DE ANTIOQUIA",
+          "valor_contratado": 226832934.43,
+          "numero_contratos": 7
+        },
+        {
+          "nit_entidad": "899999067",
+          "entidad": "CONTRALORIA GENERAL DE LA REPUBLICA-CGR- GERENCIA DEPARTAMENTAL ANTIOQUIA",
+          "valor_contratado": 104736454.0,
+          "numero_contratos": 3
+        },
+        {
+          "nit_entidad": "811017316",
+          "entidad": "INSTITUCION EDUCATIVA LORENZA VILLEGAS DE SANTOS",
+          "valor_contratado": 64132462.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811018605",
+          "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA LUIS AMIGO",
+          "valor_contratado": 59331432.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811019616",
+          "entidad": "INSTITUCION EDUCATIVA RODRIGO LARA BONILLA",
+          "valor_contratado": 52637508.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811015194",
+          "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA SAN JOSE",
+          "valor_contratado": 46208524.0,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811022161",
+          "entidad": "INSTITUCION EDUCATIVA LA CANDELARIA",
+          "valor_contratado": 28367554.8,
+          "numero_contratos": 1
+        },
+        {
+          "nit_entidad": "811003979",
+          "entidad": "MUNICIPIOS UNIDOS DEL SUR DE ANTIOQUIA MUSA",
+          "valor_contratado": 2000000.0,
+          "numero_contratos": 2
+        }
+      ],
+      "conciliacion": null,
+      "segundos": 0.48,
+      "repetible": true,
+      "caso_conocido": {
+        "solo_en_primero": [],
+        "solo_en_segundo": [],
+        "diferencias": [],
+        "claves_repetidas_primero": [],
+        "claves_repetidas_segundo": [],
+        "ok": true,
+        "obtenido": [
+          {
+            "nit_entidad": "800000001",
+            "entidad": "ENTIDAD ALFA",
+            "valor_contratado": 4550000.5,
+            "numero_contratos": 4
+          },
+          {
+            "nit_entidad": "900000004",
+            "entidad": "DELTA DISTRITAL*",
+            "valor_contratado": 2223457.0,
+            "numero_contratos": 4
+          },
+          {
+            "nit_entidad": "8000000025",
+            "entidad": "B BETA",
+            "valor_contratado": 1200000.0,
+            "numero_contratos": 2
+          }
+        ]
+      }
+    }
+  },
+  "concordancia": {
+    "solo_en_primero": [],
+    "solo_en_segundo": [],
+    "diferencias": [],
+    "claves_repetidas_primero": [],
+    "claves_repetidas_segundo": [],
+    "ok": true
+  },
+  "resultado_oficial": [
+    {
+      "nit_entidad": "890905211",
+      "entidad": "DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN",
+      "valor_contratado": 7687662551100.82,
+      "numero_contratos": 2133
+    },
+    {
+      "nit_entidad": "890900286",
+      "entidad": "DEPARTAMENTO DE ANTIOQUIA//",
+      "valor_contratado": 4894378080841.26,
+      "numero_contratos": 1501
+    },
+    {
+      "nit_entidad": "899999239",
+      "entidad": "ICBF REGIONAL ANTIOQUIA",
+      "valor_contratado": 1205877899422.0,
+      "numero_contratos": 2147
+    },
+    {
+      "nit_entidad": "800194096",
+      "entidad": "INSTITUTO DE DEPORTES Y RECREACION DE MEDELLIN",
+      "valor_contratado": 910623211099.5,
+      "numero_contratos": 4748
+    },
+    {
+      "nit_entidad": "800223337",
+      "entidad": "EMPRESA DE DESARROLLO URBANO DE MEDELLIN",
+      "valor_contratado": 536457169412.0,
+      "numero_contratos": 1483
+    },
+    {
+      "nit_entidad": "800214750",
+      "entidad": "INSTITUCIÓN UNIVERSITARIA ITM",
+      "valor_contratado": 444005396038.0,
+      "numero_contratos": 19225
+    },
+    {
+      "nit_entidad": "900602106",
+      "entidad": "AGENCIA DE EDUCACIÓN POSTSECUNDARIA DE MEDELLÍN -SAPIENCIA-",
+      "valor_contratado": 287021806541.0,
+      "numero_contratos": 531
+    },
+    {
+      "nit_entidad": "811000231",
+      "entidad": "CORPORACIÓN AUTÓNOMA REGIONAL DEL CENTRO DE ANTIOQUIA",
+      "valor_contratado": 168962517840.0,
+      "numero_contratos": 313
+    },
+    {
+      "nit_entidad": "8909801583",
+      "entidad": "Institución Universitaria Pascual Bravo COMPRADOR",
+      "valor_contratado": 154148574056.59,
+      "numero_contratos": 4504
+    },
+    {
+      "nit_entidad": "899999034",
+      "entidad": "SENA REGIONAL ANTIOQUIA Grupo de Apoyo Administrativo Mixto",
+      "valor_contratado": 137999589486.42,
+      "numero_contratos": 2479
+    },
+    {
+      "nit_entidad": "811007127",
+      "entidad": "INSTITUTO DEPARTAMENTAL DE DEPORTES DE ANTIOQUIA",
+      "valor_contratado": 102791984650.0,
+      "numero_contratos": 610
+    },
+    {
+      "nit_entidad": "901168222",
+      "entidad": "IU. Digital",
+      "valor_contratado": 83810716152.94,
+      "numero_contratos": 995
+    },
+    {
+      "nit_entidad": "900014480",
+      "entidad": "ISVIMED",
+      "valor_contratado": 82413192884.0,
+      "numero_contratos": 625
+    },
+    {
+      "nit_entidad": "890980134",
+      "entidad": "INSTITUCIÓN UNIVERSITARIA COLEGIO MAYOR DE ANTIOQUIA",
+      "valor_contratado": 75125373654.2,
+      "numero_contratos": 2324
+    },
+    {
+      "nit_entidad": "890980150",
+      "entidad": "BIBLIOTECA PUBLICA PILOTO DE MEDELLIN PARA AMERICA LATINA",
+      "valor_contratado": 56809551956.09,
+      "numero_contratos": 2075
+    },
+    {
+      "nit_entidad": "8909801366",
+      "entidad": "POLITECNICO COLOMBIANO JAIME ISAZA CADAVID",
+      "valor_contratado": 53888360017.63,
+      "numero_contratos": 1115
+    },
+    {
+      "nit_entidad": "901540992",
+      "entidad": "DISPENSARIO MEDICO DE MEDELLIN//",
+      "valor_contratado": 50992713674.62,
+      "numero_contratos": 456
+    },
+    {
+      "nit_entidad": "800165798",
+      "entidad": "Rama Judicial  Dirección Seccional de Administración Judicial de Medellín",
+      "valor_contratado": 45325402851.43,
+      "numero_contratos": 68
+    },
+    {
+      "nit_entidad": "900323466",
+      "entidad": "RUTA N MEDELLIN",
+      "valor_contratado": 37009175344.76,
+      "numero_contratos": 197
+    },
+    {
+      "nit_entidad": "900679194",
+      "entidad": "CORPORACIÓN GILBERTO ECHEVERRI MEJÍA",
+      "valor_contratado": 35605413920.66,
+      "numero_contratos": 86
+    },
+    {
+      "nit_entidad": "811032187",
+      "entidad": "EMPRESA DE VIVIENDA DE ANTIOQUIA-VIVA",
+      "valor_contratado": 32960910006.0,
+      "numero_contratos": 3
+    },
+    {
+      "nit_entidad": "8110303954",
+      "entidad": "ASOCIACIÓN DE MUNICIPIOS DEL NORTE ANTIOQUEÑO- AMUNORTE",
+      "valor_contratado": 30651467501.489998,
+      "numero_contratos": 203
+    },
+    {
+      "nit_entidad": "800140985",
+      "entidad": "POLICIA METROPOLITANA DEL VALLE DE ABURRA",
+      "valor_contratado": 25202790489.16,
+      "numero_contratos": 75
+    },
+    {
+      "nit_entidad": "900158929",
+      "entidad": "FONDO DE VALORIZACION DEL MUNICIPIO DE MEDELLIN",
+      "valor_contratado": 21110441923.0,
+      "numero_contratos": 111
+    },
+    {
+      "nit_entidad": "811038424",
+      "entidad": "RIA S.A*",
+      "valor_contratado": 14449363018.0,
+      "numero_contratos": 355
+    },
+    {
+      "nit_entidad": "811006762",
+      "entidad": "ASOCIACIÓN CANAL LOCAL DE TELEVISIÓN DE MEDELLIN - TELEMEDELLIN",
+      "valor_contratado": 13370140253.98,
+      "numero_contratos": 31
+    },
+    {
+      "nit_entidad": "901037393",
+      "entidad": "SUBCUENTA DEL SISTEMA DE PARQUES NACIONALES NATURALES DEL FONDO NACIONAL AMBIENTAL -FONAM DTPA",
+      "valor_contratado": 10809464136.54,
+      "numero_contratos": 229
+    },
+    {
+      "nit_entidad": "900552743",
+      "entidad": "MESAN",
+      "valor_contratado": 8688609863.83,
+      "numero_contratos": 56
+    },
+    {
+      "nit_entidad": "811004962",
+      "entidad": "PARQUES NACIONALES NATURALES DE COLOMBIA - DIRECCION TERRITORIAL ANDES OCCIDENTALES**",
+      "valor_contratado": 5971734230.8,
+      "numero_contratos": 217
+    },
+    {
+      "nit_entidad": "900857221",
+      "entidad": "MCM",
+      "valor_contratado": 4950958039.5,
+      "numero_contratos": 91
+    },
+    {
+      "nit_entidad": "805003737",
+      "entidad": "PARQUES NACIONALES NATURALES- DIRECCION TERRITORIAL PACIFICO",
+      "valor_contratado": 4442449016.4,
+      "numero_contratos": 135
+    },
+    {
+      "nit_entidad": "811000372",
+      "entidad": "CGA",
+      "valor_contratado": 3602837632.0,
+      "numero_contratos": 31
+    },
+    {
+      "nit_entidad": "811010134",
+      "entidad": "COMPLEJO CARCELARIO Y PENITENCIARIO EL PEDREGAL DE MEDELLIN",
+      "valor_contratado": 3512587787.98,
+      "numero_contratos": 22
+    },
+    {
+      "nit_entidad": "800157073",
+      "entidad": "AEROPUERTO OLAYA HERRERA",
+      "valor_contratado": 3371443864.0,
+      "numero_contratos": 46
+    },
+    {
+      "nit_entidad": "811026988",
+      "entidad": "CONTRALORÍA DISTRITAL DE MEDELLÍN",
+      "valor_contratado": 3040213268.86,
+      "numero_contratos": 44
+    },
+    {
+      "nit_entidad": "900246990",
+      "entidad": "MUNICIPIOS ASOCIADOS DEL NORDESTE Y MAGDALENA MEDIO",
+      "valor_contratado": 2774348084.02,
+      "numero_contratos": 17
+    },
+    {
+      "nit_entidad": "800117519",
+      "entidad": "ESAP TERRITORIAL ANTIOQUIA",
+      "valor_contratado": 2433532387.0,
+      "numero_contratos": 104
+    },
+    {
+      "nit_entidad": "811036423",
+      "entidad": "ACI Medellín",
+      "valor_contratado": 1814688711.0,
+      "numero_contratos": 39
+    },
+    {
+      "nit_entidad": "800072977",
+      "entidad": "FONDANE - DIR TER NOROCCIDENTE",
+      "valor_contratado": 922133666.77,
+      "numero_contratos": 86
+    },
+    {
+      "nit_entidad": "811011575",
+      "entidad": "INSTITUTO NACIONAL PENITENCIARIO Y CARCELARIO REGIONAL NOROESTE",
+      "valor_contratado": 672389563.1,
+      "numero_contratos": 13
+    },
+    {
+      "nit_entidad": "901665080",
+      "entidad": "REGION ADMINISTRATIVA Y DE PLANIFICACION RAP DEL AGUA Y LA MONTAÑA",
+      "valor_contratado": 609229897.0,
+      "numero_contratos": 15
+    },
+    {
+      "nit_entidad": "900793275",
+      "entidad": "ASOCIACION DE MUNICIPIOS DEL MAGDALENA MEDIO ANTIOQUEÑO",
+      "valor_contratado": 442895472.0,
+      "numero_contratos": 43
+    },
+    {
+      "nit_entidad": "8909029226",
+      "entidad": "Universidad Pontificia Bolivariana",
+      "valor_contratado": 361452581.11,
+      "numero_contratos": 46
+    },
+    {
+      "nit_entidad": "901212832",
+      "entidad": "PROVINCIA ADMINISTRATIVA Y DE PLANIFICACIÓN CARTAMA",
+      "valor_contratado": 333898412.0,
+      "numero_contratos": 15
+    },
+    {
+      "nit_entidad": "890904171",
+      "entidad": "MUNICIPIOS ASOCIADOS DEL VALLE DE ABURRÁ -MASA",
+      "valor_contratado": 256500000.0,
+      "numero_contratos": 3
+    },
+    {
+      "nit_entidad": "811038085",
+      "entidad": "MINISTERIO DEL TRABAJO DIRECCIÓN TERRITORIAL DE ANTIOQUIA",
+      "valor_contratado": 226832934.43,
+      "numero_contratos": 7
+    },
+    {
+      "nit_entidad": "899999067",
+      "entidad": "CONTRALORIA GENERAL DE LA REPUBLICA-CGR- GERENCIA DEPARTAMENTAL ANTIOQUIA",
+      "valor_contratado": 104736454.0,
+      "numero_contratos": 3
+    },
+    {
+      "nit_entidad": "811017316",
+      "entidad": "INSTITUCION EDUCATIVA LORENZA VILLEGAS DE SANTOS",
+      "valor_contratado": 64132462.0,
+      "numero_contratos": 1
+    },
+    {
+      "nit_entidad": "811018605",
+      "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA LUIS AMIGO",
+      "valor_contratado": 59331432.0,
+      "numero_contratos": 1
+    },
+    {
+      "nit_entidad": "811019616",
+      "entidad": "INSTITUCION EDUCATIVA RODRIGO LARA BONILLA",
+      "valor_contratado": 52637508.0,
+      "numero_contratos": 1
+    },
+    {
+      "nit_entidad": "811015194",
+      "entidad": "INSTITUCION EDUCATIVA FE Y ALEGRIA SAN JOSE",
+      "valor_contratado": 46208524.0,
+      "numero_contratos": 1
+    },
+    {
+      "nit_entidad": "811022161",
+      "entidad": "INSTITUCION EDUCATIVA LA CANDELARIA",
+      "valor_contratado": 28367554.8,
+      "numero_contratos": 1
+    },
+    {
+      "nit_entidad": "811003979",
+      "entidad": "MUNICIPIOS UNIDOS DEL SUR DE ANTIOQUIA MUSA",
+      "valor_contratado": 2000000.0,
+      "numero_contratos": 2
+    }
+  ],
+  "fuente_resultado": "a",
+  "anticipo": null,
+  "conciliaciones_iguales": null,
+  "caja_de_arena": true
+}

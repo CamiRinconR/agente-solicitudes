@@ -1,0 +1,4 @@
+id_contrato,proveedor_adjudicado,documento_proveedor,objeto_del_contrato,valor_del_contrato
+P1,Persona Ficticia Uno,000000001,"Prestación de servicios del contratista identificado con C.C. 000.000.001 para apoyo a la gestión",3500000
+P2,Persona Ficticia Dos,000000002,"Servicios profesionales; contacto: persona.ficticia@ejemplo.invalid, celular 399 000 0001",4200000
+P3,Señora Ficticia Tres,000000003,Suministro de papelería para la sede principal,1200000

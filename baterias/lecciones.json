@@ -1,0 +1,89 @@
+{
+  "_nota": "Cada error real se vuelve una lección con su prueba. Los agentes la leen antes de escribir (control blando) y la prueba la hace cumplir (control duro). Se agrega con: python herramientas/baterias.py --leccion '<texto>' --origen '<de dónde salió>' --prueba '<dónde se prueba>'.",
+  "lecciones": [
+    {
+      "id": "L01",
+      "leccion": "pandas.to_datetime(format='mixed', dayfirst=True) invierte las fechas ISO con día <= 12 (2026-04-05 queda 4 de mayo). Con formatos mezclados se lee cada formato por separado.",
+      "origen": "implementación de prueba, 6-nov-2026; la atrapó la regla de conservación",
+      "prueba": "caso conocido con una fecha ISO de día <= 12 y otra dd/mm/aaaa; regla de conservación"
+    },
+    {
+      "id": "L02",
+      "leccion": "Si las fechas traen hora, compararlas contra 'aaaa-mm-dd' como texto deja por fuera el último día (5 contratos y 882 millones en SECOP Medellín 2025).",
+      "origen": "SECOP II, 6-nov-2026",
+      "prueba": "perfilar.py marca 'con_hora'; caso conocido con 31-dic a las 23:59"
+    },
+    {
+      "id": "L03",
+      "leccion": "Un nombre de paquete inventado (pandas-secop-tools) lo puede registrar un atacante: solo se importan librerías de permitidas.json, con versiones de requirements.txt.",
+      "origen": "curso Big Data con IA, módulo 1 (slopsquatting)",
+      "prueba": "bateria:seguridad/malos/paquete_inventado.py y instala_desde_codigo.py"
+    },
+    {
+      "id": "L04",
+      "leccion": "Unir con un maestro que tiene códigos repetidos multiplica filas sin dar error. La conservación se calcula sin unir tablas.",
+      "origen": "ejemplo sintético, 6-nov-2026",
+      "prueba": "regla de tipo conservación"
+    },
+    {
+      "id": "L05",
+      "leccion": "Un NIT puede agrupar varias unidades que contratan (Concejo y Personería dentro del Distrito; Asamblea dentro del Departamento): «entidad» es una decisión de negocio y se declara.",
+      "origen": "SECOP II, 6-nov-2026",
+      "prueba": "perfilar.py: código con varios nombres (nit_entidad → codigo_entidad); pregunta en la spec"
+    },
+    {
+      "id": "L06",
+      "leccion": "«Entidad pública» no garantiza que todo el archivo lo sea: la Universidad Pontificia Bolivariana (privada) publica en SECOP II. Se pregunta, no se supone.",
+      "origen": "SECOP II, 6-nov-2026; lo vio un generador de un solo disparo, no la referencia humana",
+      "prueba": "pregunta en la spec"
+    },
+    {
+      "id": "L07",
+      "leccion": "En «contratos» de SECOP también hay operaciones de crédito público (deuda): un billón en el Distrito en 2025. Es una pregunta de negocio.",
+      "origen": "SECOP II, 6-nov-2026",
+      "prueba": "pregunta en la spec"
+    },
+    {
+      "id": "L08",
+      "leccion": "Quitar «duplicados» por (entidad, valor, fecha) borra contratos legítimos (−25.824 en SECOP Medellín 2025). Solo se depura por la llave declarada, y se concilia.",
+      "origen": "mutante de SECOP, 6-nov-2026",
+      "prueba": "conciliar(datos) y regla de conservación del número de contratos"
+    },
+    {
+      "id": "L09",
+      "leccion": "Las variantes de escritura de una categoría parten los grupos sin dar error. Va una lista cerrada en la spec y una regla de dominio.",
+      "origen": "ejemplo sintético, 6-nov-2026",
+      "prueba": "regla de tipo dominio"
+    },
+    {
+      "id": "L10",
+      "leccion": "La compuerta también se equivoca: bloqueó re.compile como si fuera compile. Por eso la batería tiene código bueno que debe pasar.",
+      "origen": "seguridad.py, 6-nov-2026",
+      "prueba": "bateria:seguridad/buenos/re_compile.py"
+    },
+    {
+      "id": "L11",
+      "leccion": "El texto libre (objeto del contrato) trae cédulas y nombres en cerca de 1 de cada 1.000 filas: no se le muestra a la IA y se barre antes de publicar.",
+      "origen": "curso Big Data con IA (116 de 113.292 en Risaralda)",
+      "prueba": "bateria:privacidad/con_datos_personales.csv"
+    },
+    {
+      "id": "L12",
+      "leccion": "Un detector de celulares sin contexto confunde valores en pesos de 10 dígitos que empiezan por 3 con teléfonos. Sin separadores, solo cuenta con contexto (cel., teléfono, WhatsApp).",
+      "origen": "gobernanza.py, 6-nov-2026 (informe de SECOP)",
+      "prueba": "bateria:privacidad/no_son_personales.txt"
+    },
+    {
+      "id": "L13",
+      "leccion": "El clasificador de columnas dejaba pasar codigo_proveedor (identifica personas), los tipos de documento de supervisores y el texto libre, y marcaba documentos_tipo como personal. Lo público no es de uso libre: cada columna de la fuente debe tener su clase esperada.",
+      "origen": "revisión de las 95 columnas de SECOP II, 6-nov-2026",
+      "prueba": "bateria:privacidad/columnas_secop.json"
+    },
+    {
+      "id": "L14",
+      "leccion": "Una regla de limpieza mal planteada (IVA mayor que el subtotal) marcó 1.150 de 1.520 filas en una prueba. El plan de limpieza lo revisa alguien distinto antes de sellarlo, y las reglas calculan desde el dato crudo.",
+      "origen": "plan de limpieza de prueba, 6-nov-2026",
+      "prueba": "revisor de la especificación (agentes/04) y reglas sobre el dato crudo"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+cliente_id,nombre,region,fecha_actualizacion
+C001,Distribuidora 001 S.A.S.,CALDAS ,2025-06-30
+C002,Distribuidora 002 S.A.S.,Antioquia,2026-04-30
+C002,Distribuidora 002 S.A.S.,Bogotá D.C.,2024-05-29
+C003,Distribuidora 003 S.A.S.,Antioquia,2024-08-13
+C004,Distribuidora 004 S.A.S.,CALDAS ,2024-12-31
+C005,Distribuidora 005 S.A.S.,Antioquia,2025-01-09
+C006,Distribuidora 006 S.A.S.,Valle del Cauca,2025-12-16
+C007,Distribuidora 007 S.A.S.,Valle del Cauca,2025-12-06
+C008,Distribuidora 008 S.A.S.,Antioquia,2025-01-24
+C009,Distribuidora 009 S.A.S.,Antioquia,2023-06-03
+C010,Distribuidora 010 S.A.S.,Antioquia,2025-01-14
+C011,Distribuidora 011 S.A.S.,Antioquia,2025-03-23
+C012,Distribuidora 012 S.A.S., Antioquia,2025-09-08
+C013,Distribuidora 013 S.A.S.,Antioquia,2025-04-08
+C014,Distribuidora 014 S.A.S.,Antioquia,2023-10-16
+C015,Distribuidora 015 S.A.S.,Valle del Cauca,2024-02-21
+C016,Distribuidora 016 S.A.S.,Antioquia,2025-06-06
+C017,Distribuidora 017 S.A.S.,CALDAS ,2025-05-08
+C018,Distribuidora 018 S.A.S.,CALDAS ,2025-12-13
+C019,Distribuidora 019 S.A.S.,Antioquia,2025-03-19
+C019,Distribuidora 019 S.A.S.,Caldas,2024-01-12
+C020,Distribuidora 020 S.A.S.,Bogotá D.C.,2024-06-02
+C021,Distribuidora 021 S.A.S.,Valle del Cauca,2024-04-11
+C022,Distribuidora 022 S.A.S.,Valle del cauca,2023-01-23
+C023,Distribuidora 023 S.A.S.,BOGOTA DC,2025-04-05
+C023,Distribuidora 023 S.A.S.,Risaralda,2023-06-24
+C024,Distribuidora 024 S.A.S.,Bogotá D.C.,2023-02-04
+C025,Distribuidora 025 S.A.S.,Caldas,2025-01-30
+C026,Distribuidora 026 S.A.S.,Valle del cauca,2024-09-04
+C027,Distribuidora 027 S.A.S.,Valle,2024-12-08
+C028,Distribuidora 028 S.A.S.,CALDAS ,2025-09-13
+C029,Distribuidora 029 S.A.S.,Bogotá D.C.,2025-05-01
+C030,Distribuidora 030 S.A.S.,Risaralda,2023-10-10
+C031,Distribuidora 031 S.A.S.,Antioquia,2025-05-12
+C032,Distribuidora 032 S.A.S.,risaralda,2025-08-17
+C033,Distribuidora 033 S.A.S.,Antioquia,2025-04-26
+C034,Distribuidora 034 S.A.S.,Antioquia,2025-12-27
+C035,Distribuidora 035 S.A.S.,Risaralda,2024-01-08
+C035,Distribuidora 035 S.A.S.,Antioquia,2025-09-29
+C036,Distribuidora 036 S.A.S.,Bogotá,2023-09-27
+C037,Distribuidora 037 S.A.S.,Risaralda,2023-11-16
+C037,Distribuidora 037 S.A.S.,Bogotá D.C.,2026-04-30
+C038,Distribuidora 038 S.A.S.,Bogotá D.C.,2024-10-27
+C039,Distribuidora 039 S.A.S.,Antioquia,2023-08-25
+C040,Distribuidora 040 S.A.S., Antioquia,2024-08-05
+C041,Distribuidora 041 S.A.S.,Antioquia,2023-11-03
+C042,Distribuidora 042 S.A.S.,Caldas,2025-09-30
+C043,Distribuidora 043 S.A.S.,Caldas,2024-09-12
+C044,Distribuidora 044 S.A.S.,Caldas,2023-07-26
+C045,Distribuidora 045 S.A.S.,Antioquia,2024-08-24
+C046,Distribuidora 046 S.A.S.,Caldas,2024-08-10
+C047,Distribuidora 047 S.A.S.,Antioquia,2025-07-07
+C048,Distribuidora 048 S.A.S.,ANTIOQUIA,2025-03-02
+C049,Distribuidora 049 S.A.S.,Bogotá D.C.,2023-10-12
+C050,Distribuidora 050 S.A.S.,Bogotá D.C.,2024-06-03
+C051,Distribuidora 051 S.A.S.,ANTIOQUIA,2023-08-12
+C052,Distribuidora 052 S.A.S.,Bogota D.C.,2025-08-22
+C053,Distribuidora 053 S.A.S.,Antioquia,2025-10-23
+C054,Distribuidora 054 S.A.S.,Antioquia,2023-12-08
+C055,Distribuidora 055 S.A.S.,Bogotá D.C.,2024-12-27
+C056,Distribuidora 056 S.A.S.,ANTIOQUIA,2025-07-05
+C057,Distribuidora 057 S.A.S.,Bogotá D.C.,2024-05-13
+C058,Distribuidora 058 S.A.S.,risaralda,2025-03-08
+C059,Distribuidora 059 S.A.S.,Antioquia,2023-11-02
+C060,Distribuidora 060 S.A.S.,Bogotá D.C.,2025-02-05

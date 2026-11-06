@@ -1,0 +1,14 @@
+cliente_id,nombre,region,fecha_actualizacion
+C001,Distribuidora 001 S.A.S.,CALDAS ,2025-06-30
+C002,Distribuidora 002 S.A.S.,Antioquia,2026-04-30
+C002,Distribuidora 002 S.A.S.,Bogotá D.C.,2024-05-29
+C003,Distribuidora 003 S.A.S.,Risaralda,2023-11-16
+C003,Distribuidora 003 S.A.S.,Bogota D.C.,2026-04-30
+C004,Distribuidora 004 S.A.S., Antioquia,2024-08-13
+C005,Distribuidora 005 S.A.S.,Valle,2025-01-10
+C006,Distribuidora 006 S.A.S.,Valle del cauca,2025-02-11
+C007,Distribuidora 007 S.A.S.,BOGOTA DC,2025-04-05
+C008,Distribuidora 008 S.A.S.,risaralda,2024-03-01
+C009,Distribuidora 009 S.A.S.,ANTIOQUIA,2023-05-05
+C010,Distribuidora 010 S.A.S.,Bogotá,2024-07-07
+C011,Distribuidora 011 S.A.S.,Caldas,2025-09-09
