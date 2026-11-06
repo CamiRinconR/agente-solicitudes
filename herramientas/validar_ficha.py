@@ -15,7 +15,10 @@ cruza, cómo se gobierna y cómo se procesa. Cada afirmación de la ficha se com
   V5 cada cruce se MIDE: qué fracción de las llaves de este conjunto aparece en el otro, con la normalización declarada;
   V6 sin conclusiones ni cifras inventadas en el texto (solo años y referencias legales); las preguntas son preguntas;
   V7 sin instrucciones para agentes ni datos personales en ningún texto;
-  V8 la estrategia de procesamiento es coherente con el dictamen de big data medido.
+  V8 el nivel de big data es el MEDIDO (<id>.dictamen.json junto a la ficha, de dictamen_bigdata.py), no el que la
+     ficha declara, y la estrategia de procesamiento es coherente con él.
+Las consultas y cruces ya medidos se guardan en .cache_soql.json junto a la ficha (solo conteos, nunca filas): corregir
+un texto no vuelve a cargar el servidor.
 Escribe <ficha>.verificacion.json. Sale con 0 si todo pasa y con 1 si algo falla.
 """
 import json
@@ -57,10 +60,26 @@ def es_personal(col):
     return clasificar_columna(col) in ("personal", "cuasi")
 
 
+CACHE = {"ruta": None, "datos": {}}
+
+
 def soql(dominio, conjunto, consulta, timeout_s=180):
     url = f"https://{dominio}/resource/{conjunto}.json?" + urllib.parse.urlencode({"$query": consulta})
     t = time.time()
     return json.loads(pedir(url)), round(time.time() - t, 1)
+
+
+def en_cache(clave, calcular):
+    """Guarda solo resultados de verificación (conteos, fracciones, segundos), nunca filas de datos."""
+    if clave in CACHE["datos"]:
+        r = dict(CACHE["datos"][clave])
+        r["detalle"] = r.get("detalle", "") + " (medido antes, desde la caché)"
+        return r
+    r = calcular()
+    CACHE["datos"][clave] = r
+    if CACHE["ruta"]:
+        CACHE["ruta"].write_text(json.dumps(CACHE["datos"], ensure_ascii=False), encoding="utf-8")
+    return r
 
 
 def limitar(consulta, tope=50):
@@ -133,7 +152,7 @@ def medir_cruce(dominio, aqui, cruce):
             "detalle": f"{por_filas:.1%} de las filas y {por_llaves:.1%} de las llaves de aquí aparecen allá{nota}"}
 
 
-def validar(ficha, inv, red=True):
+def validar(ficha, inv, red=True, dictamen=None):
     res = []
 
     def chequeo(clave, ok, detalle):
@@ -208,8 +227,15 @@ def validar(ficha, inv, red=True):
     chequeo("V7 sin instrucciones", not instrucciones, "ninguna" if not instrucciones else f"en: {instrucciones[:4]}")
     chequeo("V7 sin datos personales", not personales, "ninguno" if not personales else "; ".join(personales[:4]))
 
-    # V8: coherencia con el dictamen
-    nivel = ficha.get("nivel_big_data")
+    # V8: el nivel es el medido, no el declarado
+    if dictamen is None:
+        chequeo("V8 nivel medido", False, "falta el dictamen medido: dictamen_bigdata.py socrata <dominio> <id> --salida <id>.dictamen.json")
+        nivel = None
+    else:
+        nivel = dictamen.get("nivel")
+        chequeo("V8 nivel medido", ficha.get("nivel_big_data") == nivel,
+                f"medido: nivel {nivel} ({dictamen.get('veredicto', '')})" + ("" if ficha.get("nivel_big_data") == nivel
+                else f"; la ficha declara {ficha.get('nivel_big_data')}"))
     estr = (ficha["procesamiento"].get("estrategia", "") + " " + " ".join(ficha["procesamiento"].get("pasos", []))).lower()
     if nivel == 3:
         ok8 = any(s in estr for s in ("agregar en la fuente", "spark", "distribu"))
@@ -227,8 +253,12 @@ def validar(ficha, inv, red=True):
                 chequeo(f"V4 consulta {i}", False, "no es agregada: la cifra debe calcularse en la fuente, sin traer filas")
                 continue
             q2, aviso = limitar(q)
-            try:
-                filas, seg = soql(dominio, ficha["id"], q2)
+
+            def correr_consulta(q2=q2, aviso=aviso):
+                try:
+                    filas, seg = soql(dominio, ficha["id"], q2)
+                except Exception as e:
+                    return {"ok": False, "detalle": f"el servidor la rechazó: {type(e).__name__}: {str(e)[:120]}"}
                 pequenas = 0
                 alias = re.findall(r"count\s*\([^)]*\)\s+as\s+([a-z_][a-z0-9_]*)", q2, re.I)
                 for r in filas:
@@ -241,16 +271,20 @@ def validar(ficha, inv, red=True):
                 det = f"{len(filas)} filas en {seg} s" + (f"; {aviso}" if aviso else "")
                 if pequenas:
                     det += f"; AVISO: {pequenas} grupo(s) con menos de {k} registros (k-anonimato al publicar)"
-                chequeo(f"V4 consulta {i}", len(filas) > 0, det)
-            except Exception as e:
-                chequeo(f"V4 consulta {i}", False, f"el servidor la rechazó: {type(e).__name__}: {str(e)[:120]}")
+                return {"ok": len(filas) > 0, "detalle": det}
+            r = en_cache(f"q|{dominio}|{ficha['id']}|{q2}|k={k}", correr_consulta) if CACHE["ruta"] else correr_consulta()
+            chequeo(f"V4 consulta {i}", r["ok"], r["detalle"])
         for c in ficha["cruces"]:
-            try:
-                m = medir_cruce(dominio, ficha["id"], c)
-                chequeo(f"V5 cruce {c['con']}", m["ok"], m["detalle"])
-                c["medicion"] = m
-            except Exception as e:
-                chequeo(f"V5 cruce {c.get('con')}", False, f"no se pudo medir: {type(e).__name__}: {str(e)[:120]}")
+            clave = f"c|{dominio}|{ficha['id']}|{c.get('llave_aqui')}|{c.get('con')}|{c.get('llave_alla')}|{c.get('normalizacion', '')}"
+
+            def medir(c=c):
+                try:
+                    return medir_cruce(dominio, ficha["id"], c)
+                except Exception as e:
+                    return {"ok": False, "detalle": f"no se pudo medir: {type(e).__name__}: {str(e)[:120]}"}
+            m = en_cache(clave, medir) if CACHE["ruta"] else medir()
+            chequeo(f"V5 cruce {c.get('con')}", m["ok"], m["detalle"])
+            c["medicion"] = m
     return res
 
 
@@ -260,7 +294,12 @@ def main(argv):
     ruta = Path(argv[0])
     ficha = json.loads(ruta.read_text(encoding="utf-8"))
     inv = {x["id"]: x for x in json.loads(Path(argv[argv.index("--inventario") + 1]).read_text(encoding="utf-8"))}
-    res = validar(ficha, inv, red="--sin-red" not in argv)
+    ruta_d = ruta.with_name(f"{ficha.get('id')}.dictamen.json")
+    dictamen = json.loads(ruta_d.read_text(encoding="utf-8")) if ruta_d.exists() else None
+    CACHE["ruta"] = ruta.parent / ".cache_soql.json"
+    if CACHE["ruta"].exists():
+        CACHE["datos"] = json.loads(CACHE["ruta"].read_text(encoding="utf-8"))
+    res = validar(ficha, inv, red="--sin-red" not in argv, dictamen=dictamen)
     fallas = [r for r in res if not r["ok"]]
     salida = ruta.with_suffix(".verificacion.json")
     salida.write_text(json.dumps({"ficha": ruta.name, "chequeos": res, "fallas": len(fallas),
