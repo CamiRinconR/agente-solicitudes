@@ -2,7 +2,8 @@
   "contexto": {
     "tabla": "ventas",
     "columna_texto": "numero_documento",
-    "columna_numerica": "subtotal"
+    "columna_numerica": "subtotal",
+    "marca_no_declarada": "calidad_extra"
   },
   "implementaciones": {
     "a": {
@@ -76,6 +77,11 @@
           "variante": "numero_enorme",
           "resultado": "cede",
           "detalle": "devolvió valores no finitos"
+        },
+        {
+          "variante": "encabezado_calidad_inesperado",
+          "resultado": "resiste",
+          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada"
         }
       ],
       "ceden": [
@@ -158,6 +164,11 @@
           "variante": "numero_enorme",
           "resultado": "cede",
           "detalle": "devolvió valores no finitos"
+        },
+        {
+          "variante": "encabezado_calidad_inesperado",
+          "resultado": "resiste",
+          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada"
         }
       ],
       "ceden": [

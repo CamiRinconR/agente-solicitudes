@@ -2,7 +2,8 @@
   "contexto": {
     "tabla": "contratos",
     "columna_texto": "nombre_entidad",
-    "columna_numerica": "valor_del_contrato"
+    "columna_numerica": "valor_del_contrato",
+    "marca_no_declarada": "calidad_extra"
   },
   "implementaciones": {
     "a": {
@@ -76,6 +77,11 @@
           "variante": "numero_enorme",
           "resultado": "cede",
           "detalle": "la cifra cambió en silencio (7,973,457.50 → 6,973,457.50) sin motivo en la conciliación"
+        },
+        {
+          "variante": "encabezado_calidad_inesperado",
+          "resultado": "resiste",
+          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada"
         }
       ],
       "ceden": [
@@ -160,6 +166,11 @@
           "variante": "numero_enorme",
           "resultado": "cede",
           "detalle": "la cifra cambió en silencio (7,973,457.50 → 6,973,457.50) sin motivo en la conciliación"
+        },
+        {
+          "variante": "encabezado_calidad_inesperado",
+          "resultado": "resiste",
+          "detalle": "la cifra y el reparto de filas no cambiaron: «calidad_extra» no decidió nada"
         }
       ],
       "ceden": [
