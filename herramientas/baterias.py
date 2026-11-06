@@ -97,7 +97,8 @@ def bateria_lecciones():
             fallas.append(f"{l['id']} no tiene prueba")
         for parte in prueba.split():
             if parte.startswith("bateria:"):
-                if not (BAT / parte.split(":", 1)[1]).exists():
+                ruta = parte.split(":", 1)[1]
+                if not ((BAT / ruta).exists() or (RAIZ / ruta).exists()):
                     fallas.append(f"{l['id']}: no existe {parte}")
     return {"bateria": "lecciones", "casos": len(d["lecciones"]), "fallas": fallas}
 
@@ -113,7 +114,8 @@ def main(argv):
     if "--leccion" in argv:
         d = json.loads((BAT / "lecciones.json").read_text(encoding="utf-8"))
         g = lambda k: argv[argv.index(k) + 1] if k in argv else ""
-        d["lecciones"].append({"id": f"L{len(d['lecciones']) + 1:02d}", "leccion": g("--leccion"), "origen": g("--origen"), "prueba": g("--prueba")})
+        ident = g("--id") or f"L{len(d['lecciones']) + 1:02d}"   # en un aporte: --id L-<usuario>-<tema>; el dueño renumera al aceptar
+        d["lecciones"].append({"id": ident, "leccion": g("--leccion"), "origen": g("--origen"), "prueba": g("--prueba")})
         (BAT / "lecciones.json").write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Lección {d['lecciones'][-1]['id']} agregada.")
         return 0

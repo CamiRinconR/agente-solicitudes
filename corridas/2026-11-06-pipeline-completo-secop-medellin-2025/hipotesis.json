@@ -1,0 +1,42 @@
+[
+  {
+    "id": "H1",
+    "enunciado": "Al menos la mitad del valor contratado total sale de los contratos atípicos por arriba (marcados como atípicos y de más de unos 2.424.798.562 pesos).",
+    "medida": "Suma de valor_del_contrato de las filas con calidad_atipico = 1 y valor_del_contrato > 1.000.000 (así quedan solo los atípicos por arriba, que superan unos 2.424.798.562 pesos; los atípicos por abajo valen menos de unos 157.087), dividida por la suma de valor_del_contrato de todas las filas de contratos (49.662; en estos datos todas cuentan). Valor vacío o no numérico = 0. Proporción de 0 a 1.",
+    "umbral": {"operador": ">=", "valor": 0.5},
+    "linea_base": "Reparto proporcional al número de contratos: fracción de las 49.662 filas que son atípicos por arriba (calidad_atipico = 1 y valor_del_contrato > 1.000.000).",
+    "por_que_importa": "La spec conserva los atípicos tal como figuran: los marca, pero no los corrige ni los excluye. Si la mitad o más de los 17,25 billones descansa en a lo sumo 912 contratos (1,8 % del total), el total y el orden de las primeras entidades dependen de esos registros: un error de digitación o una adición mal cargada en uno solo mueve la cifra más que miles de contratos pequeños. Antes de publicar conviene cotejar en SECOP II los contratos más grandes."
+  },
+  {
+    "id": "H2",
+    "enunciado": "Sin los contratos de más de 100.000 millones, el Distrito de Medellín (NIT 890905211) sigue sumando más valor que cualquier otra entidad.",
+    "medida": "Quitar las filas con valor_del_contrato > 100.000.000.000 (marca calidad_valor_mayor_100mil_millones = 1). Con las demás filas, sumar valor_del_contrato por nit_entidad (recortado; valor vacío o no numérico = 0). Medida: la suma del NIT 890905211 dividida por la mayor suma entre los otros NIT.",
+    "umbral": {"operador": ">", "valor": 1},
+    "linea_base": "La misma razón con todas las filas, incluidos los contratos de más de 100.000 millones.",
+    "por_que_importa": "Los 26 contratos de más de 100.000 millones suman 5,56 billones (32 % del total) y entre ellos hay operaciones de crédito público de la pregunta P3 (según la ingesta, 9 contratos de crédito y cerca de 1,0 billón, casi todo en una entidad). Si sin ellos el Distrito deja de ser el primero, el orden del resultado depende de la respuesta a P3 y de un puñado de contratos, y no debe presentarse como un ranking estable."
+  },
+  {
+    "id": "H3",
+    "enunciado": "Contar por NIT y no por unidad que contrata (S1 y P1) mueve menos del 2 % del valor total: en los NIT con varios codigo_entidad casi todo el valor está en su unidad principal.",
+    "medida": "Sobre las 49.662 filas de contratos: tomar los nit_entidad (recortados) que tienen 2 o más codigo_entidad distintos (recortados). En cada uno, la unidad principal es el codigo_entidad con mayor suma de valor_del_contrato. Medida: suma de valor_del_contrato de las filas de esos NIT cuyo codigo_entidad no es el principal, dividida por la suma de valor_del_contrato de las 49.662 filas. Valor vacío o no numérico = 0. Proporción de 0 a 1.",
+    "umbral": {"operador": "<", "valor": 0.02},
+    "linea_base": "Reparto uniforme entre las unidades de cada NIT: suma, sobre esos NIT, de su valor × (k − 1)/k (k = número de codigo_entidad distintos del NIT), dividida por el valor de las 49.662 filas.",
+    "por_que_importa": "La pregunta P1 sigue abierta. Si se sostiene, contestarla en cualquier sentido agrega 4 filas pequeñas (57 en vez de 53) sin cambiar de forma visible el valor de las entidades grandes, y el resultado puede publicarse con P1 como nota. Si no se sostiene, el valor de alguna entidad grande se partiría de forma material entre sus unidades y P1 debe contestarse antes de publicar."
+  },
+  {
+    "id": "H4",
+    "enunciado": "Enero concentra al menos el doble de contratos que un mes de reparto uniforme: el 17 % o más de los contratos de 2025.",
+    "medida": "Número de filas de contratos con fecha_de_firma entre 2025-01-01 y 2025-01-31, los dos días incluidos (la fecha ya viene como aaaa-mm-dd), dividido por el total de filas (49.662). Proporción de 0 a 1.",
+    "umbral": {"operador": ">=", "valor": 0.17},
+    "linea_base": "Reparto uniforme por días del año: 31/365 = 0,0849.",
+    "por_que_importa": "numero_contratos sale al lado del valor y es fácil leerlo como tamaño de la entidad: en el resultado, el ITM tiene el 38,7 % de los contratos y el 2,6 % del valor. Si enero concentra el doble o más de lo uniforme, el número de contratos refleja sobre todo la contratación de inicio de año, que suele ser de prestación de servicios (el archivo no trae tipo_de_contrato para confirmarlo): mide carga de contratación, no dinero ni tamaño."
+  },
+  {
+    "id": "H5",
+    "enunciado": "Los contratos de valor cero o simbólico (menos de 10 pesos) se concentran: en al menos una entidad con 100 contratos o más son el 10 % o más de sus contratos.",
+    "medida": "Entre los nit_entidad (recortados) con 100 filas de contratos o más: para cada uno, número de sus filas con valor_del_contrato < 10 (incluye los 0; es la marca calidad_valor_cero_o_simbolico = 1; vacío o no numérico = 0) dividido por su número de filas. Medida: la mayor de esas proporciones.",
+    "umbral": {"operador": ">=", "valor": 0.1},
+    "linea_base": "Proporción de filas con valor_del_contrato < 10 en todo el archivo (sobre las 49.662 filas).",
+    "por_que_importa": "El glosario cuenta los contratos de valor cero en numero_contratos (542 en cero y 67 por debajo de 10 pesos, 609 en total). Si se concentran en una entidad, su número de contratos queda inflado frente a su dinero y no es comparable con el de las demás; quien pidió el análisis puede querer verlos aparte o preguntar a la entidad qué registran (por ejemplo, convenios sin cuantía o errores de captura)."
+  }
+]

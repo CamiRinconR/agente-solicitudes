@@ -18,5 +18,5 @@ jobs:
           python-version: "3.13"
       - name: Instalar solo lo de requirements.txt
         run: pip install -r requirements.txt
-      - name: Filtro automático (datos personales, seguridad, «falla antes, pasa después», que no rompa nada)
+      - name: Filtro automático (archivos prohibidos, datos personales, seguridad, que no rompa nada y huecos nuevos)
         run: python herramientas/validar_aporte.py --base origin/${{ github.base_ref }}

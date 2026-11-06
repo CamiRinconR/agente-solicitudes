@@ -1,0 +1,8 @@
+{
+  "spec.json": "053f869b822dcd4ab2a81c9ec4d12ec316b59e822a7b17199666007d5d1e2295",
+  "reglas.py": "e99fed23eab4338441c476729fe90d9b2058e3058f5288320f29203f52485c5d",
+  "plan_limpieza_contratos.json": "760957d948f184316880dfb7a162080f37cf9a711565110486b047de70c6fe8c",
+  "caso_conocido/contratos.csv": "6dad94cecd9bcaa0e513575e9e3c9f2e35e7c0be47f1fd2ee3bc7f7f2883d2ea",
+  "caso_conocido/cuentas.md": "4b63d976d1a067e1bb73954df2069941362f242f36f00b96e3c3c4c3c2f7bea1",
+  "caso_conocido/esperado.json": "506516ddd2b649a900290ab03d3268014cc1fb33f1251994cbd7603ab21ad65c"
+}

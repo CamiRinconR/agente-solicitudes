@@ -1,0 +1,310 @@
+{
+  "peticion": "Valor contratado en 2025 por cada entidad pública con sede en Medellín, según SECOP II. Para cada entidad: nit_entidad, entidad (nombre), valor_contratado y numero_contratos.",
+  "datos_crudos": {
+    "contratos": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-completo-secop-medellin-2025/datos/contratos.csv"
+  },
+  "datos": {
+    "contratos": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-completo-secop-medellin-2025/limpio/contratos.csv"
+  },
+  "capa_limpia": {
+    "contratos": {
+      "_regla": "Mismas 49.662 filas que el crudo y en el mismo orden. Cada fila va a un solo motivo de exclusión, el primero que aplique en el orden de conciliar: sin_id_contrato, repetido, sin_fecha_de_firma, fuera_de_2025, sin_nit_entidad. Un id_contrato, fecha_de_firma o nit_entidad VACÍO no lleva marca: se reconoce por la celda vacía (tras recortar) y excluye con su motivo. Por eso calidad_ok = 1 NO quiere decir que la fila cuente; solo que no tiene marcas. Las marcas de aviso nunca excluyen. Una columna calidad_<marca> solo existe si alguna fila la tiene: si falta, vale 0 (en el dato real solo existen calidad_atipico, calidad_valor_cero_o_simbolico y calidad_valor_mayor_100mil_millones). fecha_de_firma ya viene como aaaa-mm-dd cuando es válida (la hora está en fecha_de_firma__hora); si es inválida conserva su texto crudo y lleva fecha_invalida. nit_entidad y nombre_entidad vienen recortados, sin invisibles ni controles, en NFC y con espacios internos reducidos. En nombre_entidad, antes, el control U+0096 (la raya «–» de Windows-1252 mal codificada) se cambia por «–»: lo traen 68 filas de 1 NIT, entre espacios; siguen siendo 59 nombres distintos. reglas.py aplica sobre el crudo esta misma normalización. id_contrato NO se reescribe (la prueba de orden del motor compara la llave cruda): se recorta al usarla.",
+      "nulo_disfrazado_id_contrato": "id_contrato traía un nulo disfrazado («No Definido», «N/A», «-», «0»…) y quedó vacío. Excluye como «sin_id_contrato», igual que un id vacío.",
+      "repetido": "id_contrato (recortado y sin distinguir mayúsculas) ya apareció antes en el orden del archivo, sobre todas las filas y antes de mirar la fecha; vale la primera aparición. Excluye como «repetido» si la fila tiene id. Ojo: dos filas con id vacío también quedan marcadas; para ellas manda «sin_id_contrato».",
+      "nulo_disfrazado_fecha_de_firma": "fecha_de_firma traía un nulo disfrazado y quedó vacía. Excluye como «sin_fecha_de_firma».",
+      "fecha_invalida": "fecha_de_firma no es una fecha real en ninguno de los formatos aceptados, probados uno por uno (aaaa-mm-ddThh:mm:ss.fff, aaaa-mm-ddThh:mm:ss, aaaa-mm-dd hh:mm:ss, aaaa-mm-dd, dd/mm/aaaa; y, si nada de eso sirve, un aaaa-mm-ddThh:mm… con zona u otros decimales se lee por sus 19 primeros caracteres) y queda con su texto crudo, p. ej. 2025-02-30. Excluye como «sin_fecha_de_firma», igual que una fecha vacía.",
+      "fuera_de_2025": "fecha_de_firma (ya aaaa-mm-dd) está antes del 2025-01-01 o después del 2025-12-31. Excluye como «fuera_de_2025». Si la fila también tiene fecha_invalida, manda «sin_fecha_de_firma».",
+      "nulo_disfrazado_nit_entidad": "nit_entidad traía un nulo disfrazado y quedó vacío. Excluye como «sin_nit_entidad», igual que un NIT vacío.",
+      "nit_no_numerico": "nit_entidad no es un número. Solo avisa (el NIT se usa tal como viene); el plan bloquea si aparece una sola.",
+      "nit_longitud_atipica": "nit_entidad fuera de 9 o 10 dígitos (menor que 100.000.000 o mayor que 9.999.999.999). Solo avisa; el plan bloquea si aparece una sola.",
+      "nulo_disfrazado_nombre_entidad": "nombre_entidad traía un nulo disfrazado y quedó vacío. Solo avisa: la fila cuenta, pero un nombre vacío no participa en la elección del nombre del NIT (si ningún contrato que cuenta del NIT trae nombre, entidad = «SIN NOMBRE», S9); el plan bloquea si aparece una sola.",
+      "nulo_disfrazado_valor_del_contrato": "valor_del_contrato traía un nulo disfrazado y quedó vacío. Solo avisa: el contrato cuenta y suma 0 (S4).",
+      "numero_invalido": "valor_del_contrato no es numérico y queda con su texto crudo. Solo avisa: el contrato cuenta y suma 0 (S4).",
+      "valor_negativo": "valor_del_contrato menor que 0 (imposible). Solo avisa, no se corrige (R7); el plan bloquea si aparece una sola.",
+      "valor_cero_o_simbolico": "valor_del_contrato menor que 10 pesos (542 ceros y 67 entre 0 y 10 en el dato real). Solo avisa: cuenta en numero_contratos con su valor (glosario).",
+      "valor_mayor_100mil_millones": "valor_del_contrato mayor que 100.000 millones (aviso de la ingesta; 26 contratos en el dato real, entre ellos operaciones de crédito público, P3). Solo avisa.",
+      "atipico": "valor_del_contrato positivo fuera del rango intercuartílico sobre log10 con k = 3 (límites de unos 157.087 a 2.424.798.562 pesos en el dato real; 912 filas). Solo avisa, no se corrige."
+    }
+  },
+  "glosario": "/Users/macbookair/agente-solicitudes/ejemplo-secop/negocio.md",
+  "interpretacion": "Por cada NIT de entidad del archivo (que ya trae solo entidades con ciudad = Medellín), se suman los valores de los contratos firmados en 2025 y se cuentan esos contratos. Un contrato es un id_contrato y cuenta una sola vez. Cuenta en 2025 si su fecha_de_firma cae entre el 1 de enero y el 31 de diciembre de 2025, los dos días completos, sin importar la hora. El valor es valor_del_contrato tal como viene, con sus adiciones; los contratos de valor cero cuentan en el número y suman cero. Todo contrato firmado cuenta, sea cual sea su estado. El nombre de la entidad es el nombre_entidad más frecuente entre los contratos que cuentan de ese NIT. Cada fila del archivo queda usada o excluida por un único motivo declarado.",
+  "definiciones": [
+    {
+      "termino": "entidad",
+      "definicion": "Un nit_entidad (texto, sin espacios al inicio ni al final). Las filas de un mismo NIT forman una sola entidad aunque tengan varios codigo_entidad o varios nombre_entidad (ver P1).",
+      "fuente": "supuesto"
+    },
+    {
+      "termino": "entidad (nombre)",
+      "definicion": "El nombre_entidad normalizado (U+0096 → «–»; sin invisibles ni controles; NFC; espacios internos repetidos reducidos a uno; recortado; un nulo disfrazado cuenta como vacío) que más contratos que cuentan tiene dentro del NIT. Los nombres vacíos no participan; si el NIT no tiene ninguno, «SIN NOMBRE» (S9). En empate, el menor en orden de texto de Python (comparación de cadenas). Solo cuentan las filas usadas, no las excluidas. Se conserva el uso de mayúsculas y tildes tal como viene.",
+      "fuente": "supuesto"
+    },
+    {
+      "termino": "contrato",
+      "definicion": "Un id_contrato (recortado; dos id que solo difieren en mayúsculas son el mismo contrato). Cuenta una sola vez: si aparece repetido, vale la primera aparición en el orden del archivo, mirada sobre todas las filas antes de filtrar por fecha, y las siguientes se excluyen como «repetido» (S3).",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "contratado en 2025",
+      "definicion": "La parte de fecha de fecha_de_firma está entre 2025-01-01 y 2025-12-31, los dos días completos, cualquiera que sea la hora (el 31-dic a las 23:59:59 cuenta; el 1-ene-2026 a las 00:00:00 no).",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "valor_contratado",
+      "definicion": "Suma de valor_del_contrato de los contratos que cuentan, sin redondear, con decimales. No se usa valor facturado ni pagado.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "numero_contratos",
+      "definicion": "Número de id_contrato distintos que cuentan para el NIT, incluidos los de valor cero o vacío. Entero.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "estados",
+      "definicion": "Todo contrato firmado cuenta, esté en ejecución, modificado, terminado, cerrado, aprobado, suspendido o cedido. El archivo no trae la columna de estado, así que no se filtra por estado.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "contratos de valor cero",
+      "definicion": "Cuentan en numero_contratos y suman cero a valor_contratado.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "sede en Medellín",
+      "definicion": "Entidad con ciudad = Medellín en SECOP II: el glosario define así el recorte y la ingesta lo filtró; el análisis no vuelve a filtrar por ciudad (la columna no se ingirió). Ver S8 sobre las regionales de entidades nacionales.",
+      "fuente": "glosario"
+    },
+    {
+      "termino": "fecha_de_firma",
+      "definicion": "Texto con fecha y hora aaaa-mm-ddThh:mm:ss.sss (49.662 de 49.662 filas en el dato real). Se aceptan los formatos de capa_limpia.fecha_invalida, cada uno por separado; dd/mm/aaaa es día primero. Una fecha vacía, un nulo disfrazado o una fecha que no es real del calendario (por ejemplo 2025-02-30) cuenta como «sin_fecha_de_firma».",
+      "fuente": "datos"
+    }
+  ],
+  "tratamiento_de_datos": [
+    {
+      "hallazgo": "fecha_de_firma trae hora en las 49.662 filas (49.651 con hora distinta de 00:00); 5 contratos firmados el 31-dic-2025 suman 882.430.259 (L02).",
+      "tratamiento": "Se toma solo la parte de fecha (los 10 primeros caracteres en formato aaaa-mm-dd) y se convierte a fecha real; se compara el año, nunca la cadena completa contra 'aaaa-mm-dd'. En la capa limpia: op fecha con formatos aaaa-mm-ddThh:mm:ss.fff, aaaa-mm-dd y dd/mm/aaaa, la hora aparte.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "El perfil no muestra fechas con barras, pero el caso conocido trae dd/mm/aaaa y una ISO con día <= 12 (L01).",
+      "tratamiento": "Cada formato se lee por separado: aaaa-mm-dd con año primero, dd/mm/aaaa con día primero. Nunca pandas.to_datetime(format='mixed', dayfirst=True).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "Una fecha puede venir vacía o no ser una fecha real (caso conocido: 2025-02-30).",
+      "tratamiento": "La fila se excluye con motivo «sin_fecha_de_firma» (no hay firma demostrable). En la capa limpia: marca calidad_fecha_invalida.",
+      "fuente": "supuesto"
+    },
+    {
+      "hallazgo": "id_contrato es llave: 0 repetidos y 0 vacíos en el dato real (ingesta y perfil), también sin distinguir mayúsculas.",
+      "tratamiento": "Se depura solo por id_contrato recortado y sin distinguir mayúsculas, nunca por combinaciones de entidad, valor o fecha (L08). Primero se excluyen las filas sin id_contrato («sin_id_contrato»); luego, sobre todo el archivo y antes de filtrar por fecha, desde la segunda aparición de un id se excluye como «repetido». En la capa limpia: op repetidos sobre id_contrato, marca calidad_repetido. El caso conocido trae un id repetido cuya primera aparición es de 2024 (fila 22) y uno en minúsculas (fila 23).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nit_entidad viene como número de 9 o 10 dígitos (43.794 y 5.868 filas); la fuente lo declara número.",
+      "tratamiento": "Se lee como texto (dtype str), se recorta y se devuelve tal cual: sin convertir a número, sin «.0», sin quitar ni agregar dígito de verificación.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "4 NIT tienen 10 dígitos (5.868 filas); en 3 el último dígito es el dígito de verificación de los 9 primeros. Ninguno coincide con otro NIT de 9 dígitos del archivo, así que no parten a ninguna entidad.",
+      "tratamiento": "Se dejan como vienen. No se normaliza el dígito de verificación (no mueve la cifra en estos datos).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "Una fila podría no tener nit_entidad (0 en el dato real; 1 en el caso conocido).",
+      "tratamiento": "Se excluye con motivo «sin_nit_entidad»: no se puede atribuir a ninguna entidad.",
+      "fuente": "supuesto"
+    },
+    {
+      "hallazgo": "3 NIT tienen varios codigo_entidad (2 o 3 unidades cada uno) y 5 NIT tienen varios nombre_entidad (53 NIT, 57 códigos, 59 nombres) (L05).",
+      "tratamiento": "Se agrupa por nit_entidad; el nombre es el más frecuente entre las filas usadas del NIT, empate al menor en orden de texto. En el dato real no hay empates (el nombre principal de cada NIT con varios nombres tiene más filas que los demás). Ver P1.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "nombre_entidad: 68 filas de 1 NIT traen el control U+0096 entre espacios (la raya «–» de Windows-1252 mal codificada); 0 espacios sobrantes; ningún par de nombres colapsa al quitar tildes y mayúsculas; el caso conocido trae un nombre con espacio final y otro con U+0096.",
+      "tratamiento": "U+0096 se cambia por «–» (op reemplazar, antes de la op texto, que lo borraría); luego recorte, invisibles, NFC y espacios internos reducidos antes de contar frecuencias; no se cambian mayúsculas ni tildes. reglas.py aplica la misma normalización sobre el crudo y R7 exige el nombre exacto. Mueve solo la columna entidad de 1 NIT, no la cifra.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "542 contratos de valor cero; 67 con valor entre 0 y 10 pesos.",
+      "tratamiento": "Cuentan en numero_contratos con su valor (cero o el que traen). No se excluyen ni se corrigen.",
+      "fuente": "glosario"
+    },
+    {
+      "hallazgo": "129 valores con decimales.",
+      "tratamiento": "Se suman con sus decimales y sin redondear; el resultado se compara con tolerancia de 0,5 pesos.",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "26 contratos por encima de 100.000 millones suman 5.558.805.268.311 (32 % del total); el mayor vale 552.273.854.028. Aviso de la ingesta.",
+      "tratamiento": "Se conservan tal como figuran (el glosario manda el valor de hoy con adiciones). En la capa limpia pueden llevar marca calidad_atipico, que no excluye. Entre ellos están las operaciones de crédito público (P3).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "valor_del_contrato: 0 vacíos en el dato real; el caso conocido trae uno vacío.",
+      "tratamiento": "Un valor vacío o no numérico suma 0 y el contrato sí cuenta en numero_contratos (es un contrato firmado). En la capa limpia: marca calidad_numero_invalido, que no excluye.",
+      "fuente": "supuesto"
+    },
+    {
+      "hallazgo": "Una entidad puede quedar con valor_contratado = 0 si todos sus contratos son de valor cero o vacío.",
+      "tratamiento": "Aparece en el resultado con su numero_contratos; en empate de valor el orden lo decide nit_entidad ascendente como texto.",
+      "fuente": "glosario"
+    },
+    {
+      "hallazgo": "La ingesta reporta 2.785 filas de Medellín sin fecha_de_firma en la fuente, que no se trajeron porque no están firmadas.",
+      "tratamiento": "Nada que hacer en el análisis: quedan fuera por definición (no firmados).",
+      "fuente": "datos"
+    },
+    {
+      "hallazgo": "Una entidad privada publica en SECOP II: el archivo trae un NIT con 46 contratos y 361.452.581,11 de una universidad privada (L06).",
+      "tratamiento": "Se incluye por defecto (no hay columna de naturaleza jurídica). Ver P2.",
+      "fuente": "datos"
+    }
+  ],
+  "supuestos": [
+    {
+      "id": "S1",
+      "decision": "Entidad = nit_entidad.",
+      "alternativa": "Entidad = codigo_entidad (unidad que contrata).",
+      "impacto": "57 filas en vez de 53; el total no cambia, sí el reparto en 3 NIT."
+    },
+    {
+      "id": "S2",
+      "decision": "Nombre = el más frecuente entre los contratos que cuentan del NIT; empate al menor en orden de texto.",
+      "alternativa": "Nombre del contrato más reciente, o del código principal.",
+      "impacto": "Cambia la columna entidad en 5 NIT; no cambia ninguna cifra."
+    },
+    {
+      "id": "S3",
+      "decision": "id_contrato repetido: vale la primera aparición del archivo; la depuración se hace antes de filtrar por fecha.",
+      "alternativa": "Valer la última aparición o el mayor valor.",
+      "impacto": "Ninguno en el dato real (0 repetidos); define el caso conocido."
+    },
+    {
+      "id": "S4",
+      "decision": "valor_del_contrato vacío o no numérico: el contrato cuenta y suma 0.",
+      "alternativa": "Excluir el contrato.",
+      "impacto": "Ninguno en el dato real (0 vacíos); en el caso conocido cambia numero_contratos de una entidad."
+    },
+    {
+      "id": "S5",
+      "decision": "Fecha vacía o que no es fecha real: se excluye como «sin_fecha_de_firma».",
+      "alternativa": "Tomar el año del texto aunque la fecha sea imposible.",
+      "impacto": "Ninguno en el dato real; en el caso conocido excluye 2 filas."
+    },
+    {
+      "id": "S6",
+      "decision": "Fila sin nit_entidad: se excluye como «sin_nit_entidad»; fila sin id_contrato: se excluye como «sin_id_contrato».",
+      "alternativa": "Agruparla en una entidad vacía, o contarla con un id inventado.",
+      "impacto": "Ninguno en el dato real (0 vacíos)."
+    },
+    {
+      "id": "S7",
+      "decision": "NIT de 10 dígitos se dejan como vienen (3 de 4 traen el dígito de verificación pegado).",
+      "alternativa": "Quitar el dígito de verificación y llevar todos a 9 dígitos.",
+      "impacto": "Ninguno en el total ni en el número de filas (ningún NIT de 10 coincide con uno de 9); cambia cómo se escribe nit_entidad en 4 filas."
+    },
+    {
+      "id": "S8",
+      "decision": "«Con sede en Medellín» = ciudad = Medellín en SECOP II, como define el recorte el glosario: se incluyen las regionales, seccionales y direcciones territoriales de entidades nacionales que publican con esa ciudad.",
+      "alternativa": "Excluir las unidades de entidades nacionales con domicilio principal en otra ciudad.",
+      "impacto": "Una búsqueda aproximada por las palabras regional, seccional o territorial en el nombre encuentra 9 NIT con 5.483 contratos y 1,57 billones (9,1 % del total); con una búsqueda más amplia, del orden de 11 NIT y 9,5 %. Separarlas exige un listado de naturaleza y domicilio de cada NIT."
+    },
+    {
+      "id": "S9",
+      "decision": "Un nombre vacío o nulo disfrazado no participa en la elección del nombre; si ningún contrato que cuenta del NIT trae nombre, entidad = «SIN NOMBRE».",
+      "alternativa": "Excluir el contrato o dejar entidad vacía.",
+      "impacto": "Ninguno en el dato real (0 nombres vacíos; el plan bloquea si aparece uno)."
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "P1",
+      "pregunta": "¿«Entidad» es el NIT o cada unidad que contrata (codigo_entidad)? Hay 3 NIT con 2 o 3 unidades (por ejemplo, un concejo o una personería dentro del distrito).",
+      "por_defecto": "El NIT (53 filas).",
+      "por_que_importa": "Con codigo_entidad salen 57 filas y el valor de esos 3 NIT se reparte entre sus unidades."
+    },
+    {
+      "id": "P2",
+      "pregunta": "¿Se excluyen las entidades que no son públicas? El archivo trae una universidad privada que publica en SECOP II.",
+      "por_defecto": "Se incluyen todas las del archivo.",
+      "por_que_importa": "Excluirla quita 1 fila, 46 contratos y 361.452.581,11; puede haber otras que solo se distinguen con la naturaleza jurídica, que no se ingirió."
+    },
+    {
+      "id": "P3",
+      "pregunta": "¿Cuentan las operaciones de crédito público (deuda) como «valor contratado»?",
+      "por_defecto": "Cuentan (el archivo no trae tipo_de_contrato para separarlas).",
+      "por_que_importa": "Según la ingesta son 9 contratos y cerca de 1,0 billón (6 % del total), casi todo en una sola entidad; excluirlos exige traer tipo_de_contrato."
+    }
+  ],
+  "salida": {
+    "claves": [
+      "nit_entidad",
+      "entidad"
+    ],
+    "valores": [
+      "valor_contratado",
+      "numero_contratos"
+    ],
+    "tolerancia": 0.5,
+    "orden": "valor_contratado de mayor a menor; en empate, nit_entidad ascendente como texto",
+    "descripcion": "analizar(datos) recibe {\"contratos\": ruta_csv} y devuelve una lista de filas (list[dict]), una por nit_entidad con al menos un contrato que cuenta, con exactamente cuatro claves: nit_entidad (str, dígitos tal como vienen, recortado, sin «.0»), entidad (str no vacío, el nombre elegido según la definición), valor_contratado (número float, sin redondear) y numero_contratos (int, no float). El CSV se lee todo como texto (dtype=str, sin convertir vacíos en NaN antes de decidir). conciliar(datos) devuelve {\"filas_leidas\": int, \"usadas\": int, \"excluidas\": {\"sin_id_contrato\": int, \"repetido\": int, \"sin_fecha_de_firma\": int, \"fuera_de_2025\": int, \"sin_nit_entidad\": int}} con filas_leidas = usadas + suma de excluidas; cada fila va a un solo motivo, el primero que aplique en ese orden (sin_id_contrato, repetido, sin_fecha_de_firma, fuera_de_2025, sin_nit_entidad). Con los datos reales se espera del orden de 53 filas, 49.662 contratos usados y 0 excluidos."
+  },
+  "reglas": [
+    {
+      "id": "R1",
+      "tipo": "conservacion",
+      "descripcion": "La suma de valor_contratado del resultado es igual a la suma de valor_del_contrato de los contratos que cuentan (id único por primera aparición, recortado y sin distinguir mayúsculas; fecha real de 2025 en un formato aceptado; NIT no vacío; nulos disfrazados como vacíos; valor vacío o no numérico = 0), calculada directo del CSV crudo, con la normalización de capa_limpia y sin unir tablas."
+    },
+    {
+      "id": "R2",
+      "tipo": "conservacion",
+      "descripcion": "La suma de numero_contratos del resultado es igual al número de id_contrato distintos que cuentan, incluidos los de valor cero o vacío."
+    },
+    {
+      "id": "R3",
+      "tipo": "cobertura",
+      "descripcion": "El conjunto de nit_entidad del resultado es exactamente el conjunto de NIT (recortados) con al menos un contrato que cuenta: ninguno falta y ninguno sobra."
+    },
+    {
+      "id": "R4",
+      "tipo": "unicidad",
+      "descripcion": "Cada nit_entidad aparece una sola vez en el resultado y ninguno está vacío."
+    },
+    {
+      "id": "R5",
+      "tipo": "dominio",
+      "descripcion": "Tipos y dominios: nit_entidad es str de solo dígitos, entidad es str no vacío, valor_contratado es número >= 0 y numero_contratos es int >= 1; las filas tienen exactamente las cuatro claves."
+    },
+    {
+      "id": "R6",
+      "tipo": "cuadre_por_entidad",
+      "descripcion": "Para cada NIT, valor_contratado y numero_contratos son iguales a los calculados directo del CSV crudo para ese NIT (detecta valores cruzados entre entidades que la conservación total no ve)."
+    },
+    {
+      "id": "R7",
+      "tipo": "nombre_elegido",
+      "descripcion": "Para cada NIT, entidad es exactamente el nombre normalizado (U+0096 → «–», sin invisibles, NFC, espacios reducidos, recortado) más frecuente entre sus contratos que cuentan, sin contar nombres vacíos; en empate, el menor en orden de texto; sin ningún nombre, «SIN NOMBRE»."
+    },
+    {
+      "id": "R8",
+      "tipo": "orden",
+      "descripcion": "Las filas vienen ordenadas por valor_contratado de mayor a menor y, en empate exacto, por nit_entidad ascendente como texto."
+    }
+  ],
+  "columnas_usadas": [
+    "id_contrato",
+    "nit_entidad",
+    "nombre_entidad",
+    "fecha_de_firma",
+    "valor_del_contrato"
+  ],
+  "anticipo": {
+    "medida": "valor_contratado",
+    "minimo": 16000000000000,
+    "maximo": 18000000000000,
+    "razon": "El perfil suma 17,25 billones de valor_del_contrato en 49.662 filas, todas con fecha de 2025, sin repetidos ni vacíos, así que casi nada debería quedar fuera. Si el cliente responde P3 en contra, el total bajaría a unos 16,2 billones (P2 pesa 0,36 mil millones). Por debajo de 16 billones indica filas o contratos grandes perdidos (los 26 mayores de 100.000 millones suman 5,56 billones); por encima de 18 billones, filas multiplicadas o valores mal convertidos. Pérdidas pequeñas, como los 5 contratos del 31-dic (882 millones), no las ve el anticipo: las atrapan R1, R2 y R6."
+  },
+  "conciliacion_requerida": true
+}

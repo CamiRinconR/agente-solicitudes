@@ -1,0 +1,491 @@
+{
+  "columnas": [
+    {
+      "columna": "nombre_entidad",
+      "clase": "sin_marca",
+      "motivo": "Nombre de la entidad que contrata: persona jurídica, fuera de la Ley 1581 (protege a personas naturales, art. 3 lit. c). Lista cerrada de 59 nombres en 49.662 filas; el perfil oculta sus valores por largos, no por personales. Se ingirió y se publica como «entidad»."
+    },
+    {
+      "columna": "nit_entidad",
+      "clase": "sin_marca",
+      "motivo": "NIT de la entidad (persona jurídica), no de una persona natural: 53 distintos en el recorte. Se ingirió y se publica: lo pide la petición."
+    },
+    {
+      "columna": "departamento",
+      "clase": "sin_marca",
+      "motivo": "Departamento de la entidad, no de una persona (1 valor en el recorte)."
+    },
+    {
+      "columna": "ciudad",
+      "clase": "sin_marca",
+      "motivo": "Ciudad de la entidad; es el filtro del recorte (1 valor)."
+    },
+    {
+      "columna": "localizaci_n",
+      "clase": "sin_marca",
+      "motivo": "Ubicación de la entidad, no de una persona (3 valores en el recorte)."
+    },
+    {
+      "columna": "orden",
+      "clase": "sin_marca",
+      "motivo": "Orden de la entidad: atributo institucional (3 valores)."
+    },
+    {
+      "columna": "sector",
+      "clase": "sin_marca",
+      "motivo": "Sector de la entidad: atributo institucional (17 valores)."
+    },
+    {
+      "columna": "rama",
+      "clase": "sin_marca",
+      "motivo": "Rama del poder de la entidad (4 valores)."
+    },
+    {
+      "columna": "entidad_centralizada",
+      "clase": "sin_marca",
+      "motivo": "Si la entidad es centralizada o descentralizada (2 valores)."
+    },
+    {
+      "columna": "proceso_de_compra",
+      "clase": "sin_marca",
+      "motivo": "Identificador del proceso que genera la plataforma (47.724 distintos): no nombra personas, pero lleva al expediente en SECOP II, donde sí está el contratista. No se publica por contrato."
+    },
+    {
+      "columna": "id_contrato",
+      "clase": "sin_marca",
+      "motivo": "Llave del contrato que genera la plataforma: no describe a una persona. Única en el recorte (49.662 de 49.662). Con ella se llega al contratista en SECOP II: sirve para contar cada contrato una vez y no se publica."
+    },
+    {
+      "columna": "referencia_del_contrato",
+      "clase": "cuasi",
+      "motivo": "Referencia que escribe a mano cada entidad (49.308 distintas en 49.662 filas): texto corto que, por excepción, puede traer el nombre o la cédula del contratista. No se ingirió; si se usa, se justifica y se barre antes de publicar."
+    },
+    {
+      "columna": "estado_contrato",
+      "clase": "sin_marca",
+      "motivo": "Estado del contrato (7 valores): describe el contrato, no a una persona."
+    },
+    {
+      "columna": "codigo_de_categoria_principal",
+      "clase": "sin_marca",
+      "motivo": "Código UNSPSC del bien o servicio (1.442 distintos): clasifica el objeto, no a una persona."
+    },
+    {
+      "columna": "descripcion_del_proceso",
+      "clase": "cuasi",
+      "motivo": "Texto libre del objeto del proceso (19.822 distintos): puede traer nombres o cédulas escritos a mano (cerca de 1 de cada 1.000 filas en SECOP, L11). No se ingirió; sin justificación escrita no se usa (Ley 1581, art. 4 lit. b, finalidad)."
+    },
+    {
+      "columna": "tipo_de_contrato",
+      "clase": "sin_marca",
+      "motivo": "Tipo de contrato (15 valores): describe el contrato. La prestación de servicios suele ser con personas naturales, pero la columna no identifica a nadie."
+    },
+    {
+      "columna": "modalidad_de_contratacion",
+      "clase": "sin_marca",
+      "motivo": "Modalidad de selección (12 valores): describe el proceso, no a una persona."
+    },
+    {
+      "columna": "justificacion_modalidad_de",
+      "clase": "sin_marca",
+      "motivo": "Por el nombre parece texto libre, pero es una lista cerrada de causales: 29 valores en el recorte y 44 en toda la fuente (5.683.345 filas), contados sin verlos. Así no caben nombres escritos a mano. El clasificador por nombre la marca como texto libre: desacuerdo para revisar."
+    },
+    {
+      "columna": "fecha_de_firma",
+      "clase": "sin_marca",
+      "motivo": "Fecha del contrato, no de una persona (no es fecha de nacimiento). Con la hora es única por contrato (49.662 distintas en 49.662 filas): a nivel de contrato ubica el registro en SECOP II. Se ingirió solo para el año; no se publica por contrato."
+    },
+    {
+      "columna": "fecha_de_inicio_del_contrato",
+      "clase": "sin_marca",
+      "motivo": "Fecha de inicio del contrato: evento del contrato, no dato de una persona."
+    },
+    {
+      "columna": "fecha_de_fin_del_contrato",
+      "clase": "sin_marca",
+      "motivo": "Fecha de fin del contrato: evento del contrato, no dato de una persona."
+    },
+    {
+      "columna": "condiciones_de_entrega",
+      "clase": "sin_marca",
+      "motivo": "Condiciones de entrega: lista cerrada (9 valores en el recorte, 33 en toda la fuente), no texto libre."
+    },
+    {
+      "columna": "tipodocproveedor",
+      "clase": "cuasi",
+      "motivo": "Tipo de documento del proveedor (7 valores): dice si es persona natural o jurídica y si es extranjero; con entidad y fecha reduce el grupo. Al menos 42.633 de 49.662 contratos (85,8 %) tienen proveedor con cédula de ciudadanía."
+    },
+    {
+      "columna": "documento_proveedor",
+      "clase": "personal",
+      "motivo": "Número de documento del proveedor: con persona natural es su cédula (Ley 1581, art. 3 lit. c). 25.008 distintos; al menos 42.633 de 49.662 contratos (85,8 %) tienen proveedor con cédula de ciudadanía. No se ingirió: la petición no lo necesita."
+    },
+    {
+      "columna": "proveedor_adjudicado",
+      "clase": "personal",
+      "motivo": "Nombre del proveedor: con persona natural es su nombre completo (Ley 1581, art. 3 lit. c); 24.846 distintos en el recorte. Aunque se publica en SECOP II, no es de uso libre (art. 4 lit. b, finalidad). No se ingirió."
+    },
+    {
+      "columna": "es_grupo",
+      "clase": "sin_marca",
+      "motivo": "Si el proveedor es consorcio o unión temporal (2 valores): no identifica a una persona."
+    },
+    {
+      "columna": "es_pyme",
+      "clase": "sin_marca",
+      "motivo": "Si el proveedor es pyme (2 valores): atributo de la empresa."
+    },
+    {
+      "columna": "habilita_pago_adelantado",
+      "clase": "sin_marca",
+      "motivo": "Bandera del contrato (1 valor en el recorte)."
+    },
+    {
+      "columna": "liquidaci_n",
+      "clase": "sin_marca",
+      "motivo": "Si el contrato se liquidó (2 valores)."
+    },
+    {
+      "columna": "obligaci_n_ambiental",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del contrato (2 valores)."
+    },
+    {
+      "columna": "obligaciones_postconsumo",
+      "clase": "sin_marca",
+      "motivo": "Bandera del contrato (2 valores)."
+    },
+    {
+      "columna": "reversion",
+      "clase": "sin_marca",
+      "motivo": "Bandera del contrato (1 valor en el recorte)."
+    },
+    {
+      "columna": "origen_de_los_recursos",
+      "clase": "sin_marca",
+      "motivo": "Origen presupuestal de los recursos (2 valores)."
+    },
+    {
+      "columna": "destino_gasto",
+      "clase": "sin_marca",
+      "motivo": "Destino presupuestal del gasto (3 valores)."
+    },
+    {
+      "columna": "valor_del_contrato",
+      "clase": "sin_marca",
+      "motivo": "Valor del contrato (16.558 distintos): con persona natural es su remuneración, pública en SECOP II; solo se publica sumado por entidad. Se ingirió: es la cifra de la petición."
+    },
+    {
+      "columna": "valor_de_pago_adelantado",
+      "clase": "sin_marca",
+      "motivo": "Valor del anticipo: cifra del contrato; solo en agregado."
+    },
+    {
+      "columna": "valor_facturado",
+      "clase": "sin_marca",
+      "motivo": "Valor facturado: cifra del contrato; no se usa (glosario)."
+    },
+    {
+      "columna": "valor_pendiente_de_pago",
+      "clase": "sin_marca",
+      "motivo": "Valor pendiente de pago: cifra del contrato."
+    },
+    {
+      "columna": "valor_pagado",
+      "clase": "sin_marca",
+      "motivo": "Pagos del contrato: con persona natural son pagos a esa persona; solo en agregado. No se usa (glosario)."
+    },
+    {
+      "columna": "valor_amortizado",
+      "clase": "sin_marca",
+      "motivo": "Valor amortizado: cifra del contrato."
+    },
+    {
+      "columna": "valor_pendiente_de",
+      "clase": "sin_marca",
+      "motivo": "Valor pendiente de amortización: cifra del contrato."
+    },
+    {
+      "columna": "valor_pendiente_de_ejecucion",
+      "clase": "sin_marca",
+      "motivo": "Valor pendiente de ejecución: cifra del contrato."
+    },
+    {
+      "columna": "saldo_cdp",
+      "clase": "sin_marca",
+      "motivo": "Saldo del CDP: cifra presupuestal de la entidad."
+    },
+    {
+      "columna": "saldo_vigencia",
+      "clase": "sin_marca",
+      "motivo": "Saldo de la vigencia: cifra presupuestal de la entidad."
+    },
+    {
+      "columna": "espostconflicto",
+      "clase": "sin_marca",
+      "motivo": "Si el proceso se asocia al acuerdo de paz (1 valor en el recorte)."
+    },
+    {
+      "columna": "dias_adicionados",
+      "clase": "sin_marca",
+      "motivo": "Días añadidos al plazo: cifra del contrato."
+    },
+    {
+      "columna": "puntos_del_acuerdo",
+      "clase": "sin_marca",
+      "motivo": "Punto del acuerdo de paz (1 valor en el recorte)."
+    },
+    {
+      "columna": "pilares_del_acuerdo",
+      "clase": "sin_marca",
+      "motivo": "Pilar del acuerdo de paz (1 valor en el recorte)."
+    },
+    {
+      "columna": "urlproceso",
+      "clase": "sin_marca",
+      "motivo": "Enlace que genera la plataforma (47.712 distintos): no trae datos de personas, pero abre el expediente con nombre, documento y firma del contratista. No se publica por contrato."
+    },
+    {
+      "columna": "nombre_representante_legal",
+      "clase": "personal",
+      "motivo": "Nombre de una persona natural (Ley 1581, art. 3 lit. c). La descripción dice «de la entidad», pero hay 24.992 nombres para 59 entidades y 24.846 proveedores: es el representante del proveedor. No se ingirió."
+    },
+    {
+      "columna": "nacionalidad_representante_legal",
+      "clase": "cuasi",
+      "motivo": "Nacionalidad de una persona natural (17 valores): una poco común, con entidad y fecha, la singulariza."
+    },
+    {
+      "columna": "domicilio_representante_legal",
+      "clase": "personal",
+      "motivo": "Domicilio de una persona natural (8.366 distintos en el recorte): la ubica y la expone (Ley 1581, art. 3 lit. c; art. 4 lit. f y g, circulación restringida y seguridad)."
+    },
+    {
+      "columna": "tipo_de_identificaci_n_representante_legal",
+      "clase": "cuasi",
+      "motivo": "Tipo de documento de una persona natural (7 valores): con otras columnas reduce el grupo."
+    },
+    {
+      "columna": "identificaci_n_representante_legal",
+      "clase": "personal",
+      "motivo": "Número de identificación de una persona natural: 6.967 distintos en el recorte (Ley 1581, art. 3 lit. c)."
+    },
+    {
+      "columna": "g_nero_representante_legal",
+      "clase": "cuasi",
+      "motivo": "Género de una persona natural (4 valores): con entidad, nacionalidad o fecha reduce el grupo hasta singularizar."
+    },
+    {
+      "columna": "presupuesto_general_de_la_nacion_pgn",
+      "clase": "sin_marca",
+      "motivo": "Monto por fuente de recursos (PGN): cifra presupuestal."
+    },
+    {
+      "columna": "sistema_general_de_participaciones",
+      "clase": "sin_marca",
+      "motivo": "Monto por fuente de recursos (SGP): cifra presupuestal."
+    },
+    {
+      "columna": "sistema_general_de_regal_as",
+      "clase": "sin_marca",
+      "motivo": "Monto por fuente de recursos (regalías): cifra presupuestal."
+    },
+    {
+      "columna": "recursos_propios_alcald_as_gobernaciones_y_resguardos_ind_genas_",
+      "clase": "sin_marca",
+      "motivo": "Monto de recursos propios de la entidad: cifra presupuestal."
+    },
+    {
+      "columna": "recursos_de_credito",
+      "clase": "sin_marca",
+      "motivo": "Monto con recursos de crédito: cifra presupuestal."
+    },
+    {
+      "columna": "recursos_propios",
+      "clase": "sin_marca",
+      "motivo": "Monto de otros recursos: cifra presupuestal."
+    },
+    {
+      "columna": "ultima_actualizacion",
+      "clase": "sin_marca",
+      "motivo": "Fecha de la última actualización del registro."
+    },
+    {
+      "columna": "codigo_entidad",
+      "clase": "sin_marca",
+      "motivo": "Código de la entidad en SECOP II (57 distintos): institucional. Se ingirió para resolver qué es «entidad» (L05)."
+    },
+    {
+      "columna": "codigo_proveedor",
+      "clase": "personal",
+      "motivo": "Código fijo del proveedor en SECOP II (25.086 distintos): con persona natural es un seudónimo que la sigue en todos sus contratos y se re-identifica en la plataforma (persona determinable, Ley 1581, art. 3 lit. c). No se ingirió."
+    },
+    {
+      "columna": "fecha_inicio_liquidacion",
+      "clase": "sin_marca",
+      "motivo": "Fecha de un trámite del contrato."
+    },
+    {
+      "columna": "fecha_fin_liquidacion",
+      "clase": "sin_marca",
+      "motivo": "Fecha de un trámite del contrato."
+    },
+    {
+      "columna": "objeto_del_contrato",
+      "clase": "cuasi",
+      "motivo": "Texto libre del objeto (20.577 distintos): puede traer nombres o cédulas escritos a mano (L11) y, en prestación de servicios, la profesión del contratista. No se ingirió; si se usa, se justifica y se barre antes de publicar."
+    },
+    {
+      "columna": "duraci_n_del_contrato",
+      "clase": "sin_marca",
+      "motivo": "Duración del contrato (654 distintos): plazo, no dato de una persona."
+    },
+    {
+      "columna": "nombre_del_banco",
+      "clase": "cuasi",
+      "motivo": "Banco donde se le paga al proveedor: dato financiero de su titular. 1 valor en el recorte, pero 12.124 distintos en toda la fuente, señal de que se escribe a mano: puede traer más que el banco. No se ingirió."
+    },
+    {
+      "columna": "tipo_de_cuenta",
+      "clase": "cuasi",
+      "motivo": "Tipo de cuenta del pago (3 valores en la fuente, 1 en el recorte): discrimina poco, pero va con el banco y el número de cuenta del titular."
+    },
+    {
+      "columna": "n_mero_de_cuenta",
+      "clase": "personal",
+      "motivo": "Número de la cuenta bancaria del proveedor: identifica al titular y permite fraudes (Ley 1581, art. 3 lit. c; art. 4 lit. f y g). 1 valor en el recorte, 572.240 distintos en toda la fuente. Nunca se ingiere ni se publica."
+    },
+    {
+      "columna": "el_contrato_puede_ser_prorrogado",
+      "clase": "sin_marca",
+      "motivo": "Bandera del contrato (2 valores)."
+    },
+    {
+      "columna": "fecha_de_notificaci_n_de_prorrogaci_n",
+      "clase": "sin_marca",
+      "motivo": "Fecha de un trámite del contrato."
+    },
+    {
+      "columna": "nombre_ordenador_del_gasto",
+      "clase": "personal",
+      "motivo": "Nombre del servidor que ordena el gasto (171 distintos): dato público por su calidad de servidor público (Decreto 1377 de 2013, art. 3), pero personal y no de uso libre (Ley 1581, art. 4 lit. b)."
+    },
+    {
+      "columna": "tipo_de_documento_ordenador_del_gasto",
+      "clase": "cuasi",
+      "motivo": "Tipo de documento de una persona natural (5 valores)."
+    },
+    {
+      "columna": "n_mero_de_documento_ordenador_del_gasto",
+      "clase": "personal",
+      "motivo": "Documento del ordenador del gasto (170 distintos): de una persona natural (Ley 1581, art. 3 lit. c); su cargo no lo vuelve necesario."
+    },
+    {
+      "columna": "nombre_supervisor",
+      "clase": "personal",
+      "motivo": "Nombre del supervisor del contrato (1.199 distintos): persona natural (Ley 1581, art. 3 lit. c)."
+    },
+    {
+      "columna": "tipo_de_documento_supervisor",
+      "clase": "cuasi",
+      "motivo": "Tipo de documento de una persona natural (7 valores)."
+    },
+    {
+      "columna": "n_mero_de_documento_supervisor",
+      "clase": "personal",
+      "motivo": "Documento del supervisor (1.192 distintos): persona natural (Ley 1581, art. 3 lit. c)."
+    },
+    {
+      "columna": "nombre_ordenador_de_pago",
+      "clase": "personal",
+      "motivo": "Nombre del ordenador de pago (371 distintos): persona natural (Ley 1581, art. 3 lit. c); público por su cargo, pero no de uso libre (art. 4 lit. b)."
+    },
+    {
+      "columna": "tipo_de_documento_ordenador_de_pago",
+      "clase": "cuasi",
+      "motivo": "Tipo de documento de una persona natural (6 valores)."
+    },
+    {
+      "columna": "n_mero_de_documento_ordenador_de_pago",
+      "clase": "personal",
+      "motivo": "Documento del ordenador de pago (369 distintos): persona natural (Ley 1581, art. 3 lit. c)."
+    },
+    {
+      "columna": "documentos_tipo",
+      "clase": "sin_marca",
+      "motivo": "Si se usaron documentos tipo (3 valores): bandera del proceso, no un documento de identidad."
+    },
+    {
+      "columna": "descripcion_documentos_tipo",
+      "clase": "sin_marca",
+      "motivo": "Por el nombre parece texto libre, pero es una lista cerrada: 9 valores en el recorte y 20 en toda la fuente, contados sin verlos. El clasificador por nombre la marca como texto libre: desacuerdo para revisar."
+    },
+    {
+      "columna": "direcci_n_de_ejecuci_n_del_contrato",
+      "clase": "cuasi",
+      "motivo": "Dirección donde se ejecuta el contrato, escrita a mano (114 distintas en el recorte, 14.221 en la fuente). Suele ser una sede, pero si es una vivienda ubica a una persona. No se ingirió."
+    },
+    {
+      "columna": "criterios_de_sostenibilidad_ambiental",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del proceso (3 valores)."
+    },
+    {
+      "columna": "requisitos_ambientales_en_las_especificaciones_t_cnicas",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del proceso (3 valores)."
+    },
+    {
+      "columna": "criterios_ambientales_en_la_evaluaci_n_de_las_ofertas",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del proceso (3 valores)."
+    },
+    {
+      "columna": "obligaciones_contractuales_o_poscontractuales_a_nivel_ambiental",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del contrato (2 valores)."
+    },
+    {
+      "columna": "uso_de_etiquetado_ecol_gico",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del contrato (3 valores)."
+    },
+    {
+      "columna": "obligaciones_posconsumo",
+      "clase": "sin_marca",
+      "motivo": "Bandera ambiental del contrato (3 valores)."
+    },
+    {
+      "columna": "fecha_inicio_obligaciones_posconsumo",
+      "clase": "sin_marca",
+      "motivo": "Fecha de una obligación del contrato."
+    },
+    {
+      "columna": "fecha_fin_obligaciones_posconsumo",
+      "clase": "sin_marca",
+      "motivo": "Fecha de una obligación del contrato."
+    },
+    {
+      "columna": "fecha_inicio_reversi_n",
+      "clase": "sin_marca",
+      "motivo": "Fecha de un trámite del contrato."
+    },
+    {
+      "columna": "fecha_fin_reversi_n",
+      "clase": "sin_marca",
+      "motivo": "Fecha de un trámite del contrato."
+    }
+  ],
+  "recomendaciones": [
+    "Publicar solo el agregado por entidad (nit_entidad, entidad, valor_contratado, numero_contratos): ninguna es dato personal. Las 6 columnas ingeridas son sin_marca y las 26 marcadas quedaron fuera (minimización, Decreto 1377 de 2013, art. 4).",
+    "No publicar ni subir al repositorio el CSV por contrato (ya está en .gitignore): id_contrato y fecha_de_firma son únicos por contrato y llevan al contratista en SECOP II; al menos 42.633 de 49.662 contratos (85,8 %) tienen proveedor con cédula de ciudadanía.",
+    "Nunca ingerir n_mero_de_cuenta, nombre_del_banco ni tipo_de_cuenta: hay 572.240 números de cuenta distintos en la fuente (Ley 1581, art. 4 lit. f y g).",
+    "Texto libre (objeto_del_contrato, descripcion_del_proceso, referencia_del_contrato, direcci_n_de_ejecuci_n_del_contrato): solo con justificación escrita y barrido de gobernanza.py antes de publicar (L11).",
+    "Ordenadores del gasto, supervisores y ordenadores de pago: su nombre es público por el cargo (Decreto 1377 de 2013, art. 3), pero no se publican tablas por persona sin justificación escrita.",
+    "k-anonimato no aplica a este resultado: cada fila es una entidad (persona jurídica), no una persona.",
+    "Si una petición pide proveedores, el nombre y el documento se justifican por escrito y el resultado debe tener k ≥ 5.",
+    "Revisar el clasificador por nombre: justificacion_modalidad_de (44 valores en 5.683.345 filas) y descripcion_documentos_tipo (20) son listas cerradas, no texto libre.",
+    "Lo que se versiona son fichas, herramientas y agregados; los casos conocidos, sintéticos y sin columnas personales ni de texto libre.",
+    "La licencia CC BY-SA 4.0 cubre derechos de autor, no la Ley 1581: lo público no es de uso libre."
+  ]
+}

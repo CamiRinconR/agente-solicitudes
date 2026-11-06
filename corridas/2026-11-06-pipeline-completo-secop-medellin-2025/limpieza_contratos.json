@@ -1,0 +1,382 @@
+{
+  "tabla": "contratos",
+  "entrada": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-completo-secop-medellin-2025/datos/contratos.csv",
+  "salida": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-completo-secop-medellin-2025/limpio/contratos.csv",
+  "filas": 49662,
+  "filas_ok": 48208,
+  "marcas": {
+    "atipico": 912,
+    "valor_cero_o_simbolico": 609,
+    "valor_mayor_100mil_millones": 26
+  },
+  "operaciones": [
+    {
+      "op": "texto",
+      "columna": "nit_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": null
+    },
+    {
+      "op": "texto",
+      "columna": "codigo_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": null
+    },
+    {
+      "op": "reemplazar",
+      "columna": "nombre_entidad",
+      "filas_cambiadas": 68,
+      "filas_marcadas": 0,
+      "ejemplos": [
+        "«Rama Judicial  Dirección Seccional de A» → «Rama Judicial – Dirección Seccional de A»",
+        "«Rama Judicial  Dirección Seccional de A» → «Rama Judicial – Dirección Seccional de A»",
+        "«Rama Judicial  Dirección Seccional de A» → «Rama Judicial – Dirección Seccional de A»"
+      ],
+      "marca": null
+    },
+    {
+      "op": "texto",
+      "columna": "nombre_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": null
+    },
+    {
+      "op": "texto",
+      "columna": "fecha_de_firma",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": null
+    },
+    {
+      "op": "texto",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": null
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "id_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nulo_disfrazado_id_contrato"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "nit_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nulo_disfrazado_nit_entidad"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "nombre_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nulo_disfrazado_nombre_entidad"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "fecha_de_firma",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nulo_disfrazado_fecha_de_firma"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nulo_disfrazado_valor_del_contrato"
+    },
+    {
+      "op": "numero",
+      "columna": "nit_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nit_no_numerico"
+    },
+    {
+      "op": "rango",
+      "columna": "nit_entidad",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "nit_longitud_atipica"
+    },
+    {
+      "op": "fecha",
+      "columna": "fecha_de_firma",
+      "filas_cambiadas": 49662,
+      "filas_marcadas": 0,
+      "ejemplos": [
+        "«2025-10-14T09:55:12.146» → «2025-10-14»",
+        "«2025-05-13T13:30:34.194» → «2025-05-13»",
+        "«2025-03-19T16:40:49.049» → «2025-03-19»"
+      ],
+      "marca": "fecha_invalida"
+    },
+    {
+      "op": "rango",
+      "columna": "fecha_de_firma",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "fuera_de_2025"
+    },
+    {
+      "op": "numero",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "numero_invalido"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "valor_negativo"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 609,
+      "ejemplos": [],
+      "marca": "valor_cero_o_simbolico"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 26,
+      "ejemplos": [],
+      "marca": "valor_mayor_100mil_millones"
+    },
+    {
+      "op": "atipicos",
+      "columna": "valor_del_contrato",
+      "filas_cambiadas": 0,
+      "filas_marcadas": 912,
+      "ejemplos": [
+        "límites: 157.087 a 2.424.798.562"
+      ],
+      "marca": "atipico"
+    },
+    {
+      "op": "repetidos",
+      "columna": [
+        "id_contrato"
+      ],
+      "filas_cambiadas": 0,
+      "filas_marcadas": 0,
+      "ejemplos": [],
+      "marca": "repetido"
+    }
+  ],
+  "calidad_antes": {
+    "id_contrato": {
+      "completitud": 1.0,
+      "distintos": 49662
+    },
+    "nit_entidad": {
+      "completitud": 1.0,
+      "distintos": 53
+    },
+    "codigo_entidad": {
+      "completitud": 1.0,
+      "distintos": 57
+    },
+    "nombre_entidad": {
+      "completitud": 1.0,
+      "distintos": 59
+    },
+    "fecha_de_firma": {
+      "completitud": 1.0,
+      "distintos": 49662
+    },
+    "valor_del_contrato": {
+      "completitud": 1.0,
+      "distintos": 16558
+    }
+  },
+  "calidad_despues": {
+    "id_contrato": {
+      "completitud": 1.0,
+      "distintos": 49662
+    },
+    "nit_entidad": {
+      "completitud": 1.0,
+      "distintos": 53,
+      "validez": 1.0
+    },
+    "codigo_entidad": {
+      "completitud": 1.0,
+      "distintos": 57
+    },
+    "nombre_entidad": {
+      "completitud": 1.0,
+      "distintos": 59
+    },
+    "fecha_de_firma": {
+      "completitud": 1.0,
+      "distintos": 328,
+      "validez": 1.0
+    },
+    "valor_del_contrato": {
+      "completitud": 1.0,
+      "distintos": 16558,
+      "validez": 1.0
+    },
+    "fecha_de_firma__hora": {
+      "completitud": 0.99998,
+      "distintos": 32304
+    }
+  },
+  "pruebas": [
+    {
+      "prueba": "limpiar es marcar: mismas filas antes y después",
+      "ok": true,
+      "detalle": "49662 → 49662"
+    },
+    {
+      "prueba": "el dato crudo no se tocó",
+      "ok": true,
+      "detalle": "sha256 aa99342d28e5cdbb…"
+    },
+    {
+      "prueba": "la llave y el orden de las filas se conservan",
+      "ok": true,
+      "detalle": "cada fila limpia corresponde a su fila cruda"
+    },
+    {
+      "prueba": "completitud de id_contrato ≥ 0.95",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "completitud de nit_entidad ≥ 0.95",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "completitud de nombre_entidad ≥ 0.999",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "completitud de fecha_de_firma ≥ 0.95",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "completitud de valor_del_contrato ≥ 0.95",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "validez de fecha_de_firma ≥ 0.95",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "validez de valor_del_contrato ≥ 0.999",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "validez de nit_entidad ≥ 0.999",
+      "ok": true,
+      "detalle": "100.0000%"
+    },
+    {
+      "prueba": "filas marcadas «repetido» ≤ 50",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «fecha_invalida» ≤ 50",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «fuera_de_2025» ≤ 50",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «numero_invalido» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «valor_negativo» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nit_no_numerico» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nit_longitud_atipica» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nulo_disfrazado_id_contrato» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nulo_disfrazado_nit_entidad» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nulo_disfrazado_nombre_entidad» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nulo_disfrazado_fecha_de_firma» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «nulo_disfrazado_valor_del_contrato» ≤ 0",
+      "ok": true,
+      "detalle": "0"
+    },
+    {
+      "prueba": "filas marcadas «valor_cero_o_simbolico» ≤ 700",
+      "ok": true,
+      "detalle": "609"
+    },
+    {
+      "prueba": "filas marcadas «valor_mayor_100mil_millones» ≤ 40",
+      "ok": true,
+      "detalle": "26"
+    }
+  ],
+  "sha256_limpio": "7dd4b1bc3a226bb9ab67e4f39218eb3615044c9e571168d62449557ad82d8418",
+  "estado": "aprobada"
+}

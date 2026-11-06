@@ -1,0 +1,8 @@
+[
+  {"nit_entidad": "900000004", "entidad": "EMPRESA PRUEBA DELTA", "valor_contratado": 200000000001.0, "numero_contratos": 2},
+  {"nit_entidad": "900000002", "entidad": "ESE HOSPITAL PRUEBA BETA", "valor_contratado": 12000000.25, "numero_contratos": 2},
+  {"nit_entidad": "900000001", "entidad": "ALCALDIA PRUEBA ALFA", "valor_contratado": 10500000.5, "numero_contratos": 4},
+  {"nit_entidad": "9000000035", "entidad": "INSTITUTO PRUEBA GAMA", "valor_contratado": 1500000.75, "numero_contratos": 2},
+  {"nit_entidad": "900000005", "entidad": "CORPORACION PRUEBA – EPSILON", "valor_contratado": 0.0, "numero_contratos": 1},
+  {"nit_entidad": "900000006", "entidad": "FONDO PRUEBA ZETA", "valor_contratado": 0.0, "numero_contratos": 1}
+]

@@ -1,6 +1,6 @@
 # Valor contratado en 2025 por cada entidad pública con sede en Medellín, según SECOP II. Para cada entidad: nit_entidad, entidad (nombre), valor_contratado y numero_contratos.
 
-**Estado: ✅ todas las etapas aprobadas.**
+**Estado: ⚠️ hay etapas sin aprobar o sin correr; ver la tabla.**
 
 > 4 pregunta(s) de negocio abiertas: la cifra usa el valor por defecto de cada una (ver Procesamiento).
 
@@ -10,7 +10,7 @@
 | Ingesta | escribe el lector (contrato de datos: fuente, columnas, tipos, llave, dominios) | conteo contra la fuente, llave única y sin nulos, tipos, rangos, dominios, minimización, correr dos veces | ✅ |
 | Procesamiento | limpia y transforma (especificación, reglas y dos implementaciones) | reglas selladas, caso con respuesta conocida, A = B, conciliación, compuertas y caja de arena | ✅ |
 | Análisis | propone hipótesis (registradas y selladas antes de probarlas) | consulta independiente de otro agente, umbral y línea base, registro previo | ✅ |
-| Visualización | genera el gráfico | cuenta de control, eje desde cero, título, unidades, fuente y fecha, sin datos personales | ✅ |
+| Visualización | genera el gráfico | cuenta de control, eje desde cero, título, unidades, fuente y fecha, sin datos personales | ⚠️ |
 | Gobernanza | halla datos personales (con nombres, tipos y conteos; nunca filas) | barrido determinista, salidas limpias, k-anonimato, comparación con la IA | ✅ |
 
 ## Resultado
@@ -221,6 +221,7 @@ Gráfico: [grafico.html](grafico.html)
 | eje de valores con título y unidades | ✅ | Valor contratado (miles de millones de pesos) |
 | título con qué se mide y el período | ✅ | Valor contratado en 2025 por entidad pública con sede en Medellín |
 | fuente y fecha de consulta visibles | ✅ | fuente «secop»: sí · fecha ['06-11-2026']: sí |
+| sin HTML en el texto que viene de los datos, ni enlaces o scripts | ⚠️ | etiquetas en datos ['b', 'br', 'span']: Plotly interpreta HTML; escape «<» como &lt; |
 | sin datos personales en el gráfico | ✅ | ninguno |
 
 ## 5 · Gobernanza: la IA halla datos personales
@@ -247,10 +248,10 @@ Gráfico: [grafico.html](grafico.html)
   - hipotesis_lee_fechas_distinto: hipotesis.py lee fecha_de_firma de otra forma que impl_a, impl_b y reglas.py (función _dia y patrones de las líneas 26-27). Acepta dígitos Unicode y días o meses de un dígito, y descarta fechas que no existen, como 2025-02-30. Con 4 contratos de prueba, el resultado oficial usó 2 (100.100 pesos) y hipotesis.py usó 3 (11.100 pesos), sin error. Nada compara las dos cuentas, así que H1 a H5 se publicarían sobre otros contratos. — confirmado
   - valor_no_finito_en_impl_b: impl_b.py acepta exponentes (línea 55), y en la línea 325 pasa la suma Decimal a float sin mirar si es finita. En la prueba, 1e309, o dos 1e308 del mismo NIT, dieron valor_contratado infinito sin error, por el mismo camino de verificar.ejecutar_impl. El RUNNER solo cambia NaN por None, así que informe.json lleva Infinity, que no es JSON estándar: un lector estricto lo rechaza. impl_a sí falla, con OverflowError en math.fsum. — confirmado
 - Baterías (lo que falló una vez, probado otra vez):
-  - ✓ seguridad: 25 casos
+  - ✓ seguridad: 28 casos
   - ✓ privacidad: 59 casos
   - ✓ failfast: 3 casos
-  - ✓ lecciones: 20 casos
+  - ✓ lecciones: 24 casos
 
 ## Bitácora del copiloto
 | Etapa | Qué se pidió | Qué devolvió | Cómo se probó | Qué se corrigió | Qué quedó sin verificar |

@@ -37,6 +37,11 @@
       "detalle": "fuente «secop»: sí · fecha ['06-11-2026']: sí"
     },
     {
+      "comprobacion": "sin HTML de los datos sin escapar, ni enlaces o scripts",
+      "ok": true,
+      "detalle": "ninguno"
+    },
+    {
       "comprobacion": "sin datos personales en el gráfico",
       "ok": true,
       "detalle": "ninguno"

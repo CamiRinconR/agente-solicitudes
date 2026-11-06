@@ -1,0 +1,21 @@
+{
+  "pregunta": "Valor contratado en 2025 por cada entidad pública con sede en Medellín, según SECOP II. Para cada entidad: nit_entidad, entidad (nombre), valor_contratado y numero_contratos.",
+  "medida": "valor_contratado",
+  "categoria": "entidad",
+  "llave": "nit_entidad",
+  "periodo": "2025: contratos firmados del 01-01-2025 al 31-12-2025, los dos días completos",
+  "periodo_incompleto": false,
+  "escala": 1e9,
+  "unidad": "miles de millones de pesos colombianos",
+  "forma": "barras horizontales de mayor a menor, desde cero; las 15 entidades de mayor valor una por una y las 38 restantes juntas en la barra «Otras 38 entidades»",
+  "otras": {
+    "entidades": 38,
+    "puestos": "16 a 53",
+    "valor_contratado": 420161792483.87,
+    "numero_contratos": 3969
+  },
+  "fuera_del_grafico": {
+    "motivo": "nada queda fuera: las 38 entidades menores están en la barra «Otras 38 entidades»",
+    "valor": 0
+  }
+}

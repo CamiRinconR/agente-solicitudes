@@ -390,7 +390,11 @@ def describir_comparacion(cmp, primero, segundo):
 def evaluar_impl(nombre, ruta, spec, reglas, caso):
     claves, valores = spec["salida"]["claves"], spec["salida"]["valores"]
     tol = float(spec["salida"].get("tolerancia", 0.5))
-    r = {"ruta": str(ruta), "fallas": [], "reglas": [], "reglas_con_error": []}
+    try:
+        ruta_rel = str(Path(ruta).resolve().relative_to(AQUI.parent))
+    except ValueError:
+        ruta_rel = Path(ruta).name
+    r = {"ruta": ruta_rel, "fallas": [], "reglas": [], "reglas_con_error": []}
     if not Path(ruta).exists():
         r["fallas"].append(f"no existe {ruta}")
         return r

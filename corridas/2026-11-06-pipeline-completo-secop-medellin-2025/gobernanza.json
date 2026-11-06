@@ -1,0 +1,132 @@
+{
+  "tablas": {
+    "contratos": {
+      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-completo-secop-medellin-2025/limpio/contratos.csv",
+      "filas": 49662,
+      "columnas": {
+        "id_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "nit_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "codigo_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "nombre_entidad": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_de_firma": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "valor_del_contrato": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "fecha_de_firma__hora": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "calidad_atipico": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "calidad_valor_cero_o_simbolico": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "calidad_valor_mayor_100mil_millones": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        },
+        "calidad_ok": {
+          "clase_por_nombre": null,
+          "texto_libre": false
+        }
+      }
+    }
+  },
+  "salidas": {
+    "informe.md": {},
+    "informe_final.md": {},
+    "informe_final.html": {},
+    "grafico.html": {},
+    "informe.json": {},
+    "hipotesis_resultado.json": {}
+  },
+  "k_anonimato": {
+    "aplica": false,
+    "motivo": "el resultado no publica columnas de personas (son agregados)"
+  },
+  "custodio": {
+    "hay_custodio": true,
+    "columnas_fuente": 95,
+    "ia_no_vio": [],
+    "solo_la_ia": [
+      "referencia_del_contrato"
+    ],
+    "coinciden": [
+      "codigo_proveedor",
+      "descripcion_del_proceso",
+      "direcci_n_de_ejecuci_n_del_contrato",
+      "documento_proveedor",
+      "domicilio_representante_legal",
+      "g_nero_representante_legal",
+      "identificaci_n_representante_legal",
+      "n_mero_de_cuenta",
+      "n_mero_de_documento_ordenador_de_pago",
+      "n_mero_de_documento_ordenador_del_gasto",
+      "n_mero_de_documento_supervisor",
+      "nacionalidad_representante_legal",
+      "nombre_del_banco",
+      "nombre_ordenador_de_pago",
+      "nombre_ordenador_del_gasto",
+      "nombre_representante_legal",
+      "nombre_supervisor",
+      "objeto_del_contrato",
+      "proveedor_adjudicado",
+      "tipo_de_cuenta",
+      "tipo_de_documento_ordenador_de_pago",
+      "tipo_de_documento_ordenador_del_gasto",
+      "tipo_de_documento_supervisor",
+      "tipo_de_identificaci_n_representante_legal",
+      "tipodocproveedor"
+    ],
+    "personales_que_la_ingesta_dejo_fuera": [
+      "codigo_proveedor",
+      "descripcion_del_proceso",
+      "direcci_n_de_ejecuci_n_del_contrato",
+      "documento_proveedor",
+      "domicilio_representante_legal",
+      "g_nero_representante_legal",
+      "identificaci_n_representante_legal",
+      "n_mero_de_cuenta",
+      "n_mero_de_documento_ordenador_de_pago",
+      "n_mero_de_documento_ordenador_del_gasto",
+      "n_mero_de_documento_supervisor",
+      "nacionalidad_representante_legal",
+      "nombre_del_banco",
+      "nombre_ordenador_de_pago",
+      "nombre_ordenador_del_gasto",
+      "nombre_representante_legal",
+      "nombre_supervisor",
+      "objeto_del_contrato",
+      "proveedor_adjudicado",
+      "referencia_del_contrato",
+      "tipo_de_cuenta",
+      "tipo_de_documento_ordenador_de_pago",
+      "tipo_de_documento_ordenador_del_gasto",
+      "tipo_de_documento_supervisor",
+      "tipo_de_identificaci_n_representante_legal",
+      "tipodocproveedor"
+    ]
+  },
+  "personales_usadas": [],
+  "problemas": [],
+  "estado": "aprobado"
+}

@@ -41,6 +41,10 @@ ATRIBUTOS_PROHIBIDOS = {  # sobre cualquier objeto: escriben, borran o deseriali
 OS_PROHIBIDOS = {  # solo sobre os: os.system(...), no lista.remove(...)
     "system": "ejecuta comandos", "popen": "ejecuta comandos", "remove": "borra archivos", "spawnl": "lanza procesos",
     "execv": "reemplaza el proceso", "execl": "reemplaza el proceso", "fork": "lanza procesos", "kill": "envía señales",
+    **{f: "reemplaza el proceso" for f in ("execle", "execlp", "execlpe", "execve", "execvp", "execvpe")},
+    **{f: "lanza procesos" for f in ("spawnle", "spawnlp", "spawnlpe", "spawnv", "spawnve", "spawnvp", "spawnvpe",
+                                     "posix_spawn", "posix_spawnp", "forkpty", "startfile")},
+    "killpg": "envía señales", "putenv": "cambia el entorno", "chmod": "cambia permisos", "rename": "mueve archivos", "replace": "mueve archivos",
 }
 SECRETOS = re.compile(
     r"(sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_-]{30,}|"
@@ -51,6 +55,7 @@ def revisar_ast(texto):
     hallazgos = []
     try:
         arbol = ast.parse(texto)
+        alias_os = {"os"} | {a.asname for n in ast.walk(arbol) if isinstance(n, ast.Import) for a in n.names if a.name == "os" and a.asname}
     except SyntaxError as e:
         return [{"linea": e.lineno, "regla": "sintaxis", "detalle": str(e)}]
     for n in ast.walk(arbol):
@@ -72,7 +77,7 @@ def revisar_ast(texto):
                 hallazgos.append({"linea": n.lineno, "regla": f"llama {nombre}", "detalle": BUILTINS_PROHIBIDOS[nombre]})
             elif isinstance(f, ast.Attribute) and nombre in ATRIBUTOS_PROHIBIDOS:
                 hallazgos.append({"linea": n.lineno, "regla": f"llama .{nombre}", "detalle": ATRIBUTOS_PROHIBIDOS[nombre]})
-            elif sobre == "os" and nombre in OS_PROHIBIDOS:
+            elif sobre in alias_os and nombre in OS_PROHIBIDOS:
                 hallazgos.append({"linea": n.lineno, "regla": f"llama os.{nombre}", "detalle": OS_PROHIBIDOS[nombre]})
             if nombre == "open":
                 modo = None

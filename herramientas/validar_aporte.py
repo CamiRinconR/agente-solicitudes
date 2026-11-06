@@ -16,8 +16,10 @@ No ejecuta ningún agente: la prueba de efecto con IA la hace solo el dueño, co
 """
 import json
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -42,9 +44,20 @@ def correr(*a):
 
 
 def main(argv):
-    base = argv[argv.index("--base") + 1] if "--base" in argv else "origin/main"
-    cambiados = [l.split("\t") for l in git("diff", "--name-status", f"{base}...HEAD").splitlines() if l.strip()]
-    archivos = [(e[0][0], e[-1]) for e in cambiados]
+    base = argv[argv.index("--base") + 1] if "--base" in argv else "upstream/main"
+    if not git("rev-parse", "--verify", "--quiet", base).strip():
+        base = "origin/main"
+    # lo que difiere de la base: commits, cambios sin commit y archivos nuevos sin agregar
+    vistos = {}
+    for l in git("diff", "--name-status", base).splitlines() + git("diff", "--name-status", f"{base}...HEAD").splitlines():
+        if l.strip():
+            e = l.split("\t")
+            vistos[e[-1]] = e[0][0]
+    for r in git("ls-files", "--others", "--exclude-standard").splitlines():
+        if r.strip():
+            vistos.setdefault(r.strip(), "A")
+    archivos = sorted((e, r) for r, e in vistos.items())
+    nuevos_bateria = {r for e, r in archivos if e == "A" and r.startswith("baterias/")}
     fallas, avisos = [], []
 
     for estado, ruta in archivos:
@@ -81,18 +94,32 @@ def main(argv):
             if not (d.get("no_permitidas") or d.get("intenta_instalar") or s[0]["bloquean"]):
                 avisos.append(f"la muestra nueva {ruta} NO la bloquea la compuerta de hoy: encontró un hueco (valioso); hay que mejorar la compuerta antes de aceptar")
 
-    for nombre, args in [("baterías", ["herramientas/baterias.py"]),
-                         ("corrida sintética", ["herramientas/verificar.py", "corridas/2026-11-06-ventas-semestre"])]:
-        rc, out = correr(*args)
-        if rc != 0 and not any("NO la bloquea" in a for a in avisos):
-            fallas.append(f"{nombre} no pasa: {out.strip().splitlines()[-1][:200] if out.strip() else rc}")
+    # baterías: una falla causada por un caso NUEVO de este aporte es un hueco encontrado (valioso), no un error
+    rc, out = correr("herramientas/baterias.py")
+    for linea in out.splitlines():
+        if linea.startswith("✗"):
+            del_aporte = any(Path(n).name in linea for n in nuevos_bateria)
+            (avisos if del_aporte else fallas).append(
+                (f"hueco encontrado por el aporte (valioso; el dueño decide cómo cerrarlo): {linea[2:]}" if del_aporte
+                 else f"baterías: {linea[2:]}")[:300])
+    # la corrida sintética se verifica en una copia temporal: no se reescribe ningún archivo del repositorio
+    tmp = Path(tempfile.mkdtemp(prefix="validar-")) / "corrida"
+    shutil.copytree(RAIZ / "corridas/2026-11-06-ventas-semestre", tmp)
+    rc, out = correr("herramientas/verificar.py", str(tmp))
+    if rc != 0:
+        fallas.append(f"la corrida sintética no pasa: {[l for l in out.splitlines() if l.strip().startswith('-')][:3]}")
     mutantes = sorted((RAIZ / "evidencia/sintetico/mutantes").glob("m*.py"))
     lista = [f"{m.stem}={m}" for m in mutantes]
-    rc, out = correr("herramientas/verificar.py", "corridas/2026-11-06-ventas-semestre", "--impl", *lista)
-    (RAIZ / "corridas/2026-11-06-ventas-semestre/informe_extra.json").unlink(missing_ok=True)
+    rc, out = correr("herramientas/verificar.py", str(tmp), "--impl", *lista)
+    shutil.rmtree(tmp.parent, ignore_errors=True)
     sin_fallas = re.findall(r"^(m\d+\w*): sin fallas", out, re.M)
-    if sin_fallas != ["m00_referencia_sin_errores"]:
-        fallas.append(f"el criterio ya no atrapa todas las mutantes o da falsas alarmas: sin fallas = {sin_fallas}")
+    nuevas = {Path(r).stem for e, r in archivos if e == "A" and r.startswith("evidencia/sintetico/mutantes/")}
+    viejas_sin_fallas = [m for m in sin_fallas if m != "m00_referencia_sin_errores" and m not in nuevas]
+    for m in sin_fallas:
+        if m in nuevas:
+            avisos.append(f"la mutante nueva {m} NO la atrapa el criterio: encontró un hueco del criterio (valioso)")
+    if "m00_referencia_sin_errores" not in sin_fallas or viejas_sin_fallas:
+        fallas.append(f"el criterio da falsas alarmas o ya no atrapa mutantes que atrapaba: sin fallas = {sin_fallas}")
 
     print(f"Aporte: {len(archivos)} archivo(s) cambiados frente a {base}")
     for e, r in archivos:

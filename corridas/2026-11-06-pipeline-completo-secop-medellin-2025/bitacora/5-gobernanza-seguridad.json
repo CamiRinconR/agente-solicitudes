@@ -1,0 +1,8 @@
+{
+  "etapa": "Gobernanza",
+  "que_se_pidio": "Revisión ciega de seguridad de los 5 archivos de la IA (impl_a, impl_b, reglas, hipotesis y grafico), con una prueba por hallazgo y los de código peligroso a la batería.",
+  "que_devolvio": "8 hallazgos, los 8 confirmados con prueba: 4 de severidad media y 4 baja; ninguno de ejecución de código, red, escritura ni datos personales. 2 a la batería: la compuerta bloquea hoy 1 (controles bidireccionales en reglas.py) y no bloquea 1 (lectura fuera de datos en hipotesis.py).",
+  "como_se_probo": "Lectura de los 5 archivos y compuertas sobre los 5 (hoy bloquean reglas.py por Bandit B613). 8 pruebas en seguridad/ con datos sintéticos: 6 de comportamiento, que imprimen REPRODUCIDO, y 2 fragmentos que quedaron en baterias/seguridad/malos. Gráfico abierto en Chrome sin ventana: 1 enlace inyectado y 0 enlaces javascript:. Compuerta repetida con un Python sin Bandit: deja pasar reglas.py.",
+  "que_se_corrigio": "Nada del código revisado (no se modifica). La batería de seguridad pasó de 25 a 27 casos y queda con 1 falla a propósito (lee_fuera_de_datos) hasta que la compuerta bloquee lecturas fuera de datos.",
+  "sin_verificar": "Por qué la compuerta dejó pasar reglas.py a las 06:07: un Python sin Bandit o la versión de seguridad.py anterior a las 06:26. El enlace en el cuadro del puntero se vio en la figura, no pasando el puntero en el navegador. No se midió memoria ni tiempo con archivos grandes (solo revisión: sin expresiones regulares de riesgo). Solo se corrió la batería de seguridad, no las de privacidad y lecciones."
+}

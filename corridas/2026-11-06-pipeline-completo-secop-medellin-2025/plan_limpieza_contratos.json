@@ -1,0 +1,255 @@
+{
+  "tabla": "contratos",
+  "entrada": "datos/contratos.csv",
+  "salida": "limpio/contratos.csv",
+  "llave": "id_contrato",
+  "_notas": [
+    "Limpiar es marcar (R14): ninguna operación borra filas. Qué marca excluye la fila lo dice spec.capa_limpia.",
+    "id_contrato no se reescribe en la capa limpia: la prueba «la llave y el orden se conservan» compara la llave limpia con la cruda, y el caso conocido trae un id con espacios. El recorte de la llave lo hace quien la usa (spec: id_contrato recortado) y la op repetidos ya compara recortado.",
+    "nit_entidad y codigo_entidad se tratan como texto: la op numero solo comprueba que sean dígitos y no cambia su escritura (sin «.0», sin dígito de verificación).",
+    "nombre_entidad: primero U+0096 → «–» (68 filas de 1 NIT traen ese control entre espacios: es la raya de Windows-1252 mal codificada; la op texto la borraría y el nombre quedaría distinto del que leen las reglas); luego recorte, invisibles, NFC y espacios internos reducidos; no se cambian mayúsculas ni tildes. Sin mapa de variantes: el perfil no muestra ningún par de nombres que colapse al quitar tildes y mayúsculas, y la entidad se agrupa por NIT, no por nombre (spec S2).",
+    "fecha_de_firma: cada formato se lee por separado, año primero en ISO y día primero con barras (L01); se guarda solo la fecha y la hora va aparte (L02).",
+    "Repetidos solo por la llave id_contrato, nunca por entidad, valor o fecha (L08).",
+    "No hay comparaciones entre columnas: la tabla no trae pares (inicio/fin, subtotal/total) y el perfil no reporta cruces (L14).",
+    "La op repetidos compara id_contrato recortado y sin distinguir mayúsculas; la spec y reglas.py dicen lo mismo (revisión, 6-nov-2026).",
+    "Las reglas (reglas.py) aplican sobre el crudo esta misma normalización (U+0096, invisibles, NFC, espacios, nulos disfrazados, formatos de fecha), escrita por separado: así una implementación correcta sobre la capa limpia y las reglas sobre el crudo dicen lo mismo."
+  ],
+  "operaciones": [
+    {
+      "op": "texto",
+      "columna": "nit_entidad",
+      "recortar": true,
+      "unicode": true,
+      "invisibles": true,
+      "espacios_internos": true
+    },
+    {
+      "op": "texto",
+      "columna": "codigo_entidad",
+      "recortar": true,
+      "unicode": true,
+      "invisibles": true,
+      "espacios_internos": true
+    },
+    {
+      "op": "reemplazar",
+      "columna": "nombre_entidad",
+      "patron": "\\u0096",
+      "por": "–"
+    },
+    {
+      "op": "texto",
+      "columna": "nombre_entidad",
+      "recortar": true,
+      "unicode": true,
+      "invisibles": true,
+      "espacios_internos": true
+    },
+    {
+      "op": "texto",
+      "columna": "fecha_de_firma",
+      "recortar": true,
+      "unicode": true,
+      "invisibles": true,
+      "espacios_internos": true
+    },
+    {
+      "op": "texto",
+      "columna": "valor_del_contrato",
+      "recortar": true,
+      "unicode": true,
+      "invisibles": true,
+      "espacios_internos": true
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "id_contrato",
+      "valores": [
+        "No Definido",
+        "No Aplica",
+        "N/A",
+        "NA",
+        "Null",
+        "None",
+        "Sin dato",
+        "-",
+        "--",
+        "0"
+      ],
+      "marca": "nulo_disfrazado_id_contrato"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "nit_entidad",
+      "valores": [
+        "No Definido",
+        "No Aplica",
+        "N/A",
+        "NA",
+        "Null",
+        "None",
+        "Sin dato",
+        "-",
+        "--",
+        "0"
+      ],
+      "marca": "nulo_disfrazado_nit_entidad"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "nombre_entidad",
+      "valores": [
+        "No Definido",
+        "No Aplica",
+        "N/A",
+        "NA",
+        "Null",
+        "None",
+        "Sin dato",
+        "-",
+        "--"
+      ],
+      "marca": "nulo_disfrazado_nombre_entidad"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "fecha_de_firma",
+      "valores": [
+        "No Definido",
+        "No Aplica",
+        "N/A",
+        "NA",
+        "Null",
+        "None",
+        "Sin dato",
+        "-",
+        "--"
+      ],
+      "marca": "nulo_disfrazado_fecha_de_firma"
+    },
+    {
+      "op": "nulos_disfrazados",
+      "columna": "valor_del_contrato",
+      "valores": [
+        "No Definido",
+        "No Aplica",
+        "N/A",
+        "NA",
+        "Null",
+        "None",
+        "Sin dato",
+        "-",
+        "--"
+      ],
+      "marca": "nulo_disfrazado_valor_del_contrato"
+    },
+    {
+      "op": "numero",
+      "columna": "nit_entidad",
+      "decimal": ".",
+      "marca": "nit_no_numerico"
+    },
+    {
+      "op": "rango",
+      "columna": "nit_entidad",
+      "min": 100000000,
+      "max": 9999999999,
+      "marca": "nit_longitud_atipica"
+    },
+    {
+      "op": "fecha",
+      "columna": "fecha_de_firma",
+      "formatos": [
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%d",
+        "%d/%m/%Y"
+      ],
+      "guardar_hora": true,
+      "marca": "fecha_invalida"
+    },
+    {
+      "op": "rango",
+      "columna": "fecha_de_firma",
+      "min": "2025-01-01",
+      "max": "2025-12-31",
+      "marca": "fuera_de_2025"
+    },
+    {
+      "op": "numero",
+      "columna": "valor_del_contrato",
+      "decimal": ".",
+      "marca": "numero_invalido"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "min": 0,
+      "marca": "valor_negativo"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "min": 10,
+      "marca": "valor_cero_o_simbolico"
+    },
+    {
+      "op": "rango",
+      "columna": "valor_del_contrato",
+      "max": 100000000000,
+      "marca": "valor_mayor_100mil_millones"
+    },
+    {
+      "op": "atipicos",
+      "columna": "valor_del_contrato",
+      "k": 3,
+      "marca": "atipico"
+    },
+    {
+      "op": "repetidos",
+      "columnas": [
+        "id_contrato"
+      ],
+      "marca": "repetido"
+    }
+  ],
+  "umbrales": {
+    "completitud_minima": {
+      "id_contrato": 0.95,
+      "nit_entidad": 0.95,
+      "nombre_entidad": 0.999,
+      "fecha_de_firma": 0.95,
+      "valor_del_contrato": 0.95
+    },
+    "validez_minima": {
+      "fecha_de_firma": 0.95,
+      "valor_del_contrato": 0.999,
+      "nit_entidad": 0.999
+    },
+    "marcadas_maximo": {
+      "repetido": 50,
+      "fecha_invalida": 50,
+      "fuera_de_2025": 50,
+      "numero_invalido": 0,
+      "valor_negativo": 0,
+      "nit_no_numerico": 0,
+      "nit_longitud_atipica": 0,
+      "nulo_disfrazado_id_contrato": 0,
+      "nulo_disfrazado_nit_entidad": 0,
+      "nulo_disfrazado_nombre_entidad": 0,
+      "nulo_disfrazado_fecha_de_firma": 0,
+      "nulo_disfrazado_valor_del_contrato": 0,
+      "valor_cero_o_simbolico": 700,
+      "valor_mayor_100mil_millones": 40
+    }
+  },
+  "_umbrales_por_que": {
+    "completitud_0.95": "El mismo plan tiene que aprobar el caso conocido (21 filas, con 1 id, 1 NIT, 1 valor y 1 fecha vacíos a propósito): una fila vacía es 4,8 %. Con 0,999 el caso no pasaba. En el dato real las cinco columnas están al 100 %; la pérdida grande la siguen atrapando la conciliación y el anticipo de la spec.",
+    "validez_fecha_0.95": "El caso conocido trae 2025-02-30 (1 de 20 fechas llenas). En el dato real la validez es 100 %.",
+    "sin_unicidad_de_la_llave": "La prueba de unicidad del motor mira todas las filas, y limpiar es marcar: los 2 repetidos del caso conocido se quedan con su marca y la reprobaban. La llave única entre las filas usadas la garantiza la marca «repetido», que excluye; en el dato real id_contrato es único (0 repetidos, 0 marcados).",
+    "marcadas_maximo_50": "repetido, fecha_invalida y fuera_de_2025 valen 0 en el dato real (la ingesta ya filtra 2025 y la llave es única); 50 es un 0,1 % de 49.662 y deja pasar los defectos a propósito del caso conocido.",
+    "marcadas_maximo_0": "nulos disfrazados, NIT no numérico o de longitud rara, valor no numérico o negativo: 0 en el dato real y en el caso conocido; si aparece uno, el plan bloquea y alguien decide.",
+    "avisos": "valor_cero_o_simbolico ≤ 700 (609 en el dato real: 542 ceros y 67 entre 0 y 10) y valor_mayor_100mil_millones ≤ 40 (26) detectan un cambio grande del dato sin excluir nada."
+  }
+}

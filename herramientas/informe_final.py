@@ -45,7 +45,9 @@ def icono(ok):
 
 
 def procedencia(c, spec):
-    for p in [c / "procedencia.json"] + [Path(r).parent / "procedencia.json" for r in spec["datos"].values()]:
+    from rutas import resolver
+    rutas = list((spec.get("datos_crudos") or {}).values()) + list(spec["datos"].values())   # la procedencia vive junto al dato crudo
+    for p in [c / "procedencia.json"] + [Path(resolver(r)).parent / "procedencia.json" for r in rutas]:
         if p.exists():
             return leer(p)
     return None

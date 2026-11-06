@@ -27,7 +27,11 @@ def leer_csv(ruta):
     """Filas del CSV como diccionarios de texto, sin convertir nada. FAILFAST: una comilla sin cerrar o una
     fila con más o menos campos que el encabezado detienen la lectura; nunca se leen en silencio."""
     with open(ruta, newline="", encoding="utf-8-sig") as fh:
-        filas = list(csv.DictReader(fh, strict=True))
+        lector = csv.DictReader(fh, strict=True)
+        filas = list(lector)
+        cab = lector.fieldnames or []
+    if len(cab) == 1 and any(sep in cab[0] for sep in (";", "\t", "|")):
+        raise ValueError(f"el encabezado tiene una sola columna con «;», tabulador o «|»: el separador no es la coma")
     for i, f in enumerate(filas, 2):
         if None in f or any(v is None for v in f.values()):
             raise ValueError(f"la línea {i} del CSV no tiene el mismo número de campos que el encabezado")
