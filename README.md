@@ -4,6 +4,18 @@ Un análisis de datos hecho con IA, de la pregunta al informe, en las cinco etap
 
 Material aplicado del curso **«Big Data con IA»** (NODO · Universidad EAFIT, noviembre de 2026), con datos abiertos de Colombia (SECOP II).
 
+## Conectar la IA
+
+Para aportar con la IA que ya usas (ChatGPT, Gemini, Claude, Copilot u otra), cópiale este texto:
+
+```text
+Lee https://raw.githubusercontent.com/CristianBTA/agente-solicitudes/main/APORTAR-CON-TU-AGENTE.md, sigue sus «Instrucciones para el agente» y empieza mi aporte al repositorio CristianBTA/agente-solicitudes.
+```
+
+- **La IA te pregunta tu idea y arma el aporte.** Si trabaja con archivos y terminal (Claude Code, Codex, Copilot en VS Code, Cursor), deja listo el *pull request*. Si es un chat, te entrega el texto para el formulario [«Proponer un aporte»](https://github.com/CristianBTA/agente-solicitudes/issues/new?template=aporte.yml).
+- **No gasta tu cuota más allá de esa conversación:** el filtro del repositorio no usa IA, y la prueba con IA la paga el dueño.
+- Si tu IA no puede abrir enlaces, pégale el archivo [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) completo.
+
 | Etapa | La IA… | La prueba sin IA |
 |---|---|---|
 | **Ingesta** | escribe el lector: un contrato de datos con fuente, columnas, tipos, llave, dominios y rangos | conteo contra la fuente, llave única y sin nulos, tipos, rangos, dominios, minimización, correr dos veces da el mismo archivo, procedencia con fecha y huella |
@@ -24,7 +36,7 @@ Cualquiera con cuenta de GitHub puede proponer una lección, un caso de prueba o
 2. la revisión del dueño;
 3. solo para las reglas de los subagentes, una prueba con IA que paga la licencia del dueño.
 
-`main` está protegida. **La forma más fácil:** pégale [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) a tu asistente junto con tu idea, y él arma el aporte, corre el filtro y deja listo el pull request. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md) y aportes aceptados en [`CHANGELOG.md`](CHANGELOG.md).
+`main` está protegida. **La forma más fácil:** el texto de [«Conectar la IA»](#conectar-la-ia), en la IA que ya usas. Ella lee [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md), te pregunta tu idea, arma el aporte y deja listo el pull request o el texto del formulario. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md) y aportes aceptados en [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Instalar
 

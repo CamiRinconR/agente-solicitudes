@@ -10,7 +10,7 @@ Este repositorio crece con lo que aprende el grupo: errores reales, reglas y cas
 
 ## La forma más fácil: con tu agente
 
-Pégale [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) a tu asistente (Claude, ChatGPT, Copilot, Gemini…) junto con tu idea. Él clasifica el aporte, arma los archivos con su prueba, corre el filtro gratuito y te deja listo el pull request o el texto del formulario, gastando lo mínimo de tu cuota.
+Copia en tu asistente (Claude, ChatGPT, Copilot, Gemini…) el texto de [«Conectar la IA»](README.md#conectar-la-ia), o pégale [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) si no puede abrir enlaces. Él clasifica el aporte, arma los archivos con su prueba, corre el filtro gratuito y te deja listo el pull request o el texto del formulario, gastando lo mínimo de tu cuota.
 
 ## Dos maneras de proponer
 

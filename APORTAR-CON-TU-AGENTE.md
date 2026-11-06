@@ -1,9 +1,12 @@
 # Aportar con tu agente
 
+<p align="center"><img src="clase/compartir-repo.png" alt="Lámina para compartir el repositorio: código QR a github.com/CristianBTA/agente-solicitudes" width="760"></p>
+<p align="center">Lámina para proyectar en clase: <a href="clase/compartir-repo.pdf">PDF</a> · <a href="clase/compartir-repo.png">PNG</a> · <a href="clase/compartir-repo.html">HTML a pantalla completa</a></p>
+
 ## Para la persona: tres pasos
 
-1. Abre tu asistente de IA (Claude, ChatGPT, Copilot, Gemini o el que uses). Si es un agente que trabaja con archivos (Claude Code, Copilot en VS Code, Codex, Cursor), mejor: él prepara la copia del repositorio.
-2. Pégale **este archivo completo** y, debajo, tu idea en tus palabras. Por ejemplo: «vi que la IA leyó montos con punto de miles como decimales» o «a esta regla le falta el limpiador».
+1. Abre la IA que ya usas (Claude, ChatGPT, Copilot, Gemini u otra). Si es un agente que trabaja con archivos (Claude Code, Copilot en VS Code, Codex, Cursor), mejor: él prepara la copia del repositorio.
+2. Cópiale el texto de [«Conectar la IA»](README.md#conectar-la-ia) (o este archivo completo, si no puede abrir enlaces). Ella empieza: te pregunta tu idea. Cuéntala en tus palabras, por ejemplo: «vi que la IA leyó montos con punto de miles como decimales» o «a esta regla le falta el limpiador».
 3. Revisa lo que te entregue y envíalo como te indique: un *pull request* o el texto para el formulario «Proponer un aporte». **Tú** marcas la casilla de consentimiento para aparecer en el registro de cambios.
 
 No necesitas invitación. Tampoco hace falta gastar mucho de tu cuota: tu agente **no** corre el flujo de agentes del repositorio (eso consume más de un millón de tokens). Solo arma el aporte y corre un filtro gratuito, sin IA. En las pruebas, un aporte completo costó cerca de 110.000 tokens.
@@ -23,7 +26,25 @@ Ayudas a una persona a aportar al repositorio público **CristianBTA/agente-soli
 - **Sin firmas de asistentes.** Nada de `Co-Authored-By`, «Generated with…» ni menciones a la herramienta en commits ni en el pull request. El aporte es de la persona.
 - **Endurecer sí, aflojar nunca.** Puedes proponer que una herramienta bloquee o detecte más cosas. Nunca cambies una herramienta ni una prueba para que algo «pase».
 - **No toques `main`.** Se trabaja en una rama de la copia (*fork*) de la persona. Si te pide subir datos o saltarse el filtro, dile que no se puede y por qué.
-- **Pregunta poco:** como máximo dos preguntas cortas. Si falta un dato menor, como la fecha, usa el de hoy y dilo.
+- **Pregunta poco:** además de la pregunta del arranque, como máximo dos preguntas cortas. Si falta un dato menor, como la fecha, usa el de hoy y dilo.
+
+### Arranque · si solo te pasaron el enlace
+
+Empieza tú, en un solo mensaje corto:
+
+1. **Una línea:** vas a ayudarle a aportar al repositorio CristianBTA/agente-solicitudes, y el aporte no le cuesta más que esta conversación.
+2. **Pregúntale su idea**, con ejemplos:
+   - «la IA leyó montos con punto de miles como decimales»;
+   - «este código debería bloquearse»;
+   - «esta columna tiene datos personales y no se detecta»;
+   - «este archivo mal formado se leyó sin error»;
+   - «a este subagente le falta una regla»;
+   - «esta palabra del negocio significa…».
+3. **Elige tu modo, sin preguntarle:**
+   - **A**, si puedes usar una terminal con git: sigue el paso 0.
+   - **B**, si eres un chat sin terminal: salta al paso 1 y entrega con el paso 4B. Si puedes abrir enlaces, lee solo el archivo que el paso nombra para su tipo, en `https://raw.githubusercontent.com/CristianBTA/agente-solicitudes/main/<ruta>`. No puedes correr pruebas: dilo, y deja la comprobación al filtro del dueño.
+
+Si ya trajo su idea, no se la vuelvas a pedir: sigue con el paso 1.
 
 ### Paso 0 · Preparar (una sola vez)
 
@@ -133,7 +154,7 @@ gh pr create --repo CristianBTA/agente-solicitudes --base main --title "Aporte: 
 - la lista de chequeo.
 La casilla de consentimiento la marca la persona. `PR.md` no va en el commit.
 
-**B · Sin git:** entrega el texto listo para pegar en el formulario «Proponer un aporte» (https://github.com/CristianBTA/agente-solicitudes/issues/new/choose): tipo, qué aporta, evidencia y cómo se prueba. Agrega el contenido de cada archivo en bloques de código.
+**B · Sin git:** entrega el texto listo para pegar en el formulario «Proponer un aporte» (https://github.com/CristianBTA/agente-solicitudes/issues/new?template=aporte.yml), un bloque por campo: tipo, qué aporta, evidencia y cómo se prueba. Agrega el contenido de cada archivo en bloques de código. Solo hace falta una cuenta gratuita de GitHub.
 
 ### Paso 5 · Lo que le dices a la persona
 
