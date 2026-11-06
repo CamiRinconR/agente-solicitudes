@@ -8,6 +8,10 @@ Este repositorio crece con lo que aprende el grupo: errores reales, reglas y cas
 - **No** necesitas correr el flujo con agentes ni gastar tu cuota de ningún asistente. Una corrida completa consume más de un millón de tokens; la prueba con IA la hace el dueño del repositorio, con su licencia.
 - **Nunca** subas datos: ni filas, ni nombres, ni cédulas, ni datos bancarios, ni archivos de SECOP.
 
+## La forma más fácil: con tu agente
+
+Pégale [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) a tu asistente (Claude, ChatGPT, Copilot, Gemini…) junto con tu idea. Él clasifica el aporte, arma los archivos con su prueba, corre el filtro gratuito y te deja listo el pull request o el texto del formulario, gastando lo mínimo de tu cuota.
+
 ## Dos maneras de proponer
 
 1. **Sin git:** abre un *issue* con el formulario «Proponer un aporte». Si sirve, el dueño lo convierte en cambio y te da el crédito.

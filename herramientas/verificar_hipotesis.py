@@ -93,7 +93,8 @@ def main(argv):
         problemas.append(f"hipotesis.py no pasa las compuertas: {bloqueos}")
         salida = {}
     else:
-        salida, err = caja.correr(RUNNER, str(hp), json.dumps(spec["datos"]), str(AQUI))
+        datos_h = spec.get("datos_crudos") or spec["datos"]   # el dato crudo, igual que las reglas
+        salida, err = caja.correr(RUNNER, str(hp), json.dumps(datos_h), str(AQUI))
         if err:
             problemas.append(f"hipotesis.py falló: {err}")
             salida = {}

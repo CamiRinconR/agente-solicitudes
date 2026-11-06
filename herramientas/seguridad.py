@@ -87,6 +87,11 @@ def revisar_ast(texto):
                     hallazgos.append({"linea": n.lineno, "regla": "open con modo calculado", "detalle": "no se puede saber si escribe"})
             if nombre == "getattr" and n.args and isinstance(n.args[0], ast.Name) and n.args[0].id in ("__builtins__", "builtins", "os"):
                 hallazgos.append({"linea": n.lineno, "regla": "getattr sobre builtins/os", "detalle": "evade la revisión"})
+        elif isinstance(n, ast.Attribute) and n.attr in ("parent", "parents"):
+            hallazgos.append({"linea": n.lineno, "regla": f"navega carpetas (.{n.attr})", "detalle": "lee fuera de lo que recibe en datos"})
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and (
+                re.match(r"^(/|~|[A-Za-z]:\\)[\w.-]", n.value) or "../" in n.value or n.value == ".."):
+            hallazgos.append({"linea": n.lineno, "regla": "ruta fija en el código", "detalle": "lee fuera de lo que recibe en datos"})
         elif isinstance(n, ast.Constant) and isinstance(n.value, str) and re.match(r"^\s*(https?|ftp|s3|gs|file|wss?)://", n.value, re.I):
             hallazgos.append({"linea": n.lineno, "regla": "URL en el código", "detalle": "red: el código solo lee las rutas que recibe en datos"})
         elif isinstance(n, ast.Attribute) and n.attr in ("__subclasses__", "__globals__", "__code__", "__builtins__"):

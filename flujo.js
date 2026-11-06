@@ -30,7 +30,9 @@ const reglasComunes = `REGLAS PARA TODO EL CÓDIGO QUE ESCRIBAS (las comprueba c
 - Solo biblioteca estándar de Python y las librerías de ${H}/permitidas.json (pandas, numpy, plotly). Nunca instales nada ni importes otra cosa: un nombre inventado lo puede registrar un atacante.
 - Función pura: sin red, sin escribir ni borrar archivos, sin ejecutar comandos, sin eval/exec/compile, sin pickle, sin importación dinámica. El código corre en una caja de arena sin red ni escritura.
 - Nunca escribas en tus respuestas filas de datos ni valores de columnas personales: trabaja con nombres, tipos y conteos (R2).
-- FAILFAST: lee los CSV de forma estricta (csv con strict=True y control de campos por fila, o pandas sin saltar filas malas). Un archivo mal formado detiene el trabajo con un error claro; nunca se lee a medias en silencio.
+- FAILFAST: lee los CSV de forma estricta (csv con strict=True y control de campos por fila; pandas con index_col=False y on_bad_lines="error"). Un archivo mal formado detiene el trabajo con un error claro; nunca se lee a medias en silencio.
+- Lee SOLO las rutas que recibes en datos: nunca deduzcas otra ruta (nada de .parent, «..» ni rutas fijas).
+- Los caracteres invisibles se escriben como escapes ("\\u200f"), nunca pegados literales: un control bidireccional literal en el código es el patrón Trojan Source y la compuerta lo bloquea.
 - Antes de escribir, lee las lecciones de errores reales en ${LECCIONES}: no repitas ninguno.`
 
 const glosarioTxt = GLOSARIO
@@ -215,7 +217,7 @@ const pProbar = `Eres el PROBADOR (etapa 3 · Análisis), independiente del prop
 ${contexto}
 ${reglasComunes}
 
-Para cada hipótesis de ${C}/hipotesis.json (sellada: no la cambies) escribe en ${C}/hipotesis.py una prueba:
+Para cada hipótesis de ${C}/hipotesis.json (sellada: no la cambies) escribe en ${C}/hipotesis.py una prueba (datos = el CSV CRUDO, el mismo que reciben las reglas):
   from reglas_base import hipotesis
   @hipotesis("H1")
   def h1(datos): return {"valor": número, "linea_base": número o None, "detalle": "cómo se calculó, con cifras"}
@@ -231,7 +233,7 @@ ${reglasComunes}
 Con el resultado aprobado (${C}/informe.json → resultado_oficial), la petición y la procedencia (${C}/datos/procedencia.json: fuente y fecha de consulta), escribe:
 - ${C}/grafico.json: {"pregunta", "medida" (columna de valores), "categoria", "periodo", "periodo_incompleto": bool, "escala": 1 o la división que uses (p. ej. 1e9), "fuera_del_grafico": {"motivo", "valor"} si dejas algo por fuera};
 - ${C}/grafico.py: def graficar(resultado, procedencia) -> plotly Figure (plotly.graph_objects o plotly.express). No escribas ni muestres archivos: el verificador escribe el HTML.
-Reglas del módulo 4: el gráfico responde la pregunta; barras desde cero; título con qué, dónde y cuándo; unidades en el eje de valores; fuente y fecha de consulta (dd-mm-aaaa) en una anotación; si muestras solo los primeros N, agrega «Otras» o declara fuera_del_grafico; período incompleto marcado; ningún dato personal.
+Reglas del módulo 4: el gráfico responde la pregunta; los textos que vienen de los datos (nombres) se escapan («<» como &lt;) porque Plotly interpreta HTML; la fuente y la fecha salen SOLO de procedencia (nada de valores de respaldo escritos en el código: si falta, que falle); barras desde cero; título con qué, dónde y cuándo; unidades en el eje de valores; fuente y fecha de consulta (dd-mm-aaaa) en una anotación; si muestras solo los primeros N, agrega «Otras» o declara fuera_del_grafico; período incompleto marcado; ningún dato personal.
 Corre ${PY} ${H}/verificar_grafico.py ${C} y corrige hasta que apruebe (máximo 3 intentos).
 ${bit('4-visualizacion', 'Visualización')}`
 

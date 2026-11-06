@@ -53,6 +53,35 @@ Probar al probador (`secop/resultados_mutacion.txt`):
 - Ninguna falsa alarma sobre la referencia que sigue la spec.
 - El error de zona horaria no cambia nada en los datos de hoy (no hay contratos firmados entre las 0:00 y las 5:00 del 1 de enero), pero el caso conocido lo atrapa.
 
+## 3 · El pipeline de cinco etapas: ¿funciona de verdad?
+
+Dos corridas completas sobre SECOP II, con la ingesta en vivo contra datos.gov.co:
+
+| Corrida | Agentes | Tokens | Tiempo | Resultado |
+|---|---|---|---|---|
+| `2026-11-06-pipeline-secop-medellin-2025` (sin capa limpia) | 12 | ≈ 1,46 millones | 64 min, con un corte de red y su reanudación | Las cinco etapas aprobadas tras corregir lo que encontró el revisor ciego |
+| `2026-11-06-pipeline-completo-secop-medellin-2025` (con capa limpia) | 13, más 1 para reprobar las hipótesis | ≈ 1,88 millones | 85 min | Ver el informe final de la corrida |
+
+**Lo que funcionó a la primera:**
+- El lector aplicó solo las lecciones: cortó el año con `< 2026-01-01` (L02), trajo 6 columnas sin ninguna personal y dejó escritas en «sin verificar» las decisiones de negocio L05, L06 y L07.
+- La carga dio 49.662 contratos, igual al conteo del servidor.
+- Las implementaciones A y B dieron lo mismo.
+- La limpieza marcó, sin borrar filas, 912 atípicos, 609 valores cero o simbólicos y 26 contratos de más de 100.000 millones.
+
+**Lo que encontró el revisor ciego de seguridad** (11 hallazgos en la primera corrida y 8 en la segunda, todos con su prueba):
+- **El más grave:** las reglas que escribe la IA se cargaban dentro del verificador, sin compuertas ni caja de arena.
+- **Los demás:**
+  - CSV leídos sin FAILFAST;
+  - mensajes de error con texto de las celdas;
+  - `pd.read_csv` con URL;
+  - enlaces externos y HTML de Plotly en el informe y el gráfico;
+  - caracteres bidireccionales pegados en el código (*Trojan Source*);
+  - código que deduce rutas y lee archivos que nadie le pasó.
+
+Todo quedó corregido, comprobado con las pruebas del propio revisor y convertido en lecciones (L15–L24) y en casos de la batería. El sistema aprende de sus fallas: las compuertas que hoy bloquean la mitad de esos patrones no existían en la mañana.
+
+**Costo:** una corrida completa cuesta entre 1,5 y 1,9 millones de tokens. Por eso los participantes no corren el flujo para aportar (ver `CONTRIBUTING.md`).
+
 ## Qué se concluye, sin adornos
 
 1. **Con acceso a los datos y un glosario claro, el modelo de un solo disparo acertó 6 de 6** (contando la decisión declarada sobre la universidad privada) y avisó bien. La intuición de que los modelos actuales son confiables se sostiene en estas pruebas.

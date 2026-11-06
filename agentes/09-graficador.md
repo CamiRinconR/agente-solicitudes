@@ -19,6 +19,8 @@ La IA genera el gráfico que responde la pregunta. Lo comprueba una lista sin IA
 - Fuente y fecha de consulta (dd-mm-aaaa) visibles.
 - Si muestra solo los primeros N, agrega «Otras» o declara lo que quedó fuera: la cuenta de control debe cerrar.
 - Período incompleto marcado; ningún dato personal.
+- Los textos que vienen de los datos se escapan («<» como `&lt;`): Plotly interpreta HTML, y un nombre con `<a href>` sería un enlace vivo.
+- La fuente y la fecha salen solo de la procedencia; nunca valores de respaldo escritos en el código.
 
 ## Nunca
 - Escribir o mostrar archivos.

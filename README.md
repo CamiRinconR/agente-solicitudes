@@ -24,7 +24,7 @@ Cualquiera con cuenta de GitHub puede proponer una lección, un caso de prueba o
 2. la revisión del dueño;
 3. solo para las reglas de los subagentes, una prueba con IA que paga la licencia del dueño.
 
-`main` está protegida. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md) y aportes aceptados en [`CHANGELOG.md`](CHANGELOG.md).
+`main` está protegida. **La forma más fácil:** pégale [`APORTAR-CON-TU-AGENTE.md`](APORTAR-CON-TU-AGENTE.md) a tu asistente junto con tu idea, y él arma el aporte, corre el filtro y deja listo el pull request. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md) y aportes aceptados en [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Instalar
 

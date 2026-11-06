@@ -153,6 +153,22 @@ def comprobar(c):
     if meta.get("periodo_incompleto"):
         marcado = bool(re.search(r"incomplet|parcial|corte|hasta el", todo, re.I))
         checks.append({"comprobacion": "período incompleto marcado", "ok": marcado, "detalle": "marcado" if marcado else "no se marca"})
+    # Texto que viene de los datos (categorías, textos, datos del cuadro emergente): ninguna etiqueta.
+    # Texto que escribe el graficador (título, ejes, notas): formato sí (<b>, <br>, <span>…); enlaces o scripts, nunca.
+    de_datos = []
+    for tr in fig.get("data", []):
+        for k in ("x", "y", "text", "customdata", "hovertext", "labels", "ids"):
+            v = tr.get(k)
+            if isinstance(v, list):
+                de_datos += [x if isinstance(x, str) else json.dumps(x, ensure_ascii=False) for x in v]
+            elif isinstance(v, str):
+                de_datos.append(v)
+    en_datos = sorted(set(re.findall(r"<\s*/?\s*([a-z]+)\b", " ".join(de_datos), re.I)))
+    peligrosas = sorted(set(re.findall(r"<\s*(a|img|iframe|script|object|embed|link|meta)\b", todo, re.I)))
+    ok_html = not en_datos and not peligrosas
+    checks.append({"comprobacion": "sin HTML en el texto que viene de los datos, ni enlaces o scripts", "ok": ok_html,
+                   "detalle": "ninguno" if ok_html else (f"etiquetas en datos {en_datos}" if en_datos else "") +
+                   (f" · peligrosas {peligrosas}" if peligrosas else "") + ": Plotly interpreta HTML; escape «<» como &lt;"})
     pii = escanear_texto(todo)
     checks.append({"comprobacion": "sin datos personales en el gráfico", "ok": not pii, "detalle": str(pii or "ninguno")})
     return checks, fig

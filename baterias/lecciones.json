@@ -120,6 +120,30 @@
       "leccion": "Una caché .pyc plantada podía reemplazar el código sellado. El código de la IA se ejecuta desde su fuente, nunca desde .pyc.",
       "origen": "revisor ciego de seguridad, 6-nov-2026",
       "prueba": "corridas/2026-11-06-pipeline-secop-medellin-2025/seguridad/pyc_no_sellado_reemplaza_el_codigo.py"
+    },
+    {
+      "id": "L21",
+      "leccion": "La IA pegó literales seis caracteres invisibles (entre ellos U+200F y U+202E) en una lista de invisibles dentro de reglas.py: es el patrón Trojan Source (CVE-2021-42574), que puede esconder lógica a la vista. Se escriben como escapes.",
+      "origen": "compuerta (Bandit B613) y revisor ciego, 6-nov-2026",
+      "prueba": "bateria:seguridad/malos/bidi_literal_en_codigo.py"
+    },
+    {
+      "id": "L22",
+      "leccion": "El probador de hipótesis dedujo la ruta del dato crudo a partir de la capa limpia (../datos) y la leyó: un código que lee archivos que nadie le pasó. Las hipótesis reciben el dato crudo explícitamente y la compuerta bloquea .parent, «..» y rutas fijas.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "bateria:seguridad/malos/lee_fuera_de_datos.py"
+    },
+    {
+      "id": "L23",
+      "leccion": "Plotly interpreta HTML en etiquetas y textos: un nombre de entidad con <a href> se vuelve un enlace vivo en el gráfico publicado. Los textos de los datos se escapan y el verificador del gráfico bloquea etiquetas.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "herramientas/verificar_grafico.py (sin etiquetas HTML en el texto del gráfico)"
+    },
+    {
+      "id": "L24",
+      "leccion": "pandas.read_csv sin index_col=False: si la primera fila trae un campo de más, toma la primera columna como índice y corre todas las columnas sin error. FAILFAST también en pandas.",
+      "origen": "revisor ciego de seguridad, 6-nov-2026",
+      "prueba": "regla común 5 (FAILFAST) en agentes/00-reglas-comunes.md"
     }
   ]
 }

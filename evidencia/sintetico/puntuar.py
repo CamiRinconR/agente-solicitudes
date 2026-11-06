@@ -16,7 +16,7 @@ def vector(res):
     out = {}
     for f in res:
         k = str(f["region"])
-        out[k] = out.get(k, 0) + float(f["ventas"])
+        out[k] = out.get(k, 0) + float(f["ventas"] if "ventas" in f else f["ventas_netas"])
     return out
 
 
