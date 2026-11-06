@@ -114,8 +114,7 @@
       "id": "marcas_desde_encabezado",
       "severidad": "baja",
       "archivo": "impl_a.py",
-      "control": null,
-      "nota": "pendiente: una variante con encabezados calidad_* inesperados"
+      "control": "robustez.py (encabezado_calidad_inesperado: una marca calidad_* que el plan no declara no puede excluir filas ni cambiar la cifra)"
     }
   ]
 }
