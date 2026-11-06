@@ -138,7 +138,9 @@ Si al probar encuentras **otro** hueco distinto del que trajo la persona, no lo 
 
 - Revisa lo que difiere de `upstream/main`, esté o no en un commit, y no modifica ningún archivo del repositorio.
 - Debe terminar en «✓ pasa el filtro automático». Un hueco encontrado por el aporte aparece como **aviso**, no como falla.
-- Si marca una falla, corrígela y vuelve a correrlo. Si la persona no puede correr Python, dilo en el pull request: el mismo filtro corre en GitHub cuando el dueño lo aprueba.
+- Si marca una falla, corrígela y vuelve a correrlo.
+- **Córrelo tú, aunque tengas terminal y pruebas que ya pasan:** las baterías o el blindaje solos no lo reemplazan, y que el filtro también corra en GitHub tampoco. Copia la línea `RESUMEN` que imprime: va en el pull request.
+- Solo si de verdad no puedes correr Python (modo B), dilo en el pull request: el dueño lo corre antes de aprobar.
 
 ### Paso 4 · Entrega
 
@@ -164,7 +166,7 @@ La casilla de consentimiento la marca la persona. `PR.md` no va en el commit.
 En pocas líneas:
 - el tipo de aporte;
 - los archivos;
-- el resultado del filtro;
+- el resultado del filtro (la línea `RESUMEN` de `validar_aporte.py`);
 - si es un **hueco** o ya estaba cubierto;
 - el enlace del pull request (o el texto del formulario);
 - que marque la casilla de consentimiento y que el dueño lo revisará.
@@ -175,7 +177,7 @@ En pocas líneas:
 - [ ] El aporte trae su prueba, y dije si es un hueco o si ya estaba cubierto.
 - [ ] No hay datos reales; los ejemplos son evidentemente ficticios.
 - [ ] Solo agregué los archivos del aporte (y, si propongo un arreglo, la herramienta que corresponde, para endurecerla).
-- [ ] `validar_aporte.py` pasa, o dejé dicho por qué no se pudo correr.
+- [ ] Corrí `validar_aporte.py`, terminó en «✓ pasa el filtro automático» y pegué su línea `RESUMEN` en el pull request (o, en modo B, dije que no pude correrlo).
 - [ ] Sin firmas de asistentes en el commit ni en el pull request.
 - [ ] No corrí el pipeline ni gasté más de lo necesario.
 
