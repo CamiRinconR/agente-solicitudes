@@ -168,6 +168,15 @@ def armar(c):
     else:
         L.append("No se corrió.")
 
+    integ = leer(c / "integridad_comprobacion.json")
+    L += ["", "## Integridad del pipeline"]
+    if integ:
+        L.append("- Herramientas, fichas, flujo y dependencias: " + ("**sin cambios** durante la corrida." if integ["estado"] == "intacta" else "**alteradas**:"))
+        L += [f"  - ⚠️ {a}" for a in integ.get("alertas", [])]
+        if integ.get("casos_nuevos_en_baterias"):
+            L.append(f"- Casos nuevos en las baterías (solo pueden crecer): {', '.join(integ['casos_nuevos_en_baterias'])}")
+    else:
+        L.append("- Sin manifiesto de integridad en esta corrida (se agregó después).")
     L += ["", "## Seguridad del código que escribió la IA"]
     archivos = sorted(p.name for p in c.glob("*.py") if p.name not in ("reglas.py",)) + ["reglas.py"]
     L.append(f"- Archivos de la IA revisados con compuertas (librerías permitidas, reglas propias y Bandit) antes de ejecutarse: {', '.join(archivos)}.")

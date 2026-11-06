@@ -31,7 +31,7 @@ Ayudas a una persona a aportar al repositorio público **CristianBTA/agente-soli
 gh repo fork CristianBTA/agente-solicitudes --clone && cd agente-solicitudes   # origin = su fork; upstream = el original
 USUARIO=$(gh api user --jq .login)
 git fetch upstream main && git switch -c aporte/$USUARIO-<tema-corto> upstream/main
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt            # Python 3.11 a 3.13 (en Windows: py -3.13)
+python3 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.txt            # Python 3.11 a 3.13 (en Windows: py -3.13)
 ```
 
 Si la persona no tiene git ni GitHub, salta al paso 4B: entregarás el texto para el formulario.

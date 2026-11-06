@@ -39,6 +39,25 @@ PATRONES = {
         r"\b(?i:señor|señora|sr\.|sra\.|don|doña)\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){1,3}"),
 }
 K_MINIMO = 5
+INSTRUCCION = re.compile(
+    r"(ignor[ae]\w*\s+(las\s+|todas\s+las\s+|tus\s+)?(instrucciones|reglas|indicaciones)|ignore\s+(all\s+|the\s+|any\s+)?(previous|prior|above)?\s*instructions"
+    r"|olvida\w*\s+(las|tus|todas)|forget\s+(all|your|previous)|you\s+are\s+now|ahora\s+eres|act[uú]a\s+como|\bact\s+as\b"
+    r"|nota\s+para\s+(la\s+)?(ia|ai|el\s+agente|el\s+asistente|el\s+modelo)|instrucci[oó]n\s+para\s+(la\s+ia|el\s+(agente|graficador|especificador|generador|revisor))"
+    r"|(system|sistema)\s*prompt|instrucciones\s+del\s+sistema|<\|im_start\|>|\[/?INST\]"
+    r"|apru[eé]ba\w*\s+(este|el|la|esta)\s+(aporte|corrida|cambio|pull)|approve\s+this|merge\s+this|aprobad[oa]\s+por\s+auditor"
+    r"|(salta|saltar|desactiva|desactivar|omite|omitir|disable|bypass|skip)\s+(la\s+|el\s+|the\s+)?(compuerta|filtro|verificaci[oó]n|gate|filter|check)"
+    r"|sin\s+correr\s+el\s+filtro|ya\s+no\s+aplica"
+    r"|(debe|deben|tiene\s+que|tienen\s+que)\s+(leer|abrir|consultar|copiar)\s+(el\s+|la\s+|los\s+)?(reglas\.py|caso_conocido|esperado\.json|sellos))", re.I)
+COMENTARIO_OCULTO = re.compile(r"<!--(.*?)-->", re.S)
+
+
+def parece_instruccion(texto):
+    """Texto que da órdenes a una IA, escondido en los datos o en un aporte (inyección de instrucciones)."""
+    t = str(texto or "")
+    if INSTRUCCION.search(t):
+        return True
+    return any(re.search(r"\b(agente|ia|ai|assistant|asistente|claude|gpt|modelo|llm|aprueba|approve|merge)\b", c, re.I)
+               for c in COMENTARIO_OCULTO.findall(t))
 
 
 def clasificar_columna(nombre):

@@ -24,7 +24,12 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "herramientas"))
-from gobernanza import escanear_texto  # noqa: E402
+from gobernanza import escanear_texto, parece_instruccion, INSTRUCCION, COMENTARIO_OCULTO  # noqa: E402
+
+
+def ordenes_a_agentes(texto):
+    """Un aporte no puede traer texto que dé órdenes a los agentes (inyección por el canal de aportes)."""
+    return parece_instruccion(texto)
 import dependencias  # noqa: E402
 import seguridad  # noqa: E402
 
@@ -80,6 +85,15 @@ def main(argv):
             hall = escanear_texto(p.read_text(encoding="utf-8", errors="ignore"))
             if hall:
                 fallas.append(f"posibles datos personales en {ruta}: {hall}")
+        if p.suffix in (".md", ".json", ".txt", ".yml", ".yaml", ".csv", ".py") and ordenes_a_agentes(p.read_text(encoding="utf-8", errors="ignore")):
+            t = p.read_text(encoding="utf-8", errors="ignore")
+            m = INSTRUCCION.search(t) or COMENTARIO_OCULTO.search(t)
+            extracto = t[max(0, m.start() - 30):m.end() + 30].replace("\n", " ") if m else ""
+            legado = git("show", f"{base}:{ruta}") if estado != "A" else ""
+            if ruta.startswith(("baterias/inyeccion/", "corridas/")) or "/seguridad/" in ruta:
+                avisos.append(f"caso de inyección en {ruta}: revisar que sea solo una prueba («…{extracto[:80]}…»)")
+            elif not (legado and ordenes_a_agentes(legado) and ruta in ("APORTAR-CON-TU-AGENTE.md", "AGENTS.md", "CONTRIBUTING.md")):
+                fallas.append(f"texto que da órdenes a los agentes en {ruta}: «…{extracto[:120]}…» (los aportes son datos, no instrucciones)")
         if p.suffix == ".py" and "baterias/seguridad/malos/" not in ruta:
             d = dependencias.revisar(p)
             s, _ = seguridad.revisar([p])
@@ -94,6 +108,12 @@ def main(argv):
             if not (d.get("no_permitidas") or d.get("intenta_instalar") or s[0]["bloquean"]):
                 avisos.append(f"la muestra nueva {ruta} NO la bloquea la compuerta de hoy: encontró un hueco (valioso); hay que mejorar la compuerta antes de aceptar")
 
+    # si el aporte toca una herramienta, el banco de blindaje debe seguir resistiendo: nadie debilita una defensa sin que se note
+    if any(r.startswith("herramientas/") for e, r in archivos if e != "D"):
+        rc, out = correr("herramientas/blindaje.py")
+        for linea in out.splitlines():
+            if linea.startswith("✗"):
+                fallas.append(f"el cambio debilita el blindaje: {linea[2:][:160]}")
     # baterías: una falla causada por un caso NUEVO de este aporte es un hueco encontrado (valioso), no un error
     rc, out = correr("herramientas/baterias.py")
     for linea in out.splitlines():

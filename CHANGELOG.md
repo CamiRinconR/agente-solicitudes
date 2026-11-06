@@ -13,6 +13,16 @@ Cada aporte aceptado queda aquí, con el usuario de GitHub de quien lo propuso (
 - Lo que encontraron se integró: la familia exec/spawn de `os` y sus alias, el CSV con separador distinto de la coma (FAILFAST) y once arreglos de la guía y del filtro (orden de los pasos, `upstream/main`, filtro sin efectos sobre el repositorio, ids de lección sin choques).
 - Corrida de cinco etapas con capa limpia, aprobada en las cinco.
 
+## v1.2 · 6 de noviembre de 2026 · blindaje del pipeline
+
+- `herramientas/blindaje.py`: 15 ataques al pipeline, con un control positivo. Línea base: resistía 5 de 14; ahora resiste 15 de 15.
+- Caja de arena: sin lectura de la carpeta personal, entorno mínimo sin secretos y tope de memoria por huella física.
+- Compuerta: 8 evasiones conocidas cerradas sin romper el código legítimo.
+- Inyección de instrucciones: cuarentena en el perfil y la limpieza, rechazo en el filtro de aportes, batería `baterias/inyeccion/` y regla común 7.
+- Integridad: manifiesto sellado antes de cualquier agente y comprobado al final; las baterías solo crecen.
+- Cadena de suministro: dependencias con huella (`--require-hashes`) y acciones de GitHub fijadas a su commit.
+- Auditoría de independencia: 16 agentes en 4 corridas, 0 accesos prohibidos. Lecciones L25 a L33.
+
 ## Aportes del grupo
 
 _Todavía ninguno._

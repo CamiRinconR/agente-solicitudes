@@ -47,7 +47,7 @@
   ],
   "implementaciones": {
     "a": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-ventas-semestre/impl_a.py",
+      "ruta": "corridas/2026-11-06-ventas-semestre/impl_a.py",
       "fallas": [],
       "reglas": [
         {
@@ -129,7 +129,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.27,
+      "segundos": 0.44,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -167,7 +167,7 @@
       }
     },
     "b": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-ventas-semestre/impl_b.py",
+      "ruta": "corridas/2026-11-06-ventas-semestre/impl_b.py",
       "fallas": [],
       "reglas": [
         {
@@ -249,7 +249,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.17,
+      "segundos": 0.39,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

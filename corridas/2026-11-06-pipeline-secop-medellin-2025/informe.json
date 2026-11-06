@@ -57,7 +57,7 @@
   ],
   "implementaciones": {
     "a": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-secop-medellin-2025/impl_a.py",
+      "ruta": "corridas/2026-11-06-pipeline-secop-medellin-2025/impl_a.py",
       "fallas": [],
       "reglas": [
         {
@@ -474,7 +474,7 @@
           "valor_mayor_que_100_mil_millones": 26
         }
       },
-      "segundos": 0.47,
+      "segundos": 0.82,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -518,7 +518,7 @@
       }
     },
     "b": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-pipeline-secop-medellin-2025/impl_b.py",
+      "ruta": "corridas/2026-11-06-pipeline-secop-medellin-2025/impl_b.py",
       "fallas": [],
       "reglas": [
         {
@@ -936,7 +936,7 @@
           "texto_leido_en_latin1": 0
         }
       },
-      "segundos": 0.44,
+      "segundos": 0.92,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

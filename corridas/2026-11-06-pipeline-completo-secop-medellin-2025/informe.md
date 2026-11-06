@@ -133,7 +133,7 @@ Por cada NIT de entidad del archivo (que ya trae solo entidades con ciudad = Med
 | Compuertas | seguridad y librerías | Sin código peligroso ni librerías fuera de la lista, antes de ejecutar (corre en caja de arena: sin red ni escritura) | ✅ | ✅ |
 | Repetible | correr dos veces da lo mismo | La segunda corrida da exactamente el mismo resultado | ✅ | ✅ |
 | Conciliación | todo conteo cierra | Filas leídas = usadas + excluidas por motivo; nada se borra en silencio | ✅ | ✅ |
-| Tiempo | medir | Segundos de una corrida con los datos reales | 0.6 s | 0.49 s |
+| Tiempo | medir | Segundos de una corrida con los datos reales | 1.02 s | 1.87 s |
 
 ## Conciliación de filas (implementación A)
 - Filas leídas: **49.662** · usadas: **49.662**

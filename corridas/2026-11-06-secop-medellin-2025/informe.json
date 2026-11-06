@@ -52,7 +52,7 @@
   ],
   "implementaciones": {
     "a": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-secop-medellin-2025/impl_a.py",
+      "ruta": "corridas/2026-11-06-secop-medellin-2025/impl_a.py",
       "fallas": [],
       "reglas": [
         {
@@ -435,7 +435,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.37,
+      "segundos": 0.82,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],
@@ -467,7 +467,7 @@
       }
     },
     "b": {
-      "ruta": "/Users/macbookair/agente-solicitudes/corridas/2026-11-06-secop-medellin-2025/impl_b.py",
+      "ruta": "corridas/2026-11-06-secop-medellin-2025/impl_b.py",
       "fallas": [],
       "reglas": [
         {
@@ -850,7 +850,7 @@
         }
       ],
       "conciliacion": null,
-      "segundos": 0.45,
+      "segundos": 0.97,
       "repetible": true,
       "caso_conocido": {
         "solo_en_primero": [],

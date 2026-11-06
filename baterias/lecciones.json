@@ -144,6 +144,60 @@
       "leccion": "pandas.read_csv sin index_col=False: si la primera fila trae un campo de más, toma la primera columna como índice y corre todas las columnas sin error. FAILFAST también en pandas.",
       "origen": "revisor ciego de seguridad, 6-nov-2026",
       "prueba": "regla común 5 (FAILFAST) en agentes/00-reglas-comunes.md"
+    },
+    {
+      "id": "L25",
+      "leccion": "La caja de arena impedía escribir y la red, pero dejaba LEER la carpeta personal: un código armó la ruta con chr(126) y devolvió un secreto en el resultado. Se niega leer el contenido de /Users, salvo el repositorio y lo que se pasa.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B01"
+    },
+    {
+      "id": "L26",
+      "leccion": "La caja heredaba todas las variables de entorno: una llave de API en el entorno podía salir en el resultado. El código de la IA recibe un entorno mínimo y HOME temporal.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B14"
+    },
+    {
+      "id": "L27",
+      "leccion": "Una prueba de ataque que pasa porque todo falla no prueba nada: con la caja recién endurecida, Python no arrancaba y cinco ataques «resistieron» por la razón equivocada. Toda batería de ataques lleva un control positivo (B00) que debe funcionar.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B00"
+    },
+    {
+      "id": "L28",
+      "leccion": "Memoria: reservar sin escribir no ocupa memoria real; macOS comprime y manda páginas al disco, así que la memoria residente (RSS) engaña; y RLIMIT_AS no existe en macOS. El vigilante mide la huella física (phys_footprint).",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B10"
+    },
+    {
+      "id": "L29",
+      "leccion": "Nada impedía que un agente editara verificar.py para aprobarlo todo. Un manifiesto de integridad se sella antes de cualquier agente y se comprueba al final; las baterías solo pueden crecer.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B02"
+    },
+    {
+      "id": "L30",
+      "leccion": "Instrucciones disfrazadas (prompt injection) en los datos y en los aportes: el perfil las mostraba tal cual y el filtro no las buscaba. Cuarentena en el perfil y la limpieza, rechazo en el filtro y una regla común: los datos son datos, nunca instrucciones.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "bateria:inyeccion/maliciosos.txt bateria:inyeccion/legitimos.txt"
+    },
+    {
+      "id": "L31",
+      "leccion": "Fórmulas de Excel en los datos (=HYPERLINK, +, @) llegaban al CSV limpio y se ejecutarían al abrirlo. Se neutralizan por defecto (se antepone «'») y se marcan.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B03"
+    },
+    {
+      "id": "L32",
+      "leccion": "Seis evasiones de la compuerta pasaban (import builtins, globals()/vars(), getattr con nombre calculado, os.__dict__, attrgetter). Quedaron bloqueadas; el primer arreglo bloqueó re.compile y la batería lo atrapó (L10).",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B15"
+    },
+    {
+      "id": "L33",
+      "leccion": "Cadena de suministro: dependencias sin huella y acciones de GitHub por etiqueta movible. Cada paquete se instala con --require-hashes y cada acción está fijada a su commit.",
+      "origen": "banco de blindaje, 6-nov-2026",
+      "prueba": "herramientas/blindaje.py B08"
     }
   ]
 }

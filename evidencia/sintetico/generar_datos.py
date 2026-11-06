@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Genera el ejemplo de ventas con trampas realistas y su respuesta correcta.
 
-Uso: python3 generar_datos.py <carpeta_datos> <ruta_verdad.json>
+Uso: python3 generar_datos.py <carpeta_datos> <ruta_verdad.json> [semilla]
 
 Escribe ventas.csv y clientes.csv en <carpeta_datos> y, en <ruta_verdad.json>,
 la respuesta correcta según el glosario (ejemplo/negocio.md), junto con lo que
@@ -48,8 +48,8 @@ def fecha_azar(rng, desde, hasta):
     return desde + timedelta(days=rng.randrange((hasta - desde).days + 1))
 
 
-def generar():
-    rng = random.Random(SEMILLA)
+def generar(semilla=SEMILLA):
+    rng = random.Random(semilla)
     ids = [f"C{i:03d}" for i in range(1, N_CLIENTES + 1)]
     vigente = {cid: rng.choices(REGIONES, PESOS_REGION)[0] for cid in ids}
     cambiaron = sorted(rng.sample(ids, N_CAMBIARON))
@@ -218,11 +218,11 @@ ALTERNATIVAS = {
 
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) not in (3, 4):
         raise SystemExit(__doc__)
     carpeta, ruta_verdad = Path(sys.argv[1]), Path(sys.argv[2])
     carpeta.mkdir(parents=True, exist_ok=True)
-    vigente, maestro, docs, filas = generar()
+    vigente, maestro, docs, filas = generar(int(sys.argv[3]) if len(sys.argv) == 4 else SEMILLA)
 
     with open(carpeta / "clientes.csv", "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=["cliente_id", "nombre", "region", "fecha_actualizacion"])

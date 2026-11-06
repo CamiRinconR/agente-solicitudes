@@ -13,7 +13,7 @@ El principio que las ordena todas: **la IA propone y una prueba sin IA comprueba
 Se necesita macOS o Linux con Python 3.13. La caja de arena usa `sandbox-exec`, que trae macOS; en Linux el código corre igual, pero sin esa capa.
 
 ```bash
-python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3.13 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.txt
 
 # 1. Las baterías: seguridad (código malo bloqueado y bueno aceptado), privacidad y lecciones
 .venv/bin/python herramientas/baterias.py
@@ -32,6 +32,9 @@ cmp /tmp/datos-prueba/ventas.csv ejemplo/datos/ventas.csv && echo "datos idénti
 # 5. Gobernanza de una corrida: datos personales, salidas limpias, k-anonimato
 .venv/bin/python herramientas/gobernanza.py corridas/2026-11-06-ventas-semestre
 
+# 5b. Blindaje: se ataca cada capa a propósito (caja de arena, compuerta, perfil, salidas, integridad, dependencias)
+.venv/bin/python herramientas/blindaje.py
+
 # 6. (Opcional, con red) SECOP II: los datos no vienen en el repositorio; se descargan con su contrato y se prueban al cargar
 .venv/bin/python herramientas/ingesta.py ejemplo-secop/contrato_recorte_2024-2026.json --salida ejemplo-secop/datos --repetir
 .venv/bin/python herramientas/verificar.py corridas/2026-11-06-secop-medellin-2025
@@ -39,7 +42,7 @@ cmp /tmp/datos-prueba/ventas.csv ejemplo/datos/ventas.csv && echo "datos idénti
 
 SECOP II se actualiza a diario. Si el recorte de hoy no es idéntico al del 6-nov-2026, el paso 6 puede dar otras cifras: es lo esperado, y la procedencia de la carga dice qué cambió (filas, huella).
 
-Lo que debe salir: las tres baterías en ✓, la corrida en «aprobado», la referencia `m00` sin fallas y las mutantes `m01` a `m12` con al menos una falla cada una, los datos idénticos y la gobernanza aprobada. Si algo no sale así, el repositorio no cumple lo que dice.
+Lo que debe salir: las cinco baterías en ✓, el blindaje con todas sus pruebas en «RESISTE» (en Linux, B01 sale «NO APLICA»: no hay sandbox-exec), la corrida en «aprobado», la referencia `m00` sin fallas y las mutantes `m01` a `m12` con al menos una falla cada una, los datos idénticos y la gobernanza aprobada. Si algo no sale así, el repositorio no cumple lo que dice.
 
 ---
 
@@ -195,6 +198,30 @@ Se reporta también cuando la IA sola acertó, y se mide lo que cuesta el contro
 *Cómo se aplica:* para explorar basta con el perfil y una revisión rápida. Cuando la cifra va a sostener una decisión con plata, una norma o un informe público, se usa el pipeline completo.
 
 ---
+
+## I · Blindaje del pipeline: atacar cada capa a propósito
+
+El mismo patrón del generador y el validador, aplicado al pipeline entero: un atacante (cada prueba de `herramientas/blindaje.py`) y un defensor (cada capa). El detalle y la línea base están en [`evidencia/blindaje/README.md`](evidencia/blindaje/README.md).
+
+**DB1 · Toda batería de ataques lleva un control positivo.** Un ataque que «resiste» porque nada funciona no prueba nada. B00 corre código normal en la caja: si falla, ninguna prueba de la caja vale (lección L27).
+
+**DB2 · La caja de arena niega la red, la escritura y la lectura de la carpeta personal, y da un entorno mínimo.** El código de la IA no ve las variables de entorno del proceso que lo lanza (secretos) y tiene topes de tiempo y de memoria. La memoria se mide como huella física, no como memoria residente (B01, B10–B14; lecciones L25, L26, L28).
+
+**DB3 · Las herramientas no pueden cambiar durante una corrida.** Un manifiesto de integridad se sella antes de cualquier agente y se comprueba al final. Las baterías solo pueden crecer (B02, L29).
+
+**DB4 · Los datos y los aportes son datos, nunca instrucciones.** Los valores con forma de orden para una IA quedan en cuarentena en el perfil y en la limpieza; el filtro rechaza aportes que dan órdenes a los agentes; y es una regla común de todos los subagentes (B04, B07, L30, `baterias/inyeccion/`).
+
+**DB5 · Las salidas no ejecutan nada al abrirse.** Las fórmulas de Excel se neutralizan y se marcan en la capa limpia; el HTML de los datos se escapa (B03, L31, L19, L23).
+
+**DB6 · La compuerta se ataca con evasiones conocidas,** y cada evasión cerrada queda en la batería sin romper el código legítimo (B15, L32).
+
+**DB7 · Cadena de suministro fijada.** Cada dependencia lleva su huella y se instala con `--require-hashes`; cada acción de GitHub está fijada a su commit (B08, L33).
+
+**DB8 · Los generadores generalizan.** Sobre datos nuevos que nadie vio (otra semilla del oráculo), A y B deben dar exacto el resultado correcto (B05).
+
+**DB9 · La independencia se audita, no se supone.** Se revisan las transcripciones reales: ningún agente puede haber abierto lo que su ficha le prohíbe (`evidencia/blindaje/auditar_independencia.py`: 16 agentes, 0 accesos prohibidos).
+
+**DB10 · Quien toca una herramienta corre el banco de blindaje.** El filtro de aportes lo corre si el aporte cambia `herramientas/`: debilitar una defensa hace fallar el aporte.
 
 ## Correspondencia con el curso «Big Data con IA» (NODO · EAFIT)
 

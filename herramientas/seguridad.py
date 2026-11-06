@@ -27,6 +27,7 @@ MODULOS_PROHIBIDOS = {
     "pickle": "deserialización insegura", "marshal": "deserialización insegura", "shelve": "deserialización insegura",
     "dill": "deserialización insegura", "ctypes": "acceso a memoria", "importlib": "importación dinámica",
     "shutil": "borra o mueve archivos", "tempfile": "escribe archivos", "multiprocessing": "lanza procesos",
+    "builtins": "acceso directo a las funciones del sistema", "gc": "reflexión sobre objetos vivos", "inspect": "reflexión",
 }
 BUILTINS_PROHIBIDOS = {   # solo cuando se llaman como función del sistema: eval(...), no re.compile(...)
     "eval": "ejecuta texto como código", "exec": "ejecuta texto como código", "compile": "ejecuta texto como código",
@@ -90,8 +91,17 @@ def revisar_ast(texto):
                     hallazgos.append({"linea": n.lineno, "regla": f"open(..., '{modo}')", "detalle": "escribe archivos"})
                 elif modo is not None and not isinstance(modo, str):
                     hallazgos.append({"linea": n.lineno, "regla": "open con modo calculado", "detalle": "no se puede saber si escribe"})
-            if nombre == "getattr" and n.args and isinstance(n.args[0], ast.Name) and n.args[0].id in ("__builtins__", "builtins", "os"):
-                hallazgos.append({"linea": n.lineno, "regla": "getattr sobre builtins/os", "detalle": "evade la revisión"})
+            if nombre in ("getattr", "setattr", "delattr") and isinstance(f, ast.Name):
+                if n.args and isinstance(n.args[0], ast.Name) and n.args[0].id in alias_os | {"__builtins__", "builtins", "sys"}:
+                    hallazgos.append({"linea": n.lineno, "regla": f"{nombre} sobre builtins/os/sys", "detalle": "evade la revisión"})
+                elif len(n.args) > 1 and not isinstance(n.args[1], ast.Constant):
+                    hallazgos.append({"linea": n.lineno, "regla": f"{nombre} con nombre calculado", "detalle": "acceso dinámico a atributos: evade la revisión"})
+            if isinstance(f, ast.Name) and nombre in ("globals", "vars", "locals"):
+                hallazgos.append({"linea": n.lineno, "regla": f"llama {nombre}()", "detalle": "reflexión: puede llegar a eval o exec"})
+            if nombre in ("attrgetter", "methodcaller"):
+                hallazgos.append({"linea": n.lineno, "regla": f"llama {nombre}", "detalle": "acceso dinámico a atributos: evade la revisión"})
+            if isinstance(f, ast.Attribute) and nombre in ("eval", "exec", "__import__"):   # re.compile sí es legítimo (L10)
+                hallazgos.append({"linea": n.lineno, "regla": f"llama .{nombre}", "detalle": BUILTINS_PROHIBIDOS[nombre]})
         elif isinstance(n, ast.Attribute) and n.attr in ("parent", "parents"):
             hallazgos.append({"linea": n.lineno, "regla": f"navega carpetas (.{n.attr})", "detalle": "lee fuera de lo que recibe en datos"})
         elif isinstance(n, ast.Constant) and isinstance(n.value, str) and (
@@ -99,7 +109,11 @@ def revisar_ast(texto):
             hallazgos.append({"linea": n.lineno, "regla": "ruta fija en el código", "detalle": "lee fuera de lo que recibe en datos"})
         elif isinstance(n, ast.Constant) and isinstance(n.value, str) and re.match(r"^\s*(https?|ftp|s3|gs|file|wss?)://", n.value, re.I):
             hallazgos.append({"linea": n.lineno, "regla": "URL en el código", "detalle": "red: el código solo lee las rutas que recibe en datos"})
-        elif isinstance(n, ast.Attribute) and n.attr in ("__subclasses__", "__globals__", "__code__", "__builtins__"):
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and re.fullmatch(r"__\w+__", n.value) and n.value not in ("__main__", "__init__", "__name__"):
+            hallazgos.append({"linea": n.lineno, "regla": f"nombre especial en texto ({n.value})", "detalle": "acceso por reflexión"})
+        elif isinstance(n, ast.Attribute) and (n.attr in ("__subclasses__", "__globals__", "__code__", "__builtins__", "__dict__",
+                                                        "__mro__", "__bases__", "__base__", "__class__", "__getattribute__")
+                                               or (n.attr == "modules" and isinstance(n.value, ast.Name) and n.value.id == "sys")):
             hallazgos.append({"linea": n.lineno, "regla": f"usa {n.attr}", "detalle": "acceso por reflexión"})
     for i, linea in enumerate(texto.splitlines(), 1):
         if SECRETOS.search(linea):

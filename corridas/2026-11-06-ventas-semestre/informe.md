@@ -67,7 +67,7 @@ Ninguna: el glosario y los datos resuelven todo lo que cambia la cifra.
 | Compuertas | seguridad y librerías | Sin código peligroso ni librerías fuera de la lista, antes de ejecutar (corre en caja de arena: sin red ni escritura) | ✅ | ✅ |
 | Repetible | correr dos veces da lo mismo | La segunda corrida da exactamente el mismo resultado | ✅ | ✅ |
 | Conciliación | todo conteo cierra | Filas leídas = usadas + excluidas por motivo; nada se borra en silencio | — | — |
-| Tiempo | medir | Segundos de una corrida con los datos reales | 0.27 s | 0.17 s |
+| Tiempo | medir | Segundos de una corrida con los datos reales | 0.44 s | 0.39 s |
 
 ## Cifras de cada regla (implementación A)
 - **R1**: resultado 2,386,197,500 · fuente 2,386,197,500 (1116 documentos del semestre)

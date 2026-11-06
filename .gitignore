@@ -9,4 +9,4 @@ ejemplo-secop/datos/
 corridas/*/datos/
 corridas/*/limpio/
 evidencia/secop/referencia_servidor.json
-caso_conocido/_limpio/
+**/caso_conocido/_limpio/

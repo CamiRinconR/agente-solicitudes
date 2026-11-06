@@ -238,31 +238,21 @@ def sellar(c):
 
 # ---------------- ejecución ----------------
 def ejecutar_impl(ruta, datos, detalle=False):
-    """Corre analizar(datos) en otro proceso, dentro de una caja de arena: sin red y sin poder escribir
-    fuera de una carpeta temporal (sandbox-exec de macOS). Devuelve (filas, error) o, con detalle=True,
-    (filas, error, conciliacion, segundos)."""
-    tmp = tempfile.mkdtemp(prefix="caja-")
-    cmd = [sys.executable, "-c", RUNNER, str(ruta), json.dumps(datos)]
-    if CAJA:
-        perfil = ('(version 1)(allow default)(deny network*)(deny file-write*)'
-                  f'(allow file-write* (subpath "{os.path.realpath(tmp)}") (literal "/dev/null") (literal "/dev/dtracehelper"))')
-        cmd = [CAJA, "-p", perfil] + cmd
-    entorno = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "TMPDIR": tmp, "MPLCONFIGDIR": tmp}
-    t0 = time.perf_counter()
-    try:
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=TIEMPO_IMPL, env=entorno)  # nosec B603
-    except subprocess.TimeoutExpired:
-        out = (None, f"tardó más de {TIEMPO_IMPL} s", None, None)
+    """Corre analizar(datos) en otro proceso, dentro de la caja de arena (herramientas/caja.py): sin red, sin
+    escribir, sin leer la carpeta personal, sin las variables de entorno del verificador y con topes de tiempo y
+    memoria. Devuelve (filas, error) o, con detalle=True, (filas, error, conciliacion, segundos)."""
+    import caja
+    lecturas = [Path(str(v)).resolve().parent for v in datos.values()] + [Path(ruta).resolve().parent]
+    so, se, motivo, seg = caja.ejecutar(["-c", RUNNER, str(ruta), json.dumps(datos)], TIEMPO_IMPL, lecturas=lecturas)
+    if motivo:
+        out = (None, motivo, None, seg)
         return out if detalle else out[:2]
-    finally:
-        shutil.rmtree(tmp, ignore_errors=True)
-    seg = round(time.perf_counter() - t0, 2)
-    for linea in reversed(p.stdout.splitlines()):
+    for linea in reversed(so.splitlines()):
         if linea.startswith(MARCA):
             d = json.loads(linea[len(MARCA):])
             out = (d["filas"], None, d.get("conciliacion"), seg)
             return out if detalle else out[:2]
-    err = (p.stderr.strip().splitlines() or ["terminó sin devolver resultado"])[-1]
+    err = (se.strip().splitlines() or ["terminó sin devolver resultado"])[-1]
     out = (None, f"falló al ejecutarse: {sanear(err)}", None, seg)
     return out if detalle else out[:2]
 

@@ -35,7 +35,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from gobernanza import clasificar_columna, enmascarar  # noqa: E402
+from gobernanza import clasificar_columna, enmascarar, parece_instruccion  # noqa: E402
 
 INVISIBLES = re.compile(r"[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f​-‏  ‪-‮⁠﻿]")
 OPS = {"<": lambda a, b: a < b, "<=": lambda a, b: a <= b, ">": lambda a, b: a > b, ">=": lambda a, b: a >= b,
@@ -52,6 +52,8 @@ def privada(col):
 
 
 def ejemplo(col, antes, despues):
+    if parece_instruccion(antes) or parece_instruccion(despues):
+        return "[ejemplo omitido: parece una instrucción para una IA]"
     if privada(col):
         return f"{enmascarar(antes)} → {enmascarar(despues)}"
     return f"«{antes[:40]}» → «{despues[:40]}»"
@@ -176,7 +178,7 @@ def limpiar(plan_ruta, entrada=None, salida=None, informe=True):
                     marca(i, o.get("marca", f"fuera_de_mapa_{col}"))
                     fuera[v] = fuera.get(v, 0) + 1
             if fuera:
-                ej.append(f"sin mapear: {list(fuera)[:5] if not privada(col) else len(fuera)}")
+                ej.append(f"sin mapear: {[x if not parece_instruccion(x) else '[omitido]' for x in list(fuera)[:5]] if not privada(col) else len(fuera)}")
         elif op == "fecha":
             formatos = o.get("formatos", ["%Y-%m-%d"])
             hora = f"{col}__hora"
@@ -267,6 +269,22 @@ def limpiar(plan_ruta, entrada=None, salida=None, informe=True):
         reporte.append({"op": op, "columna": col or o.get("columnas") or f"{o.get('izquierda')} {o.get('operador')} {o.get('derecha')}",
                         "filas_cambiadas": cambiadas, "filas_marcadas": marcadas, "ejemplos": ej, "marca": o.get("marca")})
 
+    # defensa por defecto: una celda de texto que empieza con = + - @ se ejecutaría como fórmula al abrirla en Excel
+    neutralizadas = 0
+    for i, f in enumerate(filas):
+        for c in cols:
+            v = f.get(c) or ""
+            if v[:1] in ("=", "+", "-", "@", "\t", "\r"):
+                try:
+                    float(v)
+                    continue
+                except ValueError:
+                    f[c] = "'" + v
+                    marcas[i].add("formula_neutralizada")
+                    neutralizadas += 1
+    if neutralizadas:
+        reporte.append({"op": "neutralizar_formulas (por defecto)", "columna": "todas", "filas_cambiadas": neutralizadas,
+                        "filas_marcadas": neutralizadas, "ejemplos": ["celda que empieza con = + - @ → se antepone «'»"], "marca": "formula_neutralizada"})
     todas = sorted({m for ms in marcas for m in ms})
     salida_cols = cols + [f"calidad_{m}" for m in todas] + ["calidad_ok"]
     buf = io.StringIO()

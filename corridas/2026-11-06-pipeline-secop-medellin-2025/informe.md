@@ -128,7 +128,7 @@ Sale una fila por entidad, identificada por su NIT (nit_entidad), con la suma de
 | Compuertas | seguridad y librerías | Sin código peligroso ni librerías fuera de la lista, antes de ejecutar (corre en caja de arena: sin red ni escritura) | ✅ | ✅ |
 | Repetible | correr dos veces da lo mismo | La segunda corrida da exactamente el mismo resultado | ✅ | ✅ |
 | Conciliación | todo conteo cierra | Filas leídas = usadas + excluidas por motivo; nada se borra en silencio | ✅ | ✅ |
-| Tiempo | medir | Segundos de una corrida con los datos reales | 0.47 s | 0.44 s |
+| Tiempo | medir | Segundos de una corrida con los datos reales | 0.82 s | 0.92 s |
 
 ## Conciliación de filas (implementación A)
 - Filas leídas: **49.662** · usadas: **49.662**

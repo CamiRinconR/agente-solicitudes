@@ -29,8 +29,9 @@ Cualquiera con cuenta de GitHub puede proponer una lección, un caso de prueba o
 ## Instalar
 
 ```bash
-python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python herramientas/baterias.py      # debe dar las tres baterías en ✓
+python3.13 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.txt
+.venv/bin/python herramientas/baterias.py      # debe dar las cinco baterías en ✓
+.venv/bin/python herramientas/blindaje.py      # cada ataque al pipeline debe salir en RESISTE
 ```
 
 Las herramientas de `herramientas/` son Python sin IA y se pueden correr solas. La orquestación de agentes (`flujo.js`) se ejecuta como flujo de trabajo de Claude Code (herramienta *Workflow*) con estos argumentos:
@@ -62,6 +63,8 @@ Con archivos locales, `datos` reemplaza a `fuente`: `{"ventas": "<ruta>/ventas.c
 | `herramientas/seguridad.py`, `dependencias.py`, `caja.py` | Análisis estático (reglas propias y Bandit), librerías permitidas y caja de arena |
 | `herramientas/baterias.py` | Baterías de seguridad, privacidad y lecciones; `--agregar-malo` y `--leccion` para que lo que falló no se repita |
 | `herramientas/validar_aporte.py` | Filtro automático de aportes, sin IA: archivos prohibidos, datos personales, seguridad y que no rompa nada |
+| `herramientas/blindaje.py` | Banco de ataques al pipeline: caja de arena, compuerta, perfil, salidas, integridad, dependencias y generalización (15 pruebas, con control positivo) |
+| `herramientas/integridad.py` | Manifiesto de integridad: sella herramientas, fichas y baterías al inicio y lo comprueba al final |
 | `herramientas/informe_final.py` | Informe de las cinco etapas en Markdown y HTML, con todo el texto escapado |
 
 ## Estructura

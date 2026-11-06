@@ -88,6 +88,16 @@ def bateria_failfast():
     return {"bateria": "failfast", "casos": len(casos), "fallas": fallas}
 
 
+def bateria_inyeccion():
+    """Instrucciones disfrazadas: los textos maliciosos deben detectarse y los legítimos no (sin falsas alarmas)."""
+    from gobernanza import parece_instruccion
+    malos = [l for l in (BAT / "inyeccion" / "maliciosos.txt").read_text(encoding="utf-8").splitlines() if l.strip()]
+    buenos = [l for l in (BAT / "inyeccion" / "legitimos.txt").read_text(encoding="utf-8").splitlines() if l.strip()]
+    fallas = [f"no detecta: «{m[:60]}»" for m in malos if not parece_instruccion(m)]
+    fallas += [f"falsa alarma: «{b[:60]}»" for b in buenos if parece_instruccion(b)]
+    return {"bateria": "inyeccion", "casos": len(malos) + len(buenos), "fallas": fallas}
+
+
 def bateria_lecciones():
     d = json.loads((BAT / "lecciones.json").read_text(encoding="utf-8"))
     fallas = []
@@ -119,7 +129,7 @@ def main(argv):
         (BAT / "lecciones.json").write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Lección {d['lecciones'][-1]['id']} agregada.")
         return 0
-    res = [bateria_seguridad(), bateria_privacidad(), bateria_failfast(), bateria_lecciones()]
+    res = [bateria_seguridad(), bateria_privacidad(), bateria_failfast(), bateria_inyeccion(), bateria_lecciones()]
     for r in res:
         print(f"{'✓' if not r['fallas'] else '✗'} {r['bateria']}: {r['casos']} casos" + ("" if not r["fallas"] else " · " + "; ".join(r["fallas"])))
     malos = sum(len(r["fallas"]) for r in res)

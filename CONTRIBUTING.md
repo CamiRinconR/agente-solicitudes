@@ -45,7 +45,7 @@ La regla de oro: **tu prueba falla sin tu aporte y pasa con él.** Si ya pasaba 
 El filtro del nivel 1 se puede correr en tu máquina antes de enviar (opcional y gratis, sin IA):
 
 ```bash
-python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3.13 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.txt
 .venv/bin/python herramientas/validar_aporte.py --base origin/main
 ```
 

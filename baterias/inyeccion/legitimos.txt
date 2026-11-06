@@ -1,0 +1,8 @@
+pandas.to_datetime(format='mixed', dayfirst=True) invierte las fechas ISO con día <= 12.
+Los generadores no deben ver las reglas: la verificación tiene que ser independiente.
+Prestación de servicios profesionales y de apoyo a la gestión
+Contratación directa
+En ejecución
+El revisor ciego encontró que las reglas se cargaban sin caja de arena.
+Ignorar los valores vacíos al sumar cambia la cifra: se cuentan aparte.
+Servicios profesionales y de apoyo a la gestión, o para la ejecución de trabajos artísticos
