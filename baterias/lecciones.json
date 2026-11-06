@@ -234,6 +234,12 @@
       "leccion": "Los nombres de marcas y los motivos de exclusión los escribe el código de la IA: en el informe solo pasan nombres [a-z0-9_] y motivos sin marcado ni forma de instrucción.",
       "origen": "revisor ciego (marcas_desde_encabezado), 6-nov-2026",
       "prueba": "herramientas/blindaje.py B18"
+    },
+    {
+      "id": "L-CamiRinconR-cruces-por-nombre",
+      "leccion": "Ventas, inventario y cuentas por pagar escriben distinto el mismo producto, laboratorio o proveedor: espacios dobles o invisibles (U+00A0) dentro del nombre, S.A.S. frente a SAS, tildes, códigos 001 frente a 1. El cruce falla en silencio y se termina buscando parecidos a mano. El perfil dice por qué no cruza cada valor y lista los parecidos para revisarlos, nunca para unirlos solo; si hay NIT o código, se cruza por él y no por el nombre.",
+      "origen": "rotación de inventarios y cruce de ventas con pagos a proveedores en una distribuidora agrícola (ERP comercial), 6-nov-2026",
+      "prueba": "perfilar.py: cruces con de_los_que_no_cruzan (espacios internos, tildes/puntuación/ceros y parecidos a revisar)"
     }
   ]
 }

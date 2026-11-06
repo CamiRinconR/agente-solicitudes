@@ -8,6 +8,7 @@ formatos mezclados, fechas ambiguas, vacíos, espacios sobrantes, variantes de e
 filas repetidas, claves repetidas y códigos que no cruzan entre tablas.
 """
 import csv
+import difflib
 import json
 import re
 import sys
@@ -38,6 +39,21 @@ def sin_tildes(s):
 
 def clave_norm(s):
     return re.sub(r"[^0-9a-z]", "", sin_tildes(s).casefold())
+
+
+def espacios_unificados(s):
+    """Un solo espacio normal entre palabras: quita dobles espacios internos y espacios invisibles (U+00A0)."""
+    return " ".join(s.split()).upper()
+
+
+def clave_cruce(s):
+    """Clave para explicar un cruce fallido: sin tildes, puntuación ni espacios, y sin ceros a la izquierda
+    si es un código solo de dígitos (001 = 1; S.A.S. = SAS)."""
+    k = clave_norm(s)
+    return (k.lstrip("0") or "0") if k.isdigit() else k
+
+
+MAX_PARECIDOS = 2000        # distintos máximos del destino para buscar nombres parecidos
 
 
 def forma(v):
@@ -227,7 +243,24 @@ def perfilar(tablas):
                     exactos = sum(1 for v in no_vacios if v in vy)
                     normalizados = sum(1 for v in no_vacios if v not in vy and v.strip().upper() in vy_norm)
                     sin_cruce = [v for v in no_vacios if v.strip().upper() not in vy_norm]
-                    if clasificar_columna(col) == "personal":
+                    # por qué no cruzan: espacios internos o invisibles; tildes, puntuación o ceros a la izquierda
+                    vy_esp = set(espacios_unificados(v) for v in vy)
+                    por_espacios = [v for v in sin_cruce if espacios_unificados(v) in vy_esp]
+                    vy_clave = {clave_cruce(v) for v in vy}
+                    resto = [v for v in sin_cruce if espacios_unificados(v) not in vy_esp]
+                    por_escritura = [v for v in resto if clave_cruce(v) in vy_clave]
+                    resto = [v for v in resto if clave_cruce(v) not in vy_clave]
+                    personal = clasificar_columna(col) == "personal"
+                    parecidos = []
+                    if not personal and len(vy_clave) <= MAX_PARECIDOS:
+                        claves = sorted(vy_clave)
+                        for v in sorted(set(resto)):
+                            k = clave_cruce(v)
+                            if len(k) >= 6:
+                                m = difflib.get_close_matches(k, claves, n=1, cutoff=0.85)
+                                if m:
+                                    parecidos.append(v)
+                    if personal:
                         sin_cruce_mostrar = ["(omitidos: columna personal)"]
                     else:
                         sin_cruce_mostrar = [cuarentena(v) for v in sorted(set(sin_cruce))[:10]]
@@ -236,6 +269,12 @@ def perfilar(tablas):
                         "vacios": len(vx) - len(no_vacios), "cruzan_exacto": exactos,
                         "cruzan_solo_tras_quitar_espacios_y_mayusculas": normalizados,
                         "no_cruzan": len(sin_cruce), "ejemplos_que_no_cruzan": sin_cruce_mostrar,
+                        "de_los_que_no_cruzan": {
+                            "cruzan_tras_unificar_espacios_internos": len(por_espacios),
+                            "cruzan_tras_quitar_tildes_puntuacion_y_ceros_a_la_izquierda": len(por_escritura),
+                            "parecidos_a_revisar_a_mano": len(parecidos),
+                            "ejemplos_parecidos": [] if personal else [cuarentena(v) for v in parecidos[:5]],
+                        },
                     })
     return out
 
@@ -275,6 +314,15 @@ def resumen(p):
             L.append(f"  - {x['desde']}.{x['columna']} → {x['hacia']}: {x['filas_con_valor']} con valor, vacíos {x['vacios']}, "
                      f"cruzan exacto {x['cruzan_exacto']}, solo tras quitar espacios/mayúsculas {x['cruzan_solo_tras_quitar_espacios_y_mayusculas']}, "
                      f"no cruzan {x['no_cruzan']} {x['ejemplos_que_no_cruzan']}")
+            d = x["de_los_que_no_cruzan"]
+            if d["cruzan_tras_unificar_espacios_internos"]:
+                L.append(f"      ! {d['cruzan_tras_unificar_espacios_internos']} no cruzan por espacios dobles o invisibles dentro del valor")
+            if d["cruzan_tras_quitar_tildes_puntuacion_y_ceros_a_la_izquierda"]:
+                L.append(f"      ! {d['cruzan_tras_quitar_tildes_puntuacion_y_ceros_a_la_izquierda']} no cruzan por tildes, "
+                         "puntuación (S.A.S. / SAS) o ceros a la izquierda (001 / 1)")
+            if d["parecidos_a_revisar_a_mano"]:
+                L.append(f"      ? {d['parecidos_a_revisar_a_mano']} se parecen a un valor del otro lado: revisar a mano, nunca unir "
+                         f"sin confirmar, ej. {d['ejemplos_parecidos']}")
     return "\n".join(L)
 
 
